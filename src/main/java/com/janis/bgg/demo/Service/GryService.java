@@ -29,4 +29,8 @@ public class GryService {
         return dao.findAll();
     }
 
+    public List<Gra> findGracze(Integer no) {
+        return dao.findGracze(no);
+    }
+
 }
