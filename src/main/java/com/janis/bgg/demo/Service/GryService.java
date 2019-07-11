@@ -1,7 +1,7 @@
 package com.janis.bgg.demo.Service;
 
 import com.janis.bgg.demo.Dao.GryDao;
-import com.janis.bgg.demo.entity.Gra;
+import com.janis.bgg.demo.Entity.Gra;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

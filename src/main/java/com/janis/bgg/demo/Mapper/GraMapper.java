@@ -1,14 +1,19 @@
 package com.janis.bgg.demo.Mapper;
 
 import com.janis.bgg.demo.Dto.GraDto;
-import com.janis.bgg.demo.entity.Gra;
+import com.janis.bgg.demo.Entity.Gra;
+import com.janis.bgg.demo.Entity.GraDescription;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public abstract class GraMapper {
-    abstract GraDto graToGraDto(Gra gra);
+public interface GraMapper {
 
+    GraDto graToGraDto(Gra gra);
 
-    abstract Gra graDtoToGra(GraDto dto);
+    Gra graDtoToGra(GraDto dto);
+
+    GraDto graDescToGraDto(GraDescription gra);
+
+    GraDescription graDtoToGraDesc(GraDto dto);
 
 }

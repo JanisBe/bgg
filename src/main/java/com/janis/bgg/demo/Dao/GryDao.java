@@ -1,6 +1,6 @@
 package com.janis.bgg.demo.Dao;
 
-import com.janis.bgg.demo.entity.Gra;
+import com.janis.bgg.demo.Entity.Gra;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

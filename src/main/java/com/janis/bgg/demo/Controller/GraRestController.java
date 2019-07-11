@@ -2,9 +2,12 @@ package com.janis.bgg.demo.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.janis.bgg.demo.Dao.GryDescDao;
+import com.janis.bgg.demo.Entity.Gra;
+import com.janis.bgg.demo.Entity.GraDescription;
+import com.janis.bgg.demo.JsonObjects.JsonGraDescription;
+import com.janis.bgg.demo.Mapper.GraDescriptionMapper;
+import com.janis.bgg.demo.Mapper.GraMapper;
 import com.janis.bgg.demo.Service.GryService;
-import com.janis.bgg.demo.entity.Gra;
-import com.janis.bgg.demo.entity.GraDescription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RestController
 public class GraRestController {
@@ -25,6 +29,10 @@ public class GraRestController {
     private GryService service;
     @Autowired
     private GryDescDao gryDescDao;
+    @Autowired
+    private GraDescriptionMapper descriptionMapper;
+    @Autowired
+    private GraMapper mapperImr;
 
     @RequestMapping("/gry")
     public List<Gra> findByNoOfPlayers(@RequestParam(value = "noOfPlayers") Integer noOfPlayers) {
@@ -39,7 +47,8 @@ public class GraRestController {
     @RequestMapping("/http")
     public String test() throws IOException {
         List<Double> res = new ArrayList<>();
-        List<Integer> gryId = service.findAll().stream().map(Gra::getGameId).limit(5).collect(Collectors.toList());
+        List<Integer> gryId = IntStream.of(500, 12, 246, 48542, 145635).boxed().collect(Collectors.toList());
+        //service.findAll().stream().map(Gra::getGameId).limit(5).collect(Collectors.toList());
         for (Integer id : gryId) {
             URL url = new URL("https://bgg-json.azurewebsites.net/thing/" + id);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -54,8 +63,10 @@ public class GraRestController {
             in.close();
             con.disconnect();
             ObjectMapper mapper = new ObjectMapper();
-            GraDescription gra = mapper.readValue(content.toString(), GraDescription.class);
-            gryDescDao.save(gra);
+            JsonGraDescription gra = mapper.readValue(content.toString(), JsonGraDescription.class);
+
+            GraDescription gry = descriptionMapper.mapGraToGry(gra);
+            gryDescDao.save(gry);
             res.add(gra.getBggRating());
         }
 

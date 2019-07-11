@@ -1,7 +1,7 @@
 package com.janis.bgg.demo.Controller;
 
+import com.janis.bgg.demo.Entity.Gra;
 import com.janis.bgg.demo.Service.GryService;
-import com.janis.bgg.demo.entity.Gra;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

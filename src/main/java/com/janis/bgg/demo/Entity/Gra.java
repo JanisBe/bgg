@@ -1,4 +1,4 @@
-package com.janis.bgg.demo.entity;
+package com.janis.bgg.demo.Entity;
 
 import javax.persistence.*;
 import java.util.Objects;
