@@ -1,15 +1,17 @@
 package com.janis.bgg.demo;
 
-import java.awt.*;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import static java.lang.management.ManagementFactory.getRuntimeMXBean;
 
 @SpringBootApplication
 @EntityScan(basePackages = "com.janis.bgg.demo.Entity")
@@ -20,6 +22,7 @@ public class DemoApplication {
     }
 
     public static void Browse(String url) {
+        boolean isDebug = getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
         if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
             try {
@@ -30,7 +33,7 @@ public class DemoApplication {
         } else {
             Runtime runtime = Runtime.getRuntime();
             try {
-                runtime.exec(new String[]{ "cmd", "/c", "start chrome http://localhost:8080" });
+                runtime.exec(new String[]{"cmd", "/c", "start chrome http://localhost:8080"});
             } catch (IOException e) {
                 e.printStackTrace();
             }
