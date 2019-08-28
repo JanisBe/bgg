@@ -47,27 +47,37 @@ public class GraRestController {
     @RequestMapping("/http")
     public String test() throws IOException {
         List<Double> res = new ArrayList<>();
-        List<Integer> gryId = IntStream.of(500, 12, 246, 48542, 145635).boxed().collect(Collectors.toList());
-        //service.findAll().stream().map(Gra::getGameId).limit(5).collect(Collectors.toList());
+//        List<Integer> gryId = IntStream.of(500, 12, 246, 48542, 145635).boxed().collect(Collectors.toList());
+        List<Integer> gryId = service.findAll().stream().map(Gra::getGameId).limit(5).collect(Collectors.toList());
         for (Integer id : gryId) {
             URL url = new URL("https://bgg-json.azurewebsites.net/thing/" + id);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer content = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
-            }
-            in.close();
-            con.disconnect();
-            ObjectMapper mapper = new ObjectMapper();
-            JsonGraDescription gra = mapper.readValue(content.toString(), JsonGraDescription.class);
+            while(con.getResponseCode()== 200){
+                try{
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()));
+                    String inputLine;
+                    StringBuffer content = new StringBuffer();
+                    while ((inputLine = in.readLine()) != null) {
+                        content.append(inputLine);
+                    }
+                    in.close();
 
-            GraDescription gry = descriptionMapper.mapGraToGry(gra);
-            gryDescDao.save(gry);
-            res.add(gra.getBggRating());
+                    ObjectMapper mapper = new ObjectMapper();
+                    JsonGraDescription gra = mapper.readValue(content.toString(), JsonGraDescription.class);
+
+                    GraDescription gry = descriptionMapper.mapGraToGry(gra);
+                    gryDescDao.save(gry);
+                    res.add(gra.getBggRating());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                finally {
+                    con.disconnect();
+                }
+            }
+
         }
 
         return res.stream().map(Object::toString)

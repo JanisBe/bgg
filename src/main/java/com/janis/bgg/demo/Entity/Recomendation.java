@@ -23,7 +23,7 @@ public class Recomendation implements Serializable {
     private int recommended;
     //bi-directional many-to-one association to GraDescription
     @ManyToOne
-    @JoinColumn(name = "game_id", referencedColumnName = "recomendation_id")
+    @JoinColumn(name = "gra_description_game_id", referencedColumnName = "game_id")
     private GraDescription graDescription;
 
     public Recomendation() {
