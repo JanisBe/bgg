@@ -1,55 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.8.5
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Czas generowania: 27 Cze 2019, 23:40
--- Wersja serwera: 10.1.39-MariaDB
--- Wersja PHP: 7.3.5
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Baza danych: `gry`
---
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `gry2`
---
-
--- CREATE TABLE `gry2` (
---     `game_id` int(11) NOT NULL,
---     `name` varchar(55) DEFAULT NULL,
---     `image` varchar(89) DEFAULT NULL,
---     `thumbnail` varchar(97) DEFAULT NULL,
---     `min_players` int(11) DEFAULT NULL,
---     `max_players` int(11) DEFAULT NULL,
---     `playing_time` int(11) DEFAULT NULL,
---     `year_published` int(11) DEFAULT NULL,
---     `bgg_rating` float DEFAULT NULL,
---     `average_rating` float DEFAULT NULL,
---     `rank` int(11) DEFAULT NULL,
---     `num_plays` int(11) DEFAULT NULL,
---     `rating` float DEFAULT NULL,
---     `user_comment` varchar(9) DEFAULT NULL,
---     `expansion_id` int(11) DEFAULT NULL
---     ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Zrzut danych tabeli `gry2`
---
-
 INSERT INTO `gry2` (`game_id`, `name`, `image`, `thumbnail`, `min_players`, `max_players`, `playing_time`, `year_published`, `bgg_rating`, `average_rating`, `rank`, `num_plays`, `rating`, `user_comment`, `expansion_id`) VALUES
     (11, 'Fasolki', 'https://cf.geekdo-images.com/original/img/GfI6-9slXLV3epkQ7r9Maqtsc9g=/0x0/pic3885779.png', 'https://cf.geekdo-images.com/thumb/img/dSYCewt0EW-sTAhj6CkTeObx_YM=/fit-in/200x150/pic3885779.png', 2, 7, 45, 2017, 0, 7.04528, 402, 0, -1, '', NULL),
     (45, 'Liar\'s Dice', 'https://cf.geekdo-images.com/original/img/to9uRKbaaTqTmQWXtcA0k8OuA9I=/0x0/pic3949242.png', 'https://cf.geekdo-images.com/thumb/img/G58FJMOPv_NaiSK8Au9J-_F5PjA=/fit-in/200x150/pic3949242.png', 2, 6, 30, 1800, 0, 6.91779, 615, 0, 9, 'self made', NULL),
@@ -161,16 +109,3 @@ INSERT INTO `gry2` (`game_id`, `name`, `image`, `thumbnail`, `min_players`, `max
 (231965, 'Terraformacja Marsa: Wenus', 'https://cf.geekdo-images.com/original/img/B4r4kkkdn7-nm094btmFY4Pd0gY=/0x0/pic3721295.jpg', 'https://cf.geekdo-images.com/thumb/img/DRZ-cE9tYjGfBmopJFyjsmNjnNg=/fit-in/200x150/pic3721295.jpg', 1, 5, 120, 2017, 0, 7.77664, -1, 0, -1, '', 167791),
 (247030, 'Terraformacja Marsa: Preludium', 'https://cf.geekdo-images.com/original/img/5r5QdXt9OUVrgZjL9oWPq_DXsXo=/0x0/pic4079683.jpg', 'https://cf.geekdo-images.com/thumb/img/lJxHy0yhn3klvtO3BVoLMH44oEo=/fit-in/200x150/pic4079683.jpg', 1, 5, 120, 2018, 0, 8.75713, -1, 0, 9, '', 167791),
 (255681, 'Terraformacja Marsa: Kolonie', 'https://cf.geekdo-images.com/original/img/eoJdag-aU9jKHLfFt7berv-zU7k=/0x0/pic4281631.png', 'https://cf.geekdo-images.com/thumb/img/5MuJgKjqQkxNHGvjp1-iOYJBQBc=/fit-in/200x150/pic4281631.png', 1, 5, 120, 2018, 0, 8.26527, -1, 0, -1, '', 167791);
-
---
--- Indeksy dla zrzutów tabel
---
-
---
--- Indeksy dla tabeli `gry2`
---
--- ALTER TABLE `gry2`
---   ADD PRIMARY KEY (`game_id`),
---   ADD UNIQUE KEY `game_id` (`game_id`),
---   ADD KEY `game_id_2` (`game_id`);
--- COMMIT;

@@ -1,9 +1,21 @@
 package com.janis.bgg.demo.Entity;
 
-import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the gra_description database table.
@@ -34,35 +46,31 @@ public class GraDescription implements Serializable {
     private int playingTime;
     private int rank;
     @OneToMany(mappedBy = "graDescription")
-    private List<Recomendation> recomendation;
+    private Set<Recomendation> recomendation;
     private String thumbnail;
     @Column(name = "year_published")
     private int yearPublished;
-    //bi-directional many-to-many association to Designer
+    // bi-directional many-to-many association to Designer
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.ALL})
+            cascade = { CascadeType.ALL })
     @JoinTable(name = "designers_x_gry", joinColumns = {
             @JoinColumn(name = "game_id", referencedColumnName = "game_id")
-    }
-            , inverseJoinColumns = {
+    }, inverseJoinColumns = {
             @JoinColumn(name = "designers_id", referencedColumnName = "id")
-    }
-    )
-    private List<Designer> designers;
-    //bi-directional many-to-many association to Mechanic
+    })
+    private Set<Designer> designers;
+    // bi-directional many-to-many association to Mechanic
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.ALL})
+            cascade = { CascadeType.ALL })
     @JoinTable(name = "mechanics_x_gry", joinColumns = {
             @JoinColumn(name = "gra_id", referencedColumnName = "game_id")
-    }
-            , inverseJoinColumns = {
+    }, inverseJoinColumns = {
             @JoinColumn(name = "mechanics_id", referencedColumnName = "id")
-    }
-    )
-    private List<Mechanic> mechanics;
-    //bi-directional many-to-one association to Recomendation
+    })
+    private Set<Mechanic> mechanics;
+    // bi-directional many-to-one association to Recomendation
     @OneToMany(mappedBy = "graDescription", cascade = CascadeType.ALL)
-    private List<Recomendation> recomendations;
+    private Set<Recomendation> recomendations;
 
     public GraDescription() {
     }
@@ -139,11 +147,11 @@ public class GraDescription implements Serializable {
         this.rank = rank;
     }
 
-    public List<Recomendation> getRecomendation() {
+    public Set<Recomendation> getRecomendation() {
         return this.recomendation;
     }
 
-    public void setRecomendation(List<Recomendation> recomendationId) {
+    public void setRecomendation(Set<Recomendation> recomendationId) {
         this.recomendation = recomendationId;
     }
 
@@ -163,27 +171,27 @@ public class GraDescription implements Serializable {
         this.yearPublished = yearPublished;
     }
 
-    public List<Designer> getDesigners() {
+    public Set<Designer> getDesigners() {
         return this.designers;
     }
 
-    public void setDesigners(List<Designer> designers) {
+    public void setDesigners(Set<Designer> designers) {
         this.designers = designers;
     }
 
-    public List<Mechanic> getMechanics() {
+    public Set<Mechanic> getMechanics() {
         return this.mechanics;
     }
 
-    public void setMechanics(List<Mechanic> mechanics) {
+    public void setMechanics(Set<Mechanic> mechanics) {
         this.mechanics = mechanics;
     }
 
-    public List<Recomendation> getRecomendations() {
+    public Set<Recomendation> getRecomendations() {
         return this.recomendations;
     }
 
-    public void setRecomendations(List<Recomendation> recomendations) {
+    public void setRecomendations(Set<Recomendation> recomendations) {
         this.recomendations = recomendations;
     }
 

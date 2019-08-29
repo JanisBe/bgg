@@ -1,6 +1,20 @@
 package com.janis.bgg.demo.Controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 import com.janis.bgg.demo.Dao.GryDescDao;
 import com.janis.bgg.demo.Entity.Gra;
 import com.janis.bgg.demo.Entity.GraDescription;
@@ -8,19 +22,6 @@ import com.janis.bgg.demo.JsonObjects.JsonGraDescription;
 import com.janis.bgg.demo.Mapper.GraDescriptionMapper;
 import com.janis.bgg.demo.Mapper.GraMapper;
 import com.janis.bgg.demo.Service.GryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class GraRestController {
@@ -46,7 +47,7 @@ public class GraRestController {
     @RequestMapping("/http")
     public String test() throws IOException {
         HttpURLConnection con = null;
-        List<Double> res = new ArrayList<>();
+        List<Double> res = Lists.newArrayList();
 //        List<Integer> gryId = IntStream.of(500, 12, 246, 48542, 145635).boxed().collect(Collectors.toList());
         List<Integer> gryId = service.findAll().stream().map(Gra::getGameId).collect(Collectors.toList());
         for (Integer id : gryId) {
@@ -80,7 +81,7 @@ public class GraRestController {
         }
 
         return res.stream().map(Object::toString)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining("<br>"));
     }
 
 }
