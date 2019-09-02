@@ -32,9 +32,9 @@ public class GraDescription implements Serializable {
     private int id;
     @Column(name = "bgg_rating")
     private float bggRating;
-    @Column(name = "description", length = 3000)
+    @Column(name = "description", length = 5000)
     private String description;
-    @Column(name = "average_rating", nullable = true, precision = 0)
+    @Column(name = "average_rating")
     private Double averageRating;
     private String image;
     @Column(name = "max_players")

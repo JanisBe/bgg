@@ -1,13 +1,17 @@
 package com.janis.bgg.demo.Mapper;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.google.common.collect.Sets;
+import com.janis.bgg.demo.Dao.DesignerDao;
+import com.janis.bgg.demo.Dao.GryDescDao;
+import com.janis.bgg.demo.Dao.MechanicDao;
 import com.janis.bgg.demo.Entity.Designer;
 import com.janis.bgg.demo.Entity.GraDescription;
 import com.janis.bgg.demo.Entity.Mechanic;
@@ -16,6 +20,14 @@ import com.janis.bgg.demo.JsonObjects.JsonGraDescription;
 @Mapper(componentModel = "spring")
 
 public abstract class GraDescriptionMapper {
+    @Autowired
+    private DesignerDao designerDao;
+
+    @Autowired
+    private MechanicDao mechanicDao;
+
+    @Autowired
+    private GryDescDao gryDescDao;
 
     @Mapping(target = "mechanics", ignore = true)
     @Mapping(target = "designers", ignore = true)
@@ -25,22 +37,36 @@ public abstract class GraDescriptionMapper {
     @Mapping(target = "mechanics", ignore = true)
     @Mapping(target = "recomendations", source = "playerPollResults")
     @Mapping(target = "designers", ignore = true)
-    @Mapping(target = "recomendation", ignore = true)
     @Mapping(target = "id", source = "gameId")
     public abstract GraDescription mapGraToGry(JsonGraDescription jsonGraDescription);
 
-//    @Mapping
-//    public Mechanics mapMechanics(String mechanics){
-//        return new Mechanics(mechanics);
-//    }
-
     @AfterMapping
     protected void mapuj(JsonGraDescription jsonGraDescription, @MappingTarget GraDescription gra) {
+        Set<Designer> designerSet = Sets.newHashSet();
+        for (String designerName : jsonGraDescription.getDesigners()) {
+            Designer designer = designerDao.findDesignerByDesignerName(designerName);
+            if (designer != null) {
+                designerSet.add(designer);
+            }
+            else {
+                designerSet.add(new Designer(designerName));
+            }
+        }
+        Set<Mechanic> mechanicSet = Sets.newHashSet();
+        for (String mechanicName : jsonGraDescription.getMechanics()) {
+            Mechanic mechanic = mechanicDao.findMechanicByName(mechanicName);
+            if (mechanic != null) {
+                mechanicSet.add(mechanic);
+            }
+            else {
+                mechanicSet.add(new Mechanic(mechanicName));
+            }
+        }
+        gra.setMechanics(mechanicSet);
+        gra.setDesigners(designerSet);
 
-        Set<Mechanic> listaMechanik = jsonGraDescription.getMechanics().stream().map(that -> new Mechanic(that)).collect(Collectors.toSet());
-        gra.setMechanics(listaMechanik);
-        Set<Designer> listaDesignerow = jsonGraDescription.getDesigners().stream().map(that -> new Designer(that)).collect(Collectors.toSet());
-        gra.setDesigners(listaDesignerow);
-
+        // for(Recomendation rec : gra.getRecomendation()){
+        // rec.getGraDescription(gra);
+        // }
     }
 }

@@ -48,8 +48,8 @@ public class GraRestController {
     public String test() throws IOException {
         HttpURLConnection con = null;
         List<Double> res = Lists.newArrayList();
-//        List<Integer> gryId = IntStream.of(500, 12, 246, 48542, 145635).boxed().collect(Collectors.toList());
-        List<Integer> gryId = service.findAll().stream().map(Gra::getGameId).collect(Collectors.toList());
+        // List<Integer> gryId = IntStream.of(92539,173346, 202976, 68448).boxed().collect(Collectors.toList());
+        List<Integer> gryId = service.findAll().stream().map(Gra::getGameId).limit(10).collect(Collectors.toList());
         for (Integer id : gryId) {
             while (con == null || con.getResponseCode() == 200) {
                 try {
@@ -59,7 +59,7 @@ public class GraRestController {
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(con.getInputStream()));
                     String inputLine;
-                    StringBuffer content = new StringBuffer();
+                    StringBuilder content = new StringBuilder();
                     while ((inputLine = in.readLine()) != null) {
                         content.append(inputLine);
                     }
@@ -75,7 +75,7 @@ public class GraRestController {
                 } catch (IOException e) {
                     System.out.println("nie działa dla id = " + id);
                     e.printStackTrace();
-//                    continue;
+                    // continue;
                 }
             }
         }

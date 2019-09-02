@@ -22,30 +22,30 @@ public class DemoApplication {
     }
 
     public static void Browse(String url) {
-        boolean isDebug = getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
-        if (isDebug) {
-            if (Desktop.isDesktopSupported()) {
-                Desktop desktop = Desktop.getDesktop();
-                try {
-                    desktop.browse(new URI(url));
-                } catch (IOException | URISyntaxException e) {
-                    e.printStackTrace();
-                }
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.browse(new URI(url));
+            } catch (IOException | URISyntaxException e) {
+                e.printStackTrace();
             }
-            else {
-                Runtime runtime = Runtime.getRuntime();
-                try {
-                    runtime.exec(new String[]{ "cmd", "/c", "start chrome http://localhost:8080" });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        }
+        else {
+            Runtime runtime = Runtime.getRuntime();
+            try {
+                runtime.exec(new String[]{ "cmd", "/c", "start chrome http://localhost:8080" });
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
 
-    @EventListener({ApplicationReadyEvent.class})
+    @EventListener({ ApplicationReadyEvent.class })
     void applicationReadyEvent() {
         System.out.println("Application started ... launching browser now");
-        Browse("localhost:8080");
+        boolean isDebug = getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
+        if (!isDebug) {
+            Browse("localhost:8080");
+        }
     }
 }
