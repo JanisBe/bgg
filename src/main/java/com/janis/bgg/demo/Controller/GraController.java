@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,8 +46,7 @@ public class GraController {
     @GetMapping("/all")
     public ModelAndView all() {
         ModelAndView modelAndView = new ModelAndView();
-        List<Gra> gry = serwis.findAll();
-        modelAndView.addObject("gry", gry);
+        modelAndView.addObject("gry", serwis.findAll());
         modelAndView.setViewName("gry");
         return modelAndView;
     }
@@ -56,6 +57,20 @@ public class GraController {
         List<Gra> gry = serwis.findGracze(num);
         modelAndView.addObject("gry", gry);
         modelAndView.setViewName("gry");
+        return modelAndView;
+    }
+
+    @GetMapping("/greeting")
+    public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
+        model.addAttribute("name", name);
+        return "greeting";
+    }
+
+    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+    public ModelAndView login(@RequestParam(name = "name", required = false, defaultValue = "World") String name) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("gry");
+        modelAndView.addObject("name", name);
         return modelAndView;
     }
 }
