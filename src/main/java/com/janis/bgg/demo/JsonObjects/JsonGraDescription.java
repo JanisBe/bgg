@@ -27,7 +27,8 @@ import java.util.Map;
         "publishers",
         "artists",
         "playerPollResults",
-        "jsonExpansions"
+        "jsonExpansions",
+        "expands"
 })
 public class JsonGraDescription {
 
@@ -69,6 +70,8 @@ public class JsonGraDescription {
     private List<JsonPlayerPollResult> playerPollResults = null;
     @JsonProperty("jsonExpansions")
     private List<JsonExpansion> jsonExpansions = null;
+    @JsonProperty("expands")
+    private List<JsonExpansion> expands = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -99,7 +102,7 @@ public class JsonGraDescription {
      * @param mechanics
      * @param isExpansion
      */
-    public JsonGraDescription(Integer gameId, String name, String description, String image, String thumbnail, Integer minPlayers, Integer maxPlayers, Integer playingTime, List<String> mechanics, Boolean isExpansion, Integer yearPublished, Double bggRating, Double averageRating, Integer rank, List<String> designers, List<String> publishers, List<String> artists, List<JsonPlayerPollResult> playerPollResults, List<JsonExpansion> jsonExpansions) {
+    public JsonGraDescription(Integer gameId, String name, String description, String image, String thumbnail, Integer minPlayers, Integer maxPlayers, Integer playingTime, List<String> mechanics, Boolean isExpansion, Integer yearPublished, Double bggRating, Double averageRating, Integer rank, List<String> designers, List<String> publishers, List<String> artists, List<JsonPlayerPollResult> playerPollResults, List<JsonExpansion> jsonExpansions, List<JsonExpansion> expands) {
         super();
         this.gameId = gameId;
         this.name = name;
@@ -120,6 +123,7 @@ public class JsonGraDescription {
         this.artists = artists;
         this.playerPollResults = playerPollResults;
         this.jsonExpansions = jsonExpansions;
+        this.expands = expands;
     }
 
     @JsonProperty("gameId")
@@ -321,5 +325,17 @@ public class JsonGraDescription {
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
+
+    @JsonProperty("expands")
+    public List<JsonExpansion> getExpands() {
+        return expands;
+    }
+
+    @JsonProperty("expands")
+    public void setExpands(List<JsonExpansion> expands) {
+        this.expands = expands;
+    }
+
+
 
 }

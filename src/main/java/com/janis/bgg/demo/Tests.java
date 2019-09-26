@@ -1,17 +1,16 @@
 package com.janis.bgg.demo;
 
+import com.janis.bgg.demo.XMLObjects.Items;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
-import com.janis.bgg.demo.XMLObjects.Items;
 
 public class Tests {
 
@@ -47,12 +46,13 @@ public class Tests {
 
             // }
         }
-        System.out.println(content.toString());
+        String data = content.toString();
+        System.out.println(data);
         JAXBContext jaxbContext;
         try {
             jaxbContext = JAXBContext.newInstance(Items.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            StringReader reader = new StringReader(content.toString());
+            StringReader reader = new StringReader(data);
             Items employee = (Items) jaxbUnmarshaller.unmarshal(reader);
 
             System.out.println(employee);
