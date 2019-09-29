@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MUSEUMS>
+    <MUSEUM>
+        <MUSEUM_NAME>Prado Museum</MUSEUM_NAME>
+        <CITY>Madrid</CITY>
+        <PERMANENT_EXHIBITION>
+            <NAME>Permanent Exhibition - Prado Museum</NAME>
+            <ARTIST>Velazquez</ARTIST>
+            <ARTIST>Goya</ARTIST>
+            <ARTIST>Zurbaran</ARTIST>
+            <ARTIST>Tiziano</ARTIST>
+            <FROM>1500-01-01</FROM>
+            <TO>2000-12-31</TO>
+        </PERMANENT_EXHIBITION>
+        <SPECIAL_EXHIBITION>
+            <NAME>Game of Bowls (1908), by Henri Matisse</NAME>
+            <ARTIST>Mattise</ARTIST>
+            <FROM>1908-01-01</FROM>
+            <TO>1908-12-31</TO>
+        </SPECIAL_EXHIBITION>
+    </MUSEUM>
+    <MUSEUM children_allowed="false">
+        <MUSEUM_NAME>Reina Sofia Museum</MUSEUM_NAME>
+        <CITY>Madrid</CITY>
+        <PERMANENT_EXHIBITION>
+            <NAME>Permanent Exhibition - Reina Sofia Museum</NAME>
+            <ARTIST>Picasso</ARTIST>
+            <ARTIST>Dali</ARTIST>
+            <ARTIST>Miro</ARTIST>
+            <FROM>1900-01-01</FROM>
+            <TO>2014-12-31</TO>
+        </PERMANENT_EXHIBITION>
+    </MUSEUM>
+    <MUSEUM>
+        <MUSEUM_NAME>British Museum</MUSEUM_NAME>
+        <CITY>London</CITY>
+        <PERMANENT_EXHIBITION>
+            <NAME>Permanent Exhibition - British Museum</NAME>
+            <ARTIST>Ancient lives</ARTIST>
+            <ARTIST>Ulysees</ARTIST>
+        </PERMANENT_EXHIBITION>
+    </MUSEUM>
+    <MUSEUM>
+        <MUSEUM_NAME>MOMA</MUSEUM_NAME>
+        <CITY>New York</CITY>
+        <PERMANENT_EXHIBITION>
+            <NAME>Permanent Exhibition - MOMA</NAME>
+            <ARTIST>Picasso</ARTIST>
+            <ARTIST>Borremans</ARTIST>
+        </PERMANENT_EXHIBITION>
+    </MUSEUM>
+    <MUSEUM>
+        <MUSEUM_NAME>Louvre Museum</MUSEUM_NAME>
+        <CITY>Paris</CITY>
+        <PERMANENT_EXHIBITION>
+            <NAME>Permanent Exhibition - Louvre Museum</NAME>
+            <ARTIST>Leonardo da Vinci</ARTIST>
+            <ARTIST>Caravaggio</ARTIST>
+            <ARTIST>Delacroix</ARTIST>
+        </PERMANENT_EXHIBITION>
+    </MUSEUM>
+</MUSEUMS>
