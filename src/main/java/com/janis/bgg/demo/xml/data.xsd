@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="items">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="item"/>
+            </xs:sequence>
+            <xs:attribute name="termsofuse" use="required" type="xs:anyURI"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="item">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="thumbnail"/>
+                <xs:element ref="image"/>
+                <xs:element maxOccurs="unbounded" ref="name"/>
+                <xs:element ref="description"/>
+                <xs:element ref="yearpublished"/>
+                <xs:element ref="minplayers"/>
+                <xs:element ref="maxplayers"/>
+                <xs:choice maxOccurs="unbounded">
+                    <xs:element ref="maxplaytime"/>
+                    <xs:element ref="minage"/>
+                    <xs:element ref="minplaytime"/>
+                    <xs:element ref="playingtime"/>
+                    <xs:element ref="poll"/>
+                </xs:choice>
+                <xs:element maxOccurs="unbounded" ref="link"/>
+            </xs:sequence>
+            <xs:attribute name="id" use="required" type="xs:integer"/>
+            <xs:attribute name="type" use="required" type="xs:NCName"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="thumbnail" type="xs:anyURI"/>
+    <xs:element name="image" type="xs:anyURI"/>
+    <xs:element name="name">
+        <xs:complexType>
+            <xs:attribute name="sortindex" use="required" type="xs:integer"/>
+            <xs:attribute name="type" use="required" type="xs:NCName"/>
+            <xs:attribute name="value" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="description" type="xs:string"/>
+    <xs:element name="yearpublished">
+        <xs:complexType>
+            <xs:attribute name="value" use="required" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="minplayers">
+        <xs:complexType>
+            <xs:attribute name="value" use="required" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="maxplayers">
+        <xs:complexType>
+            <xs:attribute name="value" use="required" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="maxplaytime">
+        <xs:complexType>
+            <xs:attribute name="value" use="required" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="minage">
+        <xs:complexType>
+            <xs:attribute name="value" use="required" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="minplaytime">
+        <xs:complexType>
+            <xs:attribute name="value" use="required" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="playingtime">
+        <xs:complexType>
+            <xs:attribute name="value" use="required" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="poll">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="results"/>
+            </xs:sequence>
+            <xs:attribute name="name" use="required" type="xs:NCName"/>
+            <xs:attribute name="title" use="required"/>
+            <xs:attribute name="totalvotes" use="required" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="results">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="result"/>
+            </xs:sequence>
+            <xs:attribute name="numplayers"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="result">
+        <xs:complexType>
+            <xs:attribute name="level" type="xs:integer"/>
+            <xs:attribute name="numvotes" use="required" type="xs:integer"/>
+            <xs:attribute name="value" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="link">
+        <xs:complexType>
+            <xs:attribute name="id" use="required" type="xs:integer"/>
+            <xs:attribute name="type" use="required" type="xs:NCName"/>
+            <xs:attribute name="value" use="required"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

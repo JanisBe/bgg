@@ -11,11 +11,12 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author dgutierrez-diez
  */
-@XmlType(propOrder = {"name", "city", "permanent", "special"})
+@XmlType(propOrder = {"name", "city", "results", "permanent", "special"})
 @XmlRootElement(name = "MUSEUM")
 public class Museum {
     String name;
     Boolean childrenAllowed;
+    Results results;
     Exhibition special;
     Exhibition permanent;
     private String city;
@@ -63,13 +64,21 @@ public class Museum {
 
     public void setCity(String city) {
         this.city = city;
+    }
 
+    @XmlElement(name = "results")
+    public Results getResults() {
+        return results;
+    }
+
+    public void setResults(Results results) {
+        this.results = results;
     }
 
     @Override
     public String toString() {
         StringBuffer str = new StringBuffer("Name: " + getName() + "\n");
-        str.append("City: " + getCity() + "\n");
+        str.append("City: " + getCity() + " max pl " + getResults() + "\n");
 
         if (getChildrenAllowed() != null && !getChildrenAllowed()) {
             str.append("ATTENTION! Children are not allowed in this museum\n");
@@ -85,4 +94,5 @@ public class Museum {
 
         return str.toString();
     }
+
 }
