@@ -1,8 +1,8 @@
 package com.janis.bgg.demo.Mapper;
 
-import com.janis.bgg.demo.Dto.GraDto;
-import com.janis.bgg.demo.Entity.Gra;
-import com.janis.bgg.demo.Entity.GraDescription;
+import com.janis.bgg.demo.dto.GraDto;
+import com.janis.bgg.demo.entity.Gra;
+import com.janis.bgg.demo.entity.GraDescription;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

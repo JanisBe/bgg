@@ -1,21 +1,20 @@
 package com.janis.bgg.demo.Mapper;
 
-import java.util.Set;
-
+import com.google.common.collect.Sets;
+import com.janis.bgg.demo.dao.DesignerDao;
+import com.janis.bgg.demo.dao.GryDescDao;
+import com.janis.bgg.demo.dao.MechanicDao;
+import com.janis.bgg.demo.entity.Designer;
+import com.janis.bgg.demo.entity.GraDescription;
+import com.janis.bgg.demo.entity.Mechanic;
+import com.janis.bgg.demo.jsonObjects.JsonGraDescription;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.google.common.collect.Sets;
-import com.janis.bgg.demo.Dao.DesignerDao;
-import com.janis.bgg.demo.Dao.GryDescDao;
-import com.janis.bgg.demo.Dao.MechanicDao;
-import com.janis.bgg.demo.Entity.Designer;
-import com.janis.bgg.demo.Entity.GraDescription;
-import com.janis.bgg.demo.Entity.Mechanic;
-import com.janis.bgg.demo.JsonObjects.JsonGraDescription;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 

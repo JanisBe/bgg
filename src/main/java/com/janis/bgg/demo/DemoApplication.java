@@ -14,7 +14,7 @@ import java.net.URISyntaxException;
 import static java.lang.management.ManagementFactory.getRuntimeMXBean;
 
 @SpringBootApplication
-@EntityScan(basePackages = "com.janis.bgg.demo.Entity")
+@EntityScan(basePackages = "com.janis.bgg.demo.entity")
 public class DemoApplication {
 
     public static void main(String[] args) {

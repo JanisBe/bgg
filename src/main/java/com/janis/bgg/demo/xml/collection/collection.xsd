@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+    <!-- XML Schema Generated from XML Document on Wed Oct 02 2019 22:03:38 GMT+0200 (czas srodkowoeuropejski letni) -->
+    <!-- with XmlGrid.net Free Online service http://xmlgrid.net -->
+    <xs:element name="items">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="item" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="name" type="xs:string">
+                                <xs:complexType>
+                                    <xs:attribute name="sortindex" type="xs:int"></xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="originalname" type="xs:string"></xs:element>
+                            <xs:element name="yearpublished" type="xs:int"></xs:element>
+                            <xs:element name="image" type="xs:string"></xs:element>
+                            <xs:element name="thumbnail" type="xs:string"></xs:element>
+                            <xs:element name="status">
+                                <xs:complexType>
+                                    <xs:attribute name="own" type="xs:int"></xs:attribute>
+                                    <xs:attribute name="prevowned" type="xs:int"></xs:attribute>
+                                    <xs:attribute name="fortrade" type="xs:int"></xs:attribute>
+                                    <xs:attribute name="want" type="xs:int"></xs:attribute>
+                                    <xs:attribute name="wanttoplay" type="xs:int"></xs:attribute>
+                                    <xs:attribute name="wanttobuy" type="xs:int"></xs:attribute>
+                                    <xs:attribute name="wishlist" type="xs:int"></xs:attribute>
+                                    <xs:attribute name="preordered" type="xs:int"></xs:attribute>
+                                    <xs:attribute name="lastmodified" type="xs:string"></xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="numplays" type="xs:int"></xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="objecttype" type="xs:string"></xs:attribute>
+                        <xs:attribute name="objectid" type="xs:int"></xs:attribute>
+                        <xs:attribute name="subtype" type="xs:string"></xs:attribute>
+                        <xs:attribute name="collid" type="xs:int"></xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="totalitems" type="xs:int"></xs:attribute>
+            <xs:attribute name="termsofuse" type="xs:string"></xs:attribute>
+            <xs:attribute name="pubdate" type="xs:string"></xs:attribute>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

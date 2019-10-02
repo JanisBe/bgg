@@ -1,6 +1,6 @@
 package com.janis.bgg.demo;
 
-import com.janis.bgg.demo.xml.Items;
+import com.janis.bgg.demo.xml.items.Items;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

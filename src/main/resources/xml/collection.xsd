@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="items">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="item"/>
+            </xs:sequence>
+            <xs:attribute name="pubdate" use="required"/>
+            <xs:attribute name="termsofuse" use="required" type="xs:anyURI"/>
+            <xs:attribute name="totalitems" use="required" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="item">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="name"/>
+                <xs:element minOccurs="0" ref="originalname"/>
+                <xs:element minOccurs="0" ref="yearpublished"/>
+                <xs:element ref="image"/>
+                <xs:element ref="thumbnail"/>
+                <xs:element ref="status"/>
+                <xs:element ref="numplays"/>
+                <xs:element minOccurs="0" ref="comment"/>
+            </xs:sequence>
+            <xs:attribute name="collid" use="required" type="xs:integer"/>
+            <xs:attribute name="objectid" use="required" type="xs:integer"/>
+            <xs:attribute name="objecttype" use="required" type="xs:NCName"/>
+            <xs:attribute name="subtype" use="required" type="xs:NCName"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="name">
+        <xs:complexType mixed="true">
+            <xs:attribute name="sortindex" use="required" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="originalname" type="xs:string"/>
+    <xs:element name="yearpublished" type="xs:integer"/>
+    <xs:element name="image" type="xs:anyURI"/>
+    <xs:element name="thumbnail" type="xs:anyURI"/>
+    <xs:element name="status">
+        <xs:complexType>
+            <xs:attribute name="fortrade" use="required" type="xs:integer"/>
+            <xs:attribute name="lastmodified" use="required"/>
+            <xs:attribute name="own" use="required" type="xs:integer"/>
+            <xs:attribute name="preordered" use="required" type="xs:integer"/>
+            <xs:attribute name="prevowned" use="required" type="xs:integer"/>
+            <xs:attribute name="want" use="required" type="xs:integer"/>
+            <xs:attribute name="wanttobuy" use="required" type="xs:integer"/>
+            <xs:attribute name="wanttoplay" use="required" type="xs:integer"/>
+            <xs:attribute name="wishlist" use="required" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="numplays" type="xs:integer"/>
+    <xs:element name="comment" type="xs:string"/>
+</xs:schema>
