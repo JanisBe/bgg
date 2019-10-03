@@ -1,18 +1,25 @@
 
 package com.janis.bgg.demo.xml.items;
 
-import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -33,7 +40,7 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "results"
+        "results"
 })
 @XmlRootElement(name = "poll")
 public class Poll {
@@ -48,7 +55,7 @@ public class Poll {
     @XmlSchemaType(name = "anySimpleType")
     protected String title;
     @XmlAttribute(name = "totalvotes", required = true)
-    protected BigInteger totalvotes;
+    protected Integer totalvotes;
 
     /**
      * Gets the value of the results property.
@@ -61,8 +68,9 @@ public class Poll {
      * 
      * <p>
      * For example, to add a new item, do as follows:
+     * 
      * <pre>
-     *    getResults().add(newItem);
+     * getResults().add(newItem);
      * </pre>
      * 
      * 
@@ -83,9 +91,9 @@ public class Poll {
      * Gets the value of the name property.
      * 
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     * 
      */
     public String getName() {
         return name;
@@ -95,9 +103,9 @@ public class Poll {
      * Sets the value of the name property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     * 
      */
     public void setName(String value) {
         this.name = value;
@@ -107,9 +115,9 @@ public class Poll {
      * Gets the value of the title property.
      * 
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     * 
      */
     public String getTitle() {
         return title;
@@ -119,9 +127,9 @@ public class Poll {
      * Sets the value of the title property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     * 
      */
     public void setTitle(String value) {
         this.title = value;
@@ -131,11 +139,11 @@ public class Poll {
      * Gets the value of the totalvotes property.
      * 
      * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     *         possible object is
+     *         {@link Integer }
+     * 
      */
-    public BigInteger getTotalvotes() {
+    public Integer getTotalvotes() {
         return totalvotes;
     }
 
@@ -143,11 +151,11 @@ public class Poll {
      * Sets the value of the totalvotes property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is
+     *            {@link Integer }
+     * 
      */
-    public void setTotalvotes(BigInteger value) {
+    public void setTotalvotes(Integer value) {
         this.totalvotes = value;
     }
 

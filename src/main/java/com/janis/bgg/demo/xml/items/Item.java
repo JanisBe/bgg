@@ -1,18 +1,27 @@
 
 package com.janis.bgg.demo.xml.items;
 
-import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -46,15 +55,15 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "thumbnail",
-    "image",
-    "name",
-    "description",
-    "yearpublished",
-    "minplayers",
+        "thumbnail",
+        "image",
+        "name",
+        "description",
+        "yearpublished",
+        "minplayers",
         "maxplayers",
-    "maxplaytimeOrMinageOrMinplaytime",
-    "link"
+        "maxplaytimeOrMinageOrMinplaytime",
+        "link"
 })
 @XmlRootElement(name = "item")
 public class Item {
@@ -76,11 +85,11 @@ public class Item {
     @XmlElement(required = true)
     protected Players maxplayers;
     @XmlElements({
-        @XmlElement(name = "maxplaytime", type = Maxplaytime.class),
-        @XmlElement(name = "minage", type = Minage.class),
-        @XmlElement(name = "minplaytime", type = Minplaytime.class),
-        @XmlElement(name = "playingtime", type = Playingtime.class),
-        @XmlElement(name = "poll", type = Poll.class)
+            @XmlElement(name = "maxplaytime", type = Maxplaytime.class),
+            @XmlElement(name = "minage", type = Minage.class),
+            @XmlElement(name = "minplaytime", type = Minplaytime.class),
+            @XmlElement(name = "playingtime", type = Playingtime.class),
+            @XmlElement(name = "poll", type = Poll.class)
     })
     protected List<Object> maxplaytimeOrMinageOrMinplaytime;
     @XmlElement(required = true)
@@ -96,9 +105,9 @@ public class Item {
      * Gets the value of the thumbnail property.
      * 
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     * 
      */
     public String getThumbnail() {
         return thumbnail;
@@ -108,9 +117,9 @@ public class Item {
      * Sets the value of the thumbnail property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     * 
      */
     public void setThumbnail(String value) {
         this.thumbnail = value;
@@ -120,9 +129,9 @@ public class Item {
      * Gets the value of the image property.
      * 
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     * 
      */
     public String getImage() {
         return image;
@@ -132,9 +141,9 @@ public class Item {
      * Sets the value of the image property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     * 
      */
     public void setImage(String value) {
         this.image = value;
@@ -151,8 +160,9 @@ public class Item {
      * 
      * <p>
      * For example, to add a new item, do as follows:
+     * 
      * <pre>
-     *    getName().add(newItem);
+     * getName().add(newItem);
      * </pre>
      * 
      * 
@@ -173,9 +183,9 @@ public class Item {
      * Gets the value of the description property.
      * 
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     * 
      */
     public String getDescription() {
         return description;
@@ -185,9 +195,9 @@ public class Item {
      * Sets the value of the description property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     * 
      */
     public void setDescription(String value) {
         this.description = value;
@@ -197,9 +207,9 @@ public class Item {
      * Gets the value of the yearpublished property.
      * 
      * @return
-     *     possible object is
-     *     {@link Yearpublished }
-     *     
+     *         possible object is
+     *         {@link Yearpublished }
+     * 
      */
     public Yearpublished getYearpublished() {
         return yearpublished;
@@ -209,9 +219,9 @@ public class Item {
      * Sets the value of the yearpublished property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link Yearpublished }
-     *     
+     *            allowed object is
+     *            {@link Yearpublished }
+     * 
      */
     public void setYearpublished(Yearpublished value) {
         this.yearpublished = value;
@@ -221,9 +231,9 @@ public class Item {
      * Gets the value of the minplayers property.
      * 
      * @return
-     *     possible object is
-     *     {@link Minplayers }
-     *     
+     *         possible object is
+     *         {@link Minplayers }
+     * 
      */
     public Players getMinplayers() {
         return minplayers;
@@ -233,9 +243,9 @@ public class Item {
      * Sets the value of the minplayers property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link Players }
-     *     
+     *            allowed object is
+     *            {@link Players }
+     * 
      */
     public void setMinplayers(Players value) {
         this.minplayers = value;
@@ -245,9 +255,9 @@ public class Item {
      * Gets the value of the maxplayers property.
      * 
      * @return
-     *     possible object is
-     *     {@link Players }
-     *     
+     *         possible object is
+     *         {@link Players }
+     * 
      */
     public Players getMaxplayers() {
         return maxplayers;
@@ -257,9 +267,9 @@ public class Item {
      * Sets the value of the maxplayers property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link Players }
-     *     
+     *            allowed object is
+     *            {@link Players }
+     * 
      */
     public void setMaxplayers(Players value) {
         this.maxplayers = value;
@@ -276,8 +286,9 @@ public class Item {
      * 
      * <p>
      * For example, to add a new item, do as follows:
+     * 
      * <pre>
-     *    getMaxplaytimeOrMinageOrMinplaytime().add(newItem);
+     * getMaxplaytimeOrMinageOrMinplaytime().add(newItem);
      * </pre>
      * 
      * 
@@ -309,8 +320,9 @@ public class Item {
      * 
      * <p>
      * For example, to add a new item, do as follows:
+     * 
      * <pre>
-     *    getLink().add(newItem);
+     * getLink().add(newItem);
      * </pre>
      * 
      * 
@@ -331,9 +343,9 @@ public class Item {
      * Gets the value of the id property.
      * 
      * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     *         possible object is
+     *         {@link BigInteger }
+     * 
      */
     public BigInteger getId() {
         return id;
@@ -343,9 +355,9 @@ public class Item {
      * Sets the value of the id property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is
+     *            {@link BigInteger }
+     * 
      */
     public void setId(BigInteger value) {
         this.id = value;
@@ -355,9 +367,9 @@ public class Item {
      * Gets the value of the type property.
      * 
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     * 
      */
     public String getType() {
         return type;
@@ -367,9 +379,9 @@ public class Item {
      * Sets the value of the type property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     * 
      */
     public void setType(String value) {
         this.type = value;

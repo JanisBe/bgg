@@ -1,27 +1,35 @@
 package com.janis.bgg.demo.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Lists;
-import com.janis.bgg.demo.Mapper.GraDescriptionMapper;
-import com.janis.bgg.demo.dao.GryDescDao;
-import com.janis.bgg.demo.entity.Gra;
-import com.janis.bgg.demo.entity.GraDescription;
-import com.janis.bgg.demo.jsonObjects.JsonGraDescription;
-import com.janis.bgg.demo.service.GryService;
-import com.janis.bgg.demo.service.ImportService;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
+import com.janis.bgg.demo.dao.GryDescDao;
+import com.janis.bgg.demo.entity.Gra;
+import com.janis.bgg.demo.entity.GraDescription;
+import com.janis.bgg.demo.jsonObjects.JsonGraDescription;
+import com.janis.bgg.demo.mapper.GraDescriptionMapper;
+import com.janis.bgg.demo.mapper.ItemMapper;
+import com.janis.bgg.demo.service.GryService;
+import com.janis.bgg.demo.service.ImportService;
+import com.janis.bgg.demo.xml.items.Items;
 
 @RestController
 public class GraRestController {
@@ -33,7 +41,8 @@ public class GraRestController {
     private GryDescDao gryDescDao;
     @Autowired
     private GraDescriptionMapper descriptionMapper;
-
+    @Autowired
+    private ItemMapper itemMapper;
 
     @RequestMapping("/gry")
     public List<Gra> findByNoOfPlayers(@RequestParam(value = "noOfPlayers") Integer noOfPlayers) {
@@ -96,6 +105,57 @@ public class GraRestController {
     public String importMyGames(Model model) {
         model.addAttribute("myGames", importService.importGamesFromBgg());
         return "myGamesList";
+    }
+
+    @RequestMapping("1")
+    public String testy() throws IOException {
+        HttpURLConnection con = null;
+        StringBuilder content = new StringBuilder();
+        while (true) {
+            // try {
+            if (!(con == null || con.getResponseCode() == 200))
+                break;
+            // } catch (IOException e) {
+            // System.out.println("nie działa coś na razie");
+            // e.printStackTrace();
+            // }
+            // try {
+            con = (HttpURLConnection) new URL("https://api.geekdo.com/xmlapi2/thing?id=12").openConnection();
+            // con.setRequestMethod("GET");
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String readLine;
+
+            while ((readLine = in.readLine()) != null) {
+                content.append(readLine);
+            }
+            in.close();
+            con.disconnect();
+            break;
+            // } catch (IOException e) {
+            // System.out.println("nie działa dla id");
+            // e.printStackTrace();
+            // // continue;
+            // } finally {
+
+            // }
+        }
+        String data = content.toString();
+        System.out.println(data);
+        JAXBContext jaxbContext;
+        try {
+            jaxbContext = JAXBContext.newInstance(Items.class);
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            StringReader reader = new StringReader(data);
+            Items item = (Items) jaxbUnmarshaller.unmarshal(reader);
+
+            System.out.println(item);
+            GraDescription gra = itemMapper.itemToGraMapper(item.getItem());
+            System.out.println(gra);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

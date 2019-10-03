@@ -1,9 +1,10 @@
-package com.janis.bgg.demo.Mapper;
+package com.janis.bgg.demo.mapper;
+
+import org.mapstruct.Mapper;
 
 import com.janis.bgg.demo.dto.GraDto;
 import com.janis.bgg.demo.entity.Gra;
 import com.janis.bgg.demo.entity.GraDescription;
-import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface GraMapper {

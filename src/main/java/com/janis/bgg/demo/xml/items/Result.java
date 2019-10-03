@@ -1,14 +1,19 @@
 
 package com.janis.bgg.demo.xml.items;
 
-import javax.xml.bind.annotation.*;
-import java.math.BigInteger;
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -30,9 +35,9 @@ import java.math.BigInteger;
 public class Result {
 
     @XmlAttribute(name = "level")
-    protected BigInteger level;
+    protected Integer level;
     @XmlAttribute(name = "numvotes", required = true)
-    protected BigInteger numvotes;
+    protected Integer numvotes;
     @XmlAttribute(name = "value", required = true)
     @XmlSchemaType(name = "anySimpleType")
     protected String value;
@@ -41,11 +46,11 @@ public class Result {
      * Gets the value of the level property.
      * 
      * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     *         possible object is
+     *         {@link Integer }
+     * 
      */
-    public BigInteger getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
@@ -53,11 +58,11 @@ public class Result {
      * Sets the value of the level property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is
+     *            {@link Integer }
+     * 
      */
-    public void setLevel(BigInteger value) {
+    public void setLevel(Integer value) {
         this.level = value;
     }
 
@@ -65,11 +70,11 @@ public class Result {
      * Gets the value of the numvotes property.
      * 
      * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     *         possible object is
+     *         {@link Integer }
+     * 
      */
-    public BigInteger getNumvotes() {
+    public Integer getNumvotes() {
         return numvotes;
     }
 
@@ -77,11 +82,11 @@ public class Result {
      * Sets the value of the numvotes property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is
+     *            {@link Integer }
+     * 
      */
-    public void setNumvotes(BigInteger value) {
+    public void setNumvotes(Integer value) {
         this.numvotes = value;
     }
 
@@ -89,9 +94,9 @@ public class Result {
      * Gets the value of the value property.
      * 
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     * 
      */
     public String getValue() {
         return value;
@@ -101,9 +106,9 @@ public class Result {
      * Sets the value of the value property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     * 
      */
     public void setValue(String value) {
         this.value = value;

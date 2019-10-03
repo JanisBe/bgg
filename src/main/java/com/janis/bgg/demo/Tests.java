@@ -1,10 +1,5 @@
 package com.janis.bgg.demo;
 
-import com.janis.bgg.demo.xml.items.Items;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,7 +7,14 @@ import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
+import com.janis.bgg.demo.xml.items.Items;
+
 public class Tests {
+
 
     public static void main(String[] args) throws IOException {
         HttpURLConnection con = null;
@@ -53,9 +55,9 @@ public class Tests {
             jaxbContext = JAXBContext.newInstance(Items.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             StringReader reader = new StringReader(data);
-            Items employee = (Items) jaxbUnmarshaller.unmarshal(reader);
+            Items item = (Items) jaxbUnmarshaller.unmarshal(reader);
 
-            System.out.println(employee);
+            System.out.println(item);
         } catch (JAXBException e) {
             e.printStackTrace();
         }
