@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Museum {
     String name;
     Boolean childrenAllowed;
-    Results results;
+    Integer results;
     Exhibition special;
     Exhibition permanent;
     private String city;
@@ -66,12 +66,12 @@ public class Museum {
         this.city = city;
     }
 
-    @XmlElement(name = "results")
-    public Results getResults() {
+    @XmlAttribute(name = "numplayers")
+    public Integer getResults() {
         return results;
     }
 
-    public void setResults(Results results) {
+    public void setResults(Integer results) {
         this.results = results;
     }
 

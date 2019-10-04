@@ -1,17 +1,16 @@
 package com.janis.bgg.demo;
 
+import com.janis.bgg.demo.xml.Items3.Items;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
-import com.janis.bgg.demo.xml.items.Items;
 
 public class Tests {
 
@@ -28,7 +27,7 @@ public class Tests {
             // e.printStackTrace();
             // }
             // try {
-            con = (HttpURLConnection) new URL("https://api.geekdo.com/xmlapi2/thing?id=12").openConnection();
+            con = (HttpURLConnection) new URL("https://api.geekdo.com/xmlapi2/thing?id=92539&stats=1").openConnection();
             // con.setRequestMethod("GET");
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));

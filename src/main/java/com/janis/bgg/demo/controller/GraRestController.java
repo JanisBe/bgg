@@ -1,24 +1,5 @@
 package com.janis.bgg.demo.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.janis.bgg.demo.dao.GryDescDao;
@@ -29,7 +10,24 @@ import com.janis.bgg.demo.mapper.GraDescriptionMapper;
 import com.janis.bgg.demo.mapper.ItemMapper;
 import com.janis.bgg.demo.service.GryService;
 import com.janis.bgg.demo.service.ImportService;
-import com.janis.bgg.demo.xml.items.Items;
+import com.janis.bgg.demo.xml.Items3.Items;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class GraRestController {
@@ -120,7 +118,7 @@ public class GraRestController {
             // e.printStackTrace();
             // }
             // try {
-            con = (HttpURLConnection) new URL("https://api.geekdo.com/xmlapi2/thing?id=12").openConnection();
+            con = (HttpURLConnection) new URL("https://api.geekdo.com/xmlapi2/thing?id=92539&stats=1").openConnection();
             // con.setRequestMethod("GET");
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
