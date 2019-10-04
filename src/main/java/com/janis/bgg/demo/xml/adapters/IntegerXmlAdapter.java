@@ -1,9 +1,9 @@
-package com.janis.bgg.demo.XMLObjects.Adapters;
-
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+package com.janis.bgg.demo.xml.adapters;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 public class IntegerXmlAdapter extends XmlAdapter<String, Integer> {
     private static final Logger LOG = LoggerFactory.getLogger(IntegerXmlAdapter.class);

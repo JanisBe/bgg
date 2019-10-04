@@ -2,7 +2,6 @@
 package com.janis.bgg.demo.xml.items;
 
 import javax.xml.bind.annotation.*;
-import java.math.BigInteger;
 
 
 /**
@@ -25,20 +24,20 @@ import java.math.BigInteger;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "minplaytime")
-public class Minplaytime {
+public class Playtime {
 
     @XmlAttribute(name = "value", required = true)
-    protected BigInteger value;
+    protected Integer value;
 
     /**
      * Gets the value of the value property.
      * 
      * @return
      *     possible object is
-     *     {@link BigInteger }
+     *     {@link Integer }
      *     
      */
-    public BigInteger getValue() {
+    public Integer getValue() {
         return value;
     }
 
@@ -47,10 +46,10 @@ public class Minplaytime {
      * 
      * @param value
      *     allowed object is
-     *     {@link BigInteger }
+     *     {@link Integer }
      *     
      */
-    public void setValue(BigInteger value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
 

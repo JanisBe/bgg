@@ -2,14 +2,13 @@
 package com.janis.bgg.demo.xml.items;
 
 import javax.xml.bind.annotation.*;
-import java.math.BigInteger;
 
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -19,8 +18,6 @@ import java.math.BigInteger;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
@@ -28,29 +25,25 @@ import java.math.BigInteger;
 public class Playingtime {
 
     @XmlAttribute(name = "value", required = true)
-    protected BigInteger value;
+    protected Integer value;
 
     /**
      * Gets the value of the value property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @return possible object is
+     * {@link Integer }
      */
-    public BigInteger getValue() {
+    public Integer getValue() {
         return value;
     }
 
     /**
      * Sets the value of the value property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
-    public void setValue(BigInteger value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
 

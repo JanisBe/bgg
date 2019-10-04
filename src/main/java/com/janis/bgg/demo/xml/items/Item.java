@@ -1,20 +1,12 @@
 
 package com.janis.bgg.demo.xml.items;
 
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * <p>
@@ -85,9 +77,9 @@ public class Item {
     @XmlElement(required = true)
     protected Players maxplayers;
     @XmlElements({
-            @XmlElement(name = "maxplaytime", type = Maxplaytime.class),
+            @XmlElement(name = "maxplaytime", type = Playtime.class),
             @XmlElement(name = "minage", type = Minage.class),
-            @XmlElement(name = "minplaytime", type = Minplaytime.class),
+            @XmlElement(name = "minplaytime", type = Playtime.class),
             @XmlElement(name = "playingtime", type = Playingtime.class),
             @XmlElement(name = "poll", type = Poll.class)
     })
@@ -296,7 +288,7 @@ public class Item {
      * Objects of the following type(s) are allowed in the list
      * {@link Maxplaytime }
      * {@link Minage }
-     * {@link Minplaytime }
+     * {@link Playtime }
      * {@link Playingtime }
      * {@link Poll }
      * 

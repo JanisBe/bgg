@@ -1,121 +1,154 @@
 <items termsofuse="https://boardgamegeek.com/xmlapi/termsofuse">
-    <item type="boardgame" id="12">
+    <item type="boardgameexpansion" id="92539">
         <thumbnail>
-            https://cf.geekdo-images.com/thumb/img/6d0zX3j56NknAus56Wf_WqN7S9s=/fit-in/200x150/pic3013552.jpg
+            https://cf.geekdo-images.com/thumb/img/g6r52bov56jE3RhunWC4micydEw=/fit-in/200x150/pic1046319.jpg
         </thumbnail>
         <image>
-            https://cf.geekdo-images.com/original/img/iA_LlRmPfFILGon-zvbWeEzxvX8=/0x0/pic3013552.jpg
+            https://cf.geekdo-images.com/original/img/pjr6mqCoXU_DdMnlS2lMDwpyMh4=/0x0/pic1046319.jpg
         </image>
-        <name type="primary" sortindex="1" value="Ra"/>
-        <name type="alternate" sortindex="1" value="Reiner Knizia's Ra"/>
-        <name type="alternate" sortindex="1" value="ラー"/>
-        <name type="alternate" sortindex="1" value="太陽神"/>
-        <name type="alternate" sortindex="1" value="태양신 라"/>
+        <name type="primary" sortindex="1" value="7 Wonders: Leaders"/>
+        <name type="alternate" sortindex="1" value="7 Csoda:Vezetők"/>
+        <name type="alternate" sortindex="1" value="7 Cudów Świata: Liderzy"/>
+        <name type="alternate" sortindex="1" value="7 Wonders: Líderes"/>
         <description>
-            Ra is an auction and set-collection game with an Ancient Egyptian theme. Each turn players are able to
-            purchase lots of tiles with their bidding tiles (suns). Once a player has used up his or her suns, the other
-            players continue until they do likewise, which may set up a situation with a single uncontested player
-            bidding on tiles before the end of the round occurs. Tension builds because the round may end before all
-            players have had a chance to win their three lots for the epoch. The various tiles either give immediate
-            points, prevent negative points for not having certain types at the end of the round (epoch), or give points
-            after the final round. The game lasts for three &quot;epochs&quot; (rounds). The game offers a short
-            learning curve, and experienced players find it both fast-moving and a quick play.&#10;&#10;From the Box:&#10;The
-            game spans 1500 years of Egyptian history in less than an hour!&#10;The players seek to expand their power
-            and fame and there are many ways to accomplish this: Influencing Pharaohs, Building monuments, Farming on
-            the Nile, Paying homage to the Gods, Advancing the technology and culture of the people. Ra is an auction
-            and set collecting game where players may choose to take risks for great rewards or... And all this is for
-            the glory of the Sun God Ra!&#10;&#10;
+            7 Wonders: Leaders adds 42 new cards to the base game of 7 Wonders, comprising four new guilds, one new
+            wonder card, and 36 (+1 blank) white &quot;Leader&quot; cards. At the start of the game, each player takes a
+            hand of four leaders and may play one at the start of each of the three Ages. Unlike the standard cards,
+            leaders cost money (not resources). The expansion comes with a new Wonder&mdash;the ancient city of Rome&mdash;and
+            contains 6-gold tokens made of cardboard for more efficient money-management.&#10;&#10;
         </description>
-        <yearpublished value="1999"/>
+        <yearpublished value="2011"/>
         <minplayers value="2"/>
-        <maxplayers value="5"/>
-        <poll name="suggested_numplayers" title="User Suggested Number of Players" totalvotes="388">
+        <maxplayers value="7"/>
+        <poll name="suggested_numplayers" title="User Suggested Number of Players" totalvotes="88">
             <results numplayers="1">
                 <result value="Best" numvotes="0"/>
                 <result value="Recommended" numvotes="0"/>
-                <result value="Not Recommended" numvotes="201"/>
+                <result value="Not Recommended" numvotes="63"/>
             </results>
             <results numplayers="2">
-                <result value="Best" numvotes="12"/>
-                <result value="Recommended" numvotes="125"/>
-                <result value="Not Recommended" numvotes="132"/>
+                <result value="Best" numvotes="8"/>
+                <result value="Recommended" numvotes="18"/>
+                <result value="Not Recommended" numvotes="46"/>
             </results>
             <results numplayers="3">
-                <result value="Best" numvotes="214"/>
-                <result value="Recommended" numvotes="138"/>
+                <result value="Best" numvotes="20"/>
+                <result value="Recommended" numvotes="47"/>
                 <result value="Not Recommended" numvotes="8"/>
             </results>
             <results numplayers="4">
-                <result value="Best" numvotes="209"/>
-                <result value="Recommended" numvotes="138"/>
-                <result value="Not Recommended" numvotes="3"/>
+                <result value="Best" numvotes="48"/>
+                <result value="Recommended" numvotes="30"/>
+                <result value="Not Recommended" numvotes="2"/>
             </results>
             <results numplayers="5">
-                <result value="Best" numvotes="74"/>
-                <result value="Recommended" numvotes="203"/>
-                <result value="Not Recommended" numvotes="43"/>
+                <result value="Best" numvotes="36"/>
+                <result value="Recommended" numvotes="38"/>
+                <result value="Not Recommended" numvotes="1"/>
             </results>
-            <results numplayers="5+">
-                <result value="Best" numvotes="1"/>
-                <result value="Recommended" numvotes="1"/>
-                <result value="Not Recommended" numvotes="156"/>
+            <results numplayers="6">
+                <result value="Best" numvotes="17"/>
+                <result value="Recommended" numvotes="47"/>
+                <result value="Not Recommended" numvotes="8"/>
+            </results>
+            <results numplayers="7">
+                <result value="Best" numvotes="23"/>
+                <result value="Recommended" numvotes="38"/>
+                <result value="Not Recommended" numvotes="12"/>
+            </results>
+            <results numplayers="7+">
+                <result value="Best" numvotes="3"/>
+                <result value="Recommended" numvotes="5"/>
+                <result value="Not Recommended" numvotes="48"/>
             </results>
         </poll>
-        <playingtime value="60"/>
-        <minplaytime value="45"/>
-        <maxplaytime value="60"/>
-        <minage value="12"/>
-        <poll name="suggested_playerage" title="User Suggested Player Age" totalvotes="69">
+        <playingtime value="40"/>
+        <minplaytime value="40"/>
+        <maxplaytime value="40"/>
+        <minage value="13"/>
+        <poll name="suggested_playerage" title="User Suggested Player Age" totalvotes="30">
             <results>
                 <result value="2" numvotes="0"/>
                 <result value="3" numvotes="0"/>
                 <result value="4" numvotes="0"/>
-                <result value="5" numvotes="1"/>
-                <result value="6" numvotes="3"/>
-                <result value="8" numvotes="21"/>
-                <result value="10" numvotes="28"/>
+                <result value="5" numvotes="0"/>
+                <result value="6" numvotes="0"/>
+                <result value="8" numvotes="6"/>
+                <result value="10" numvotes="10"/>
                 <result value="12" numvotes="13"/>
-                <result value="14" numvotes="3"/>
+                <result value="14" numvotes="1"/>
                 <result value="16" numvotes="0"/>
                 <result value="18" numvotes="0"/>
                 <result value="21 and up" numvotes="0"/>
             </results>
         </poll>
-        <poll name="language_dependence" title="Language Dependence" totalvotes="83">
+        <poll name="language_dependence" title="Language Dependence" totalvotes="39">
             <results>
-                <result level="1" value="No necessary in-game text" numvotes="76"/>
-                <result level="2" value="Some necessary text - easily memorized or small crib sheet" numvotes="7"/>
-                <result level="3" value="Moderate in-game text - needs crib sheet or paste ups" numvotes="0"/>
-                <result level="4" value="Extensive use of text - massive conversion needed to be playable"
-                        numvotes="0"/>
-                <result level="5" value="Unplayable in another language" numvotes="0"/>
+                <result level="21" value="No necessary in-game text" numvotes="35"/>
+                <result level="22" value="Some necessary text - easily memorized or small crib sheet" numvotes="3"/>
+                <result level="23" value="Moderate in-game text - needs crib sheet or paste ups" numvotes="0"/>
+                <result level="24" value="Extensive use of text - massive conversion needed to be playable"
+                        numvotes="1"/>
+                <result level="25" value="Unplayable in another language" numvotes="0"/>
             </results>
         </poll>
         <link type="boardgamecategory" id="1050" value="Ancient"/>
-        <link type="boardgamecategory" id="1082" value="Mythology"/>
-        <link type="boardgamemechanic" id="2012" value="Auction/Bidding"/>
-        <link type="boardgamemechanic" id="2661" value="Press Your Luck"/>
+        <link type="boardgamecategory" id="1002" value="Card Game"/>
+        <link type="boardgamecategory" id="1029" value="City Building"/>
+        <link type="boardgamecategory" id="1015" value="Civilization"/>
+        <link type="boardgamecategory" id="1042" value="Expansion for Base-game"/>
+        <link type="boardgamemechanic" id="2041" value="Card Drafting"/>
+        <link type="boardgamemechanic" id="2040" value="Hand Management"/>
         <link type="boardgamemechanic" id="2004" value="Set Collection"/>
-        <link type="boardgamefamily" id="58" value="Alea Big Box"/>
-        <link type="boardgamefamily" id="6471" value="Country: Egypt"/>
-        <link type="boardgamefamily" id="3867" value="Ra"/>
-        <link type="boardgameimplementation" id="59753" value="Priests of Ra"/>
-        <link type="boardgameimplementation" id="35503" value="Ra: The Dice Game"/>
-        <link type="boardgameimplementation" id="12589" value="Razzia!"/>
-        <link type="boardgameimplementation" id="206860" value="Sun Bid"/>
-        <link type="boardgamedesigner" id="2" value="Reiner Knizia"/>
-        <link type="boardgameartist" id="20789" value="Allison Kline"/>
-        <link type="boardgameartist" id="11883" value="Franz Vohwinkel"/>
-        <link type="boardgamepublisher" id="9" value="alea"/>
-        <link type="boardgamepublisher" id="34" value="Ravensburger Spieleverlag GmbH"/>
-        <link type="boardgamepublisher" id="267" value="999 Games"/>
-        <link type="boardgamepublisher" id="29" value="ABACUSSPIELE"/>
-        <link type="boardgamepublisher" id="2973" value="Edge Entertainment"/>
-        <link type="boardgamepublisher" id="8291" value="Korea Boardgames co., Ltd."/>
-        <link type="boardgamepublisher" id="9881" value="New Games Order, LLC"/>
-        <link type="boardgamepublisher" id="3" value="Rio Grande Games"/>
-        <link type="boardgamepublisher" id="9234" value="Swan Panasia Co., Ltd."/>
-        <link type="boardgamepublisher" id="1901" value="Überplay"/>
-        <link type="boardgamepublisher" id="31987" value="Windrider Games"/>
+        <link type="boardgamemechanic" id="2020" value="Simultaneous Action Selection"/>
+        <link type="boardgamemechanic" id="2015" value="Variable Player Powers"/>
+        <link type="boardgamefamily" id="17552" value="7 Wonders"/>
+        <link type="boardgameexpansion" id="110308" value="7 Wonders: Catan"/>
+        <link type="boardgameexpansion" id="111661" value="7 Wonders: Cities"/>
+        <link type="boardgameexpansion" id="231167" value="7 Wonders: Leaders Anniversary Pack"/>
+        <link type="boardgameexpansion" id="130236" value="7 Wonders: Leaders – Esteban"/>
+        <link type="boardgameexpansion" id="127838" value="7 Wonders: Leaders – Louis"/>
+        <link type="boardgameexpansion" id="166329" value="7 Wonders: Leaders – Nimrod"/>
+        <link type="boardgameexpansion" id="99315" value="7 Wonders: Leaders – Stevie"/>
+        <link type="boardgameexpansion" id="156119" value="7 Wonders: Leaders – Wil"/>
+        <link type="boardgameexpansion" id="133993" value="7 Wonders: Wonder Pack"/>
+        <link type="boardgameexpansion" id="164649" value="Collection (fan expansion for 7 Wonders)"/>
+        <link type="boardgameexpansion" id="140098" value="Empires (fan expansion for 7 Wonders)"/>
+        <link type="boardgameexpansion" id="164648" value="Ruins (fan expansion for 7 Wonders)"/>
+        <link type="boardgameexpansion" id="164647" value="Sailors (fan expansion for 7 Wonders)"/>
+        <link type="boardgameexpansion" id="68448" value="7 Wonders" inbound="true"/>
+        <link type="boardgamedesigner" id="9714" value="Antoine Bauza"/>
+        <link type="boardgameartist" id="12016" value="Miguel Coimbra"/>
+        <link type="boardgamepublisher" id="4384" value="Repos Production"/>
+        <link type="boardgamepublisher" id="157" value="Asmodee"/>
+        <link type="boardgamepublisher" id="15889" value="Asterion Press"/>
+        <link type="boardgamepublisher" id="15605" value="Galápagos Jogos"/>
+        <link type="boardgamepublisher" id="8820" value="Gém Klub Kft."/>
+        <link type="boardgamepublisher" id="3218" value="Lautapelit.fi"/>
+        <link type="boardgamepublisher" id="7466" value="Rebel"/>
+        <statistics page="1">
+            <ratings>
+                <usersrated value="12271"/>
+                <average value="7.8308"/>
+                <bayesaverage value="7.57166"/>
+                <ranks>
+                    <rank type="subtype" id="1" name="boardgame" friendlyname="Board Game Rank" value="Not Ranked"
+                          bayesaverage="7.57166"/>
+                    <rank type="family" id="5497" name="strategygames" friendlyname="Strategy Game Rank"
+                          value="Not Ranked" bayesaverage="7.61219"/>
+                    <rank type="family" id="5499" name="familygames" friendlyname="Family Game Rank" value="Not Ranked"
+                          bayesaverage="7.62545"/>
+                </ranks>
+                <stddev value="1.19267"/>
+                <median value="0"/>
+                <owned value="28351"/>
+                <trading value="208"/>
+                <wanting value="385"/>
+                <wishing value="1598"/>
+                <numcomments value="2554"/>
+                <numweights value="503"/>
+                <averageweight value="2.2823"/>
+            </ratings>
+        </statistics>
     </item>
 </items>

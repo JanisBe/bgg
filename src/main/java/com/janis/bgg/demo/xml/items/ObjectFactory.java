@@ -8,18 +8,17 @@ import javax.xml.namespace.QName;
 
 
 /**
- * This object contains factory methods for each 
- * Java content interface and Java element interface 
- * generated in the com.janis.bgg.demo.xml package. 
- * <p>An ObjectFactory allows you to programatically 
- * construct new instances of the Java representation 
- * for XML content. The Java representation of XML 
- * content can consist of schema derived interfaces 
- * and classes representing the binding of schema 
- * type definitions, element declarations and model 
- * groups.  Factory methods for each of these are 
+ * This object contains factory methods for each
+ * Java content interface and Java element interface
+ * generated in the com.janis.bgg.demo.xml package.
+ * <p>An ObjectFactory allows you to programatically
+ * construct new instances of the Java representation
+ * for XML content. The Java representation of XML
+ * content can consist of schema derived interfaces
+ * and classes representing the binding of schema
+ * type definitions, element declarations and model
+ * groups.  Factory methods for each of these are
  * provided in this class.
- * 
  */
 @XmlRegistry
 public class ObjectFactory {
@@ -30,14 +29,12 @@ public class ObjectFactory {
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.janis.bgg.demo.xml
-     * 
      */
     public ObjectFactory() {
     }
 
     /**
      * Create an instance of {@link Item }
-     * 
      */
     public Item createItem() {
         return new Item();
@@ -45,7 +42,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Name }
-     * 
      */
     public Name createName() {
         return new Name();
@@ -53,7 +49,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Yearpublished }
-     * 
      */
     public Yearpublished createYearpublished() {
         return new Yearpublished();
@@ -61,15 +56,13 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Minplayers }
-     * 
      */
-    public Minplayers createMinplayers() {
-        return new Minplayers();
+    public Players createMinplayers() {
+        return new Players();
     }
 
     /**
      * Create an instance of {@link Players }
-     * 
      */
     public Players createMaxplayers() {
         return new Players();
@@ -77,31 +70,27 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Maxplaytime }
-     * 
      */
-    public Maxplaytime createMaxplaytime() {
-        return new Maxplaytime();
+    public Playtime createMaxplaytime() {
+        return new Playtime();
     }
 
     /**
      * Create an instance of {@link Minage }
-     * 
      */
     public Minage createMinage() {
         return new Minage();
     }
 
     /**
-     * Create an instance of {@link Minplaytime }
-     * 
+     * Create an instance of {@link Playtime }
      */
-    public Minplaytime createMinplaytime() {
-        return new Minplaytime();
+    public Playtime createMinplaytime() {
+        return new Playtime();
     }
 
     /**
      * Create an instance of {@link Playingtime }
-     * 
      */
     public Playingtime createPlayingtime() {
         return new Playingtime();
@@ -109,7 +98,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Poll }
-     * 
      */
     public Poll createPoll() {
         return new Poll();
@@ -117,7 +105,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Results }
-     * 
      */
     public Results createResults() {
         return new Results();
@@ -125,7 +112,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Result }
-     * 
      */
     public Result createResult() {
         return new Result();
@@ -133,7 +119,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Link }
-     * 
      */
     public Link createLink() {
         return new Link();
@@ -141,7 +126,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Items }
-     * 
      */
     public Items createItems() {
         return new Items();
@@ -149,7 +133,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "", name = "image")
     public JAXBElement<String> createImage(String value) {
@@ -158,7 +141,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "", name = "thumbnail")
     public JAXBElement<String> createThumbnail(String value) {
@@ -167,7 +149,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "", name = "description")
     public JAXBElement<String> createDescription(String value) {
