@@ -1,26 +1,24 @@
-
 package com.janis.bgg.demo.xml.collection;
 
-import java.math.BigInteger;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
+import java.math.BigInteger;
 
 
 /**
- * This object contains factory methods for each 
- * Java content interface and Java element interface 
- * generated in the com.janis.bgg.demo.xml.collection package. 
- * <p>An ObjectFactory allows you to programatically 
- * construct new instances of the Java representation 
- * for XML content. The Java representation of XML 
- * content can consist of schema derived interfaces 
- * and classes representing the binding of schema 
- * type definitions, element declarations and model 
- * groups.  Factory methods for each of these are 
+ * This object contains factory methods for each
+ * Java content interface and Java element interface
+ * generated in the com.janis.bgg.demo.xml.collection package.
+ * <p>An ObjectFactory allows you to programatically
+ * construct new instances of the Java representation
+ * for XML content. The Java representation of XML
+ * content can consist of schema derived interfaces
+ * and classes representing the binding of schema
+ * type definitions, element declarations and model
+ * groups.  Factory methods for each of these are
  * provided in this class.
- * 
  */
 @XmlRegistry
 public class ObjectFactory {
@@ -34,14 +32,12 @@ public class ObjectFactory {
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.janis.bgg.demo.xml.collection
-     * 
      */
     public ObjectFactory() {
     }
 
     /**
      * Create an instance of {@link Item }
-     * 
      */
     public Item createItem() {
         return new Item();
@@ -49,7 +45,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Name }
-     * 
      */
     public Name createName() {
         return new Name();
@@ -57,23 +52,20 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Status }
-     * 
      */
     public Status createStatus() {
         return new Status();
     }
 
     /**
-     * Create an instance of {@link Items }
-     * 
+     * Create an instance of {@link MyCollection }
      */
-    public Items createItems() {
-        return new Items();
+    public MyCollection createItems() {
+        return new MyCollection();
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "", name = "image")
     public JAXBElement<String> createImage(String value) {
@@ -82,7 +74,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "", name = "thumbnail")
     public JAXBElement<String> createThumbnail(String value) {
@@ -91,7 +82,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "", name = "originalname")
     public JAXBElement<String> createOriginalname(String value) {
@@ -100,7 +90,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "", name = "yearpublished")
     public JAXBElement<BigInteger> createYearpublished(BigInteger value) {
@@ -109,7 +98,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "", name = "comment")
     public JAXBElement<String> createComment(String value) {
@@ -118,7 +106,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "", name = "numplays")
     public JAXBElement<BigInteger> createNumplays(BigInteger value) {

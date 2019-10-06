@@ -13,13 +13,7 @@ import java.io.Serializable;
 public class Recomendation implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public Recomendation(int best, int notRecommended, int numPlayers, int recommended, GraDescription graDescription) {
-        this.best = best;
-        this.notRecommended = notRecommended;
-        this.numPlayers = numPlayers;
-        this.recommended = recommended;
-        this.graDescription = graDescription;
-    }
+    private String numPlayers;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +21,14 @@ public class Recomendation implements Serializable {
     private int id;
     private int best;
     private int notRecommended;
-    private int numPlayers;
+
+    public Recomendation(int best, int notRecommended, String numPlayers, int recommended, GraDescription graDescription) {
+        this.best = best;
+        this.notRecommended = notRecommended;
+        this.numPlayers = numPlayers;
+        this.recommended = recommended;
+        this.graDescription = graDescription;
+    }
     private int recommended;
     //bi-directional many-to-one association to GraDescription
     @ManyToOne
@@ -37,7 +38,7 @@ public class Recomendation implements Serializable {
     public Recomendation() {
     }
 
-    public Recomendation(int best, int notRecommended, int numPlayers, int recommended) {
+    public Recomendation(int best, int notRecommended, String numPlayers, int recommended) {
         this.best = best;
         this.notRecommended = notRecommended;
         this.numPlayers = numPlayers;
@@ -68,11 +69,11 @@ public class Recomendation implements Serializable {
         this.notRecommended = notRecommended;
     }
 
-    public int getNumPlayers() {
+    public String getNumPlayers() {
         return this.numPlayers;
     }
 
-    public void setNumPlayers(int numPlayers) {
+    public void setNumPlayers(String numPlayers) {
         this.numPlayers = numPlayers;
     }
 
@@ -92,4 +93,13 @@ public class Recomendation implements Serializable {
         this.graDescription = graDescription;
     }
 
+    @Override
+    public String toString() {
+        return "Recomendation{" +
+                "best=" + best +
+                ", notRecommended=" + notRecommended +
+                ", numPlayers='" + numPlayers + '\'' +
+                ", recommended=" + recommended +
+                '}';
+    }
 }

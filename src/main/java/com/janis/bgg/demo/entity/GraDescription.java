@@ -203,4 +203,25 @@ public class GraDescription implements Serializable {
     public void setAverageRating(Double averageRating) {
         this.averageRating = averageRating;
     }
+
+    @Override
+    public String toString() {
+        return "GraDescription{" +
+                "bggRating=" + bggRating +
+                ", description='" + description + '\'' +
+                ", averageRating=" + averageRating +
+                ", image='" + image + '\'' +
+                ", maxPlayers=" + maxPlayers +
+                ", minPlayers=" + minPlayers +
+                ", name='" + name + '\'' +
+                ", playingTime=" + playingTime +
+                ", rank=" + rank +
+                ", recomendation=" + recomendation +
+                ", thumbnail='" + thumbnail + '\'' +
+                ", yearPublished=" + yearPublished +
+                ", designers=" + designers +
+                ", mechanics=" + mechanics +
+                ", recomendations=" + recomendations +
+                '}';
+    }
 }

@@ -1,13 +1,5 @@
 package com.janis.bgg.demo.mapper;
 
-import java.util.Set;
-
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.google.common.collect.Sets;
 import com.janis.bgg.demo.dao.DesignerDao;
 import com.janis.bgg.demo.dao.GryDescDao;
@@ -16,9 +8,15 @@ import com.janis.bgg.demo.entity.Designer;
 import com.janis.bgg.demo.entity.GraDescription;
 import com.janis.bgg.demo.entity.Mechanic;
 import com.janis.bgg.demo.jsonObjects.JsonGraDescription;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
-
 public abstract class GraDescriptionMapper {
     @Autowired
     private DesignerDao designerDao;

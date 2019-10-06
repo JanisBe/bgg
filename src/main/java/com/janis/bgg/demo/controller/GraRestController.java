@@ -6,16 +6,19 @@ import com.janis.bgg.demo.dao.GryDescDao;
 import com.janis.bgg.demo.entity.Gra;
 import com.janis.bgg.demo.entity.GraDescription;
 import com.janis.bgg.demo.jsonObjects.JsonGraDescription;
+import com.janis.bgg.demo.mapper.CollectionToGameMapper;
 import com.janis.bgg.demo.mapper.GraDescriptionMapper;
 import com.janis.bgg.demo.mapper.ItemMapper;
 import com.janis.bgg.demo.service.GryService;
 import com.janis.bgg.demo.service.ImportService;
+import com.janis.bgg.demo.utils.ImporterUtils;
 import com.janis.bgg.demo.xml.Items3.Items;
+import com.janis.bgg.demo.xml.collection.MyCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -41,6 +44,8 @@ public class GraRestController {
     private GraDescriptionMapper descriptionMapper;
     @Autowired
     private ItemMapper itemMapper;
+    @Autowired
+    private CollectionToGameMapper collectionMapper;
 
     @RequestMapping("/gry")
     public List<Gra> findByNoOfPlayers(@RequestParam(value = "noOfPlayers") Integer noOfPlayers) {
@@ -100,45 +105,16 @@ public class GraRestController {
     }
 
     @RequestMapping("/import")
-    public String importMyGames(Model model) {
-        model.addAttribute("myGames", importService.importGamesFromBgg());
-        return "myGamesList";
+    public ModelAndView importMyGames() {
+        ModelAndView model = new ModelAndView();
+        model.addObject("gry", importService.importGamesFromBgg());
+        model.setViewName("gry");
+        return model;
     }
 
     @RequestMapping("1")
     public String testy() throws IOException {
-        HttpURLConnection con = null;
-        StringBuilder content = new StringBuilder();
-        while (true) {
-            // try {
-            if (!(con == null || con.getResponseCode() == 200))
-                break;
-            // } catch (IOException e) {
-            // System.out.println("nie działa coś na razie");
-            // e.printStackTrace();
-            // }
-            // try {
-            con = (HttpURLConnection) new URL("https://api.geekdo.com/xmlapi2/thing?id=92539&stats=1").openConnection();
-            // con.setRequestMethod("GET");
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
-            String readLine;
-
-            while ((readLine = in.readLine()) != null) {
-                content.append(readLine);
-            }
-            in.close();
-            con.disconnect();
-            break;
-            // } catch (IOException e) {
-            // System.out.println("nie działa dla id");
-            // e.printStackTrace();
-            // // continue;
-            // } finally {
-
-            // }
-        }
-        String data = content.toString();
+        String data = ImporterUtils.connect("https://api.geekdo.com/xmlapi2/thing?id=92539&stats=1");
         System.out.println(data);
         JAXBContext jaxbContext;
         try {
@@ -150,6 +126,30 @@ public class GraRestController {
             System.out.println(item);
             GraDescription gra = itemMapper.itemToGraMapper(item.getItem());
             System.out.println(gra);
+            GraDescription graDescription = gryDescDao.save(gra);
+            System.out.println(graDescription);
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @RequestMapping("2")
+    public String collection() throws IOException {
+        String data = ImporterUtils.connect("https://api.geekdo.com/xmlapi2/collection?username=janislav");
+        System.out.println(data);
+        JAXBContext jaxbContext;
+        try {
+            jaxbContext = JAXBContext.newInstance(MyCollection.class);
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            StringReader reader = new StringReader(data);
+            MyCollection item = (MyCollection) jaxbUnmarshaller.unmarshal(reader);
+
+            System.out.println(item);
+            Gra gra = collectionMapper.mapCollectionToGra(item.getItem().get(6));
+            System.out.println(gra);
+
         } catch (JAXBException e) {
             e.printStackTrace();
         }

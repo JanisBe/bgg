@@ -53,4 +53,11 @@ public class Designer implements Serializable {
     public void setGraDescriptions(List<GraDescription> graDescriptions) {
         this.graDescriptions = graDescriptions;
     }
+
+    @Override
+    public String toString() {
+        return "Designer{" +
+                "designerName='" + designerName + '\'' +
+                '}';
+    }
 }

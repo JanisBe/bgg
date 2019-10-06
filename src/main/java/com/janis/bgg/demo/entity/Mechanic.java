@@ -54,4 +54,10 @@ public class Mechanic implements Serializable {
         this.graDescriptions = graDescriptions;
     }
 
+    @Override
+    public String toString() {
+        return "Mechanic{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
