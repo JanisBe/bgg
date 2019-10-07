@@ -17,9 +17,10 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public abstract class ItemMapper {
+
+    @Mapping(target = "recomendations", ignore = true)
+    @Mapping(target = "price", ignore = true)
     @Mapping(target = "yearPublished", source = "yearpublished.value")
-    @Mapping(target = "recomendations", source = "")
-    @Mapping(target = "recomendation", source = "")
     @Mapping(target = "rank", ignore = true)
     @Mapping(target = "playingTime", ignore = true)
     @Mapping(target = "minPlayers", source = "minplayers.value")

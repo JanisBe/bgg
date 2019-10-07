@@ -1,6 +1,10 @@
 package com.janis.bgg.demo.dto;
 
+import com.janis.bgg.demo.entity.Designer;
+import com.janis.bgg.demo.entity.Mechanic;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 public class GraDto {
@@ -13,8 +17,12 @@ public class GraDto {
     private long maxPlayers;
     private long playingTime;
     private double averageRating;
+    private double bggRating;
+    private Integer price;
+    private Integer year;
     private long rank;
-
+    private Set<Designer> designers;
+    private Set<Mechanic> mechanics;
     public long getGameId() {
         return gameId;
     }
@@ -85,5 +93,45 @@ public class GraDto {
 
     public void setRank(long rank) {
         this.rank = rank;
+    }
+
+    public double getBggRating() {
+        return bggRating;
+    }
+
+    public void setBggRating(double bggRating) {
+        this.bggRating = bggRating;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public Set<Designer> getDesigners() {
+        return designers;
+    }
+
+    public void setDesigners(Set<Designer> designers) {
+        this.designers = designers;
+    }
+
+    public Set<Mechanic> getMechanics() {
+        return mechanics;
+    }
+
+    public void setMechanics(Set<Mechanic> mechanics) {
+        this.mechanics = mechanics;
     }
 }

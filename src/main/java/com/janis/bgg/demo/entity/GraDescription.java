@@ -9,7 +9,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "gra_description")
-@NamedQuery(name = "GraDescription.findAll", query = "SELECT g FROM GraDescription g")
 public class GraDescription implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -32,14 +31,13 @@ public class GraDescription implements Serializable {
     @Column(name = "playing_time")
     private int playingTime;
     private int rank;
-    @OneToMany(mappedBy = "graDescription")
-    private Set<Recomendation> recomendation;
-    private String thumbnail;
+    @Column(name = "price")
+    public Integer price;
     @Column(name = "year_published")
     private int yearPublished;
     // bi-directional many-to-many association to Designer
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = { CascadeType.ALL })
+            cascade = {CascadeType.ALL})
     @JoinTable(name = "designers_x_gry", joinColumns = {
             @JoinColumn(name = "game_id", referencedColumnName = "game_id")
     }, inverseJoinColumns = {
@@ -48,7 +46,7 @@ public class GraDescription implements Serializable {
     private Set<Designer> designers;
     // bi-directional many-to-many association to Mechanic
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = { CascadeType.ALL })
+            cascade = {CascadeType.ALL})
     @JoinTable(name = "mechanics_x_gry", joinColumns = {
             @JoinColumn(name = "gra_id", referencedColumnName = "game_id")
     }, inverseJoinColumns = {
@@ -58,6 +56,9 @@ public class GraDescription implements Serializable {
     // bi-directional many-to-one association to Recomendation
     @OneToMany(mappedBy = "graDescription", cascade = CascadeType.ALL)
     private Set<Recomendation> recomendations;
+    //    @OneToMany(mappedBy = "graDescription")
+//    private Set<Recomendation> recomendation;
+    private String thumbnail;
 
     public GraDescription() {
     }
@@ -134,13 +135,13 @@ public class GraDescription implements Serializable {
         this.rank = rank;
     }
 
-    public Set<Recomendation> getRecomendation() {
-        return this.recomendation;
-    }
-
-    public void setRecomendation(Set<Recomendation> recomendationId) {
-        this.recomendation = recomendationId;
-    }
+//    public Set<Recomendation> getRecomendation() {
+//        return this.recomendation;
+//    }
+//
+//    public void setRecomendation(Set<Recomendation> recomendationId) {
+//        this.recomendation = recomendationId;
+//    }
 
     public String getThumbnail() {
         return this.thumbnail;
@@ -182,6 +183,14 @@ public class GraDescription implements Serializable {
         this.recomendations = recomendations;
     }
 
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
     public Recomendation addRecomendation(Recomendation recomendation) {
         getRecomendations().add(recomendation);
         recomendation.setGraDescription(this);
@@ -216,7 +225,6 @@ public class GraDescription implements Serializable {
                 ", name='" + name + '\'' +
                 ", playingTime=" + playingTime +
                 ", rank=" + rank +
-                ", recomendation=" + recomendation +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", yearPublished=" + yearPublished +
                 ", designers=" + designers +

@@ -15,9 +15,7 @@ import com.janis.bgg.demo.utils.ImporterUtils;
 import com.janis.bgg.demo.xml.Items3.Items;
 import com.janis.bgg.demo.xml.collection.MyCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.xml.bind.JAXBContext;
@@ -104,10 +102,10 @@ public class GraRestController {
                 .collect(Collectors.joining("<br>"));
     }
 
-    @RequestMapping("/import")
-    public ModelAndView importMyGames() {
+    @RequestMapping(value = "/import/{userName}", method = RequestMethod.GET)
+    public ModelAndView importMyGames(@PathVariable("userName") String userName) {
         ModelAndView model = new ModelAndView();
-        model.addObject("gry", importService.importGamesFromBgg());
+        model.addObject("gry", importService.importGamesFromBgg(userName));
         model.setViewName("gry");
         return model;
     }
