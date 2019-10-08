@@ -59,12 +59,14 @@ public abstract class ItemMapper {
         gra.setRank(item.getStatistics().getRatings().getRanks().getRank().stream().filter(r -> r.getFriendlyname().equals("Board Game Rank")).map(Rank::getBayesaverage).collect(toSingleton()).intValue());
         for (Results results : ((Poll) item.getMaxplaytimeOrMinageOrMinplaytime().get(0)).getResults()) {
             String numPlayers = results.getNumplayers();
-            Integer best = results.getResult().stream().filter(v -> v.getValue().equals("Best")).map(Result::getNumvotes).collect(toSingleton());
-            Integer recommended = results.getResult().stream().filter(v -> v.getValue().equals("Recommended")).map(Result::getNumvotes).collect(toSingleton());
-            Integer notRecommended = results.getResult().stream().filter(v -> v.getValue().equals("Not Recommended")).map(Result::getNumvotes).collect(toSingleton());
-            Recomendation recomendation = new Recomendation(best, notRecommended, numPlayers, recommended);
-            recomendation.setGraDescription(gra);
-            recommendationsSet.add(recomendation);
+            if (results.getResult() != null && !results.getResult().isEmpty()) {
+                Integer best = results.getResult().stream().filter(v -> v.getValue().equals("Best")).map(Result::getNumvotes).collect(toSingleton());
+                Integer recommended = results.getResult().stream().filter(v -> v.getValue().equals("Recommended")).map(Result::getNumvotes).collect(toSingleton());
+                Integer notRecommended = results.getResult().stream().filter(v -> v.getValue().equals("Not Recommended")).map(Result::getNumvotes).collect(toSingleton());
+                Recomendation recomendation = new Recomendation(best, notRecommended, numPlayers, recommended);
+                recomendation.setGraDescription(gra);
+                recommendationsSet.add(recomendation);
+            }
         }
         gra.setRecomendations(recommendationsSet);
     }

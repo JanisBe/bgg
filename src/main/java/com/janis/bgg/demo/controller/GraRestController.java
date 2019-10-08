@@ -111,13 +111,14 @@ public class GraRestController {
     }
 
     @RequestMapping("1")
-    public String testy() throws IOException {
-        String data = ImporterUtils.connect("https://api.geekdo.com/xmlapi2/thing?id=92539&stats=1");
+    public String testy() throws IOException, InterruptedException {
+        String data = ImporterUtils.connect("https://api.geekdo.com/xmlapi2/thing?id=221918&stats=1");
         System.out.println(data);
         JAXBContext jaxbContext;
         try {
             jaxbContext = JAXBContext.newInstance(Items.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            data = data.replace("Not Ranked", "0");
             StringReader reader = new StringReader(data);
             Items item = (Items) jaxbUnmarshaller.unmarshal(reader);
 
@@ -134,7 +135,7 @@ public class GraRestController {
     }
 
     @RequestMapping("2")
-    public String collection() throws IOException {
+    public String collection() throws IOException, InterruptedException {
         String data = ImporterUtils.connect("https://api.geekdo.com/xmlapi2/collection?username=janislav");
         System.out.println(data);
         JAXBContext jaxbContext;

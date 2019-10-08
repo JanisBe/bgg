@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "gry2")
-public class Gra {
+public class Gra implements Comparable<Gra> {
     private int gameId;
     private String name;
     private String image;
@@ -197,5 +197,10 @@ public class Gra {
     @Override
     public int hashCode() {
         return Objects.hash(gameId, name, image, thumbnail, minPlayers, maxPlayers, playingTime, yearPublished, bggRating, averageRating, rank, numPlays, rating, userComment, expansionId);
+    }
+
+    @Override
+    public int compareTo(Gra o) {
+        return name.compareTo(o.getName());
     }
 }

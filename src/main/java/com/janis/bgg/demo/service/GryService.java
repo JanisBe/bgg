@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GryService {
@@ -18,15 +20,16 @@ public class GryService {
         if (noOfPlayers < 0) {
             throw new InvalidParameterException("Liczba graczy nie może być mniejsza niż 0");
         }
-        return dao.findByMinPlayersGreaterThanEqualAndMaxPlayersGreaterThanEqualOrderByAverageRatingDesc(noOfPlayers, noOfPlayers);
+        return dao.findByMinPlayersGreaterThanEqualAndMaxPlayersGreaterThanEqualOrderByAverageRatingDesc(noOfPlayers, noOfPlayers)
+                .stream().sorted(Comparator.comparing(Gra::getName)).collect(Collectors.toList());
     }
 
-    public List<Gra> findAllOrderBy() {
+    public List<Gra> findAllOrderByAvgRating() {
         return dao.findAllByOrderByAverageRatingDesc();
     }
 
     public List<Gra> findAll() {
-        return dao.findAll();
+        return dao.findAll().stream().sorted(Comparator.comparing(Gra::getName)).collect(Collectors.toList());
     }
 
     public List<Gra> findGracze(Integer no) {

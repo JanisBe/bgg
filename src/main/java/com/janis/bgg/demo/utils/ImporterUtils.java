@@ -7,11 +7,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class ImporterUtils {
 
-    public static String connect(String address) throws IOException {
+    public static String connect(String address) throws IOException, InterruptedException {
         HttpURLConnection con = null;
         StringBuilder content = new StringBuilder();
         while (true) {
@@ -25,6 +26,10 @@ public class ImporterUtils {
             // try {
             con = (HttpURLConnection) new URL(address).openConnection();
             // con.setRequestMethod("GET");
+            if (con.getResponseCode() == 429) {
+                TimeUnit.SECONDS.sleep(1);
+                break;
+            }
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
             String readLine;
