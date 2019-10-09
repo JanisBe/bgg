@@ -14,7 +14,6 @@ import com.janis.bgg.demo.service.ImportService;
 import com.janis.bgg.demo.utils.ImporterUtils;
 import com.janis.bgg.demo.xml.Items3.Items;
 import com.janis.bgg.demo.xml.collection.MyCollection;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,18 +34,21 @@ import static com.janis.bgg.demo.constants.AppConstants.XML_COLLECTION;
 
 @RestController
 public class GraRestController {
-    @Autowired
-    private GryService gryService;
-    @Autowired
-    private ImportService importService;
-    @Autowired
-    private GryDescDao gryDescDao;
-    @Autowired
-    private GraDescriptionMapper descriptionMapper;
-    @Autowired
-    private ItemMapper itemMapper;
-    @Autowired
-    private CollectionToGameMapper collectionMapper;
+    private final GryService gryService;
+    private final ImportService importService;
+    private final GryDescDao gryDescDao;
+    private final GraDescriptionMapper descriptionMapper;
+    private final ItemMapper itemMapper;
+    private final CollectionToGameMapper collectionMapper;
+
+    public GraRestController(GryService gryService, ImportService importService, GryDescDao gryDescDao, GraDescriptionMapper descriptionMapper, ItemMapper itemMapper, CollectionToGameMapper collectionMapper) {
+        this.gryService = gryService;
+        this.importService = importService;
+        this.gryDescDao = gryDescDao;
+        this.descriptionMapper = descriptionMapper;
+        this.itemMapper = itemMapper;
+        this.collectionMapper = collectionMapper;
+    }
 
     @RequestMapping("/gry")
     public List<Gra> findByNoOfPlayers(@RequestParam(value = "noOfPlayers") Integer noOfPlayers) {

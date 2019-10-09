@@ -15,7 +15,6 @@ import com.janis.bgg.demo.utils.ImporterUtils;
 import com.janis.bgg.demo.xml.Items3.Items;
 import com.janis.bgg.demo.xml.collection.Item;
 import com.janis.bgg.demo.xml.collection.MyCollection;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
@@ -33,20 +32,23 @@ import static com.janis.bgg.demo.constants.AppConstants.*;
 
 @Service
 public class ImportService {
-    @Autowired
-    private ImporterUtils importer;
-    @Autowired
-    private GryDao gryDao;
-    @Autowired
-    private GryDescDao gryDescDao;
-    @Autowired
-    private SettingsDao settingsDao;
-    @Autowired
-    private GraDescriptionMapper descriptionMapper;
-    @Autowired
-    private ItemMapper itemMapper;
-    @Autowired
-    private GraMapper graMapper;
+    private final ImporterUtils importer;
+    private final GryDao gryDao;
+    private final GryDescDao gryDescDao;
+    private final SettingsDao settingsDao;
+    private final GraDescriptionMapper descriptionMapper;
+    private final ItemMapper itemMapper;
+    private final GraMapper graMapper;
+
+    public ImportService(ImporterUtils importer, GryDao gryDao, GryDescDao gryDescDao, SettingsDao settingsDao, GraDescriptionMapper descriptionMapper, ItemMapper itemMapper, GraMapper graMapper) {
+        this.importer = importer;
+        this.gryDao = gryDao;
+        this.gryDescDao = gryDescDao;
+        this.settingsDao = settingsDao;
+        this.descriptionMapper = descriptionMapper;
+        this.itemMapper = itemMapper;
+        this.graMapper = graMapper;
+    }
 
     public List<Gra> importGamesFromBgg(String userName) {
         if (StringUtils.isEmptyOrWhitespace(userName)) {
