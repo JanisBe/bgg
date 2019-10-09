@@ -22,18 +22,19 @@ public class Recomendation implements Serializable {
     private int best;
     private int notRecommended;
 
-    public Recomendation(int best, int notRecommended, String numPlayers, int recommended, GraDescription graDescription) {
+    //bi-directional many-to-one association to Game
+    @ManyToOne
+    @JoinColumn(name = "game_id", referencedColumnName = "game_id")
+    private Game game;
+    private int recommended;
+
+    public Recomendation(int best, int notRecommended, String numPlayers, int recommended, Game game) {
         this.best = best;
         this.notRecommended = notRecommended;
         this.numPlayers = numPlayers;
         this.recommended = recommended;
-        this.graDescription = graDescription;
+        this.game = game;
     }
-    private int recommended;
-    //bi-directional many-to-one association to GraDescription
-    @ManyToOne
-    @JoinColumn(name = "gra_description_game_id", referencedColumnName = "game_id")
-    private GraDescription graDescription;
 
     public Recomendation() {
     }
@@ -85,12 +86,12 @@ public class Recomendation implements Serializable {
         this.recommended = recommended;
     }
 
-    public GraDescription getGraDescription() {
-        return this.graDescription;
+    public Game getGame() {
+        return this.game;
     }
 
-    public void setGraDescription(GraDescription graDescription) {
-        this.graDescription = graDescription;
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     @Override

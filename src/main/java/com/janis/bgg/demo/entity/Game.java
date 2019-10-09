@@ -5,19 +5,18 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * The persistent class for the gra_description database table.
+ * The persistent class for the game database table.
  */
 @Entity
-@Table(name = "gra_description")
-public class GraDescription implements Serializable {
+@Table(name = "game")
+public class Game implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "game_id", nullable = false)
     private int id;
     @Column(name = "bgg_rating")
-    private float bggRating;
+    private Double bggRating;
     @Column(name = "description", length = 5000)
     private String description;
     @Column(name = "average_rating")
@@ -32,7 +31,8 @@ public class GraDescription implements Serializable {
     private int playingTime;
     private int rank;
     @Column(name = "price")
-    public Integer price;
+    private Double price;
+    private Double weight;
     @Column(name = "year_published")
     private int yearPublished;
     // bi-directional many-to-many association to Designer
@@ -54,13 +54,22 @@ public class GraDescription implements Serializable {
     })
     private Set<Mechanic> mechanics;
     // bi-directional many-to-one association to Recomendation
-    @OneToMany(mappedBy = "graDescription", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     private Set<Recomendation> recomendations;
     //    @OneToMany(mappedBy = "graDescription")
 //    private Set<Recomendation> recomendation;
     private String thumbnail;
+    private Integer expansionId;
+/* działający przykład self-joina
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "expansion_id")
+    private Game game;
 
-    public GraDescription() {
+    @OneToMany(mappedBy = "game")
+    private Set<Game> expansion;
+*/
+
+    public Game() {
     }
 
     public int getId() {
@@ -71,11 +80,11 @@ public class GraDescription implements Serializable {
         this.id = id;
     }
 
-    public float getBggRating() {
+    public Double getBggRating() {
         return this.bggRating;
     }
 
-    public void setBggRating(float bggRating) {
+    public void setBggRating(Double bggRating) {
         this.bggRating = bggRating;
     }
 
@@ -135,13 +144,13 @@ public class GraDescription implements Serializable {
         this.rank = rank;
     }
 
-//    public Set<Recomendation> getRecomendation() {
-//        return this.recomendation;
-//    }
-//
-//    public void setRecomendation(Set<Recomendation> recomendationId) {
-//        this.recomendation = recomendationId;
-//    }
+    public Integer getExpansionId() {
+        return expansionId;
+    }
+
+    public void setExpansionId(Integer expansionId) {
+        this.expansionId = expansionId;
+    }
 
     public String getThumbnail() {
         return this.thumbnail;
@@ -183,24 +192,32 @@ public class GraDescription implements Serializable {
         this.recomendations = recomendations;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 
     public Recomendation addRecomendation(Recomendation recomendation) {
         getRecomendations().add(recomendation);
-        recomendation.setGraDescription(this);
+        recomendation.setGame(this);
 
         return recomendation;
     }
 
     public Recomendation removeRecomendation(Recomendation recomendation) {
         getRecomendations().remove(recomendation);
-        recomendation.setGraDescription(null);
+        recomendation.setGame(null);
 
         return recomendation;
     }
@@ -215,7 +232,7 @@ public class GraDescription implements Serializable {
 
     @Override
     public String toString() {
-        return "GraDescription{" +
+        return "Game{" +
                 "bggRating=" + bggRating +
                 ", description='" + description + '\'' +
                 ", averageRating=" + averageRating +

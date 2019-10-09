@@ -3,8 +3,8 @@ package com.janis.bgg.demo.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.janis.bgg.demo.dao.GryDescDao;
+import com.janis.bgg.demo.entity.Game;
 import com.janis.bgg.demo.entity.Gra;
-import com.janis.bgg.demo.entity.GraDescription;
 import com.janis.bgg.demo.jsonObjects.JsonGraDescription;
 import com.janis.bgg.demo.mapper.CollectionToGameMapper;
 import com.janis.bgg.demo.mapper.GraDescriptionMapper;
@@ -29,6 +29,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.janis.bgg.demo.constants.AppConstants.JSON_THING;
+import static com.janis.bgg.demo.constants.AppConstants.XML_COLLECTION;
 
 @RestController
 public class GraRestController {
@@ -71,7 +74,7 @@ public class GraRestController {
                     e.printStackTrace();
                 }
                 try {
-                    URL url = new URL("https://bgg-json.azurewebsites.net/thing/" + id);
+                    URL url = new URL(JSON_THING + id);
                     con = (HttpURLConnection) url.openConnection();
                     con.setRequestMethod("GET");
                     BufferedReader in = new BufferedReader(
@@ -86,7 +89,7 @@ public class GraRestController {
                     ObjectMapper mapper = new ObjectMapper();
                     JsonGraDescription gra = mapper.readValue(content.toString(), JsonGraDescription.class);
 
-                    GraDescription gry = descriptionMapper.mapGraToGry(gra);
+                    Game gry = descriptionMapper.mapGraToGry(gra);
                     gryDescDao.save(gry);
                     res.add(gra.getBggRating());
                     break;
@@ -118,15 +121,14 @@ public class GraRestController {
         try {
             jaxbContext = JAXBContext.newInstance(Items.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            data = data.replace("Not Ranked", "0");
             StringReader reader = new StringReader(data);
             Items item = (Items) jaxbUnmarshaller.unmarshal(reader);
 
             System.out.println(item);
-            GraDescription gra = itemMapper.itemToGraMapper(item.getItem());
+            Game gra = itemMapper.itemToGraMapper(item.getItem());
             System.out.println(gra);
-            GraDescription graDescription = gryDescDao.save(gra);
-            System.out.println(graDescription);
+            Game game = gryDescDao.save(gra);
+            System.out.println(game);
 
         } catch (JAXBException e) {
             e.printStackTrace();
@@ -136,7 +138,7 @@ public class GraRestController {
 
     @RequestMapping("2")
     public String collection() throws IOException, InterruptedException {
-        String data = ImporterUtils.connect("https://api.geekdo.com/xmlapi2/collection?username=janislav");
+        String data = ImporterUtils.connect(XML_COLLECTION + "janislav");
         System.out.println(data);
         JAXBContext jaxbContext;
         try {

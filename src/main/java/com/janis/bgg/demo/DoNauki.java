@@ -14,7 +14,7 @@ public class DoNauki {
         bgg.add("4");
         bgg.add("5");
 
-        List<String> local = Arrays.asList("2", "4", "5");
+        List<String> local = Arrays.asList("5", "4", "1");
         boolean x = bgg.removeAll(local);
         System.out.println(x);
     }

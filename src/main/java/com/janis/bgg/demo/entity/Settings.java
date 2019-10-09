@@ -20,6 +20,8 @@ public class Settings {
         this.content = content;
     }
 
+    public Settings() {
+    }
     public Integer getId() {
         return id;
     }

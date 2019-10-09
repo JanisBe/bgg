@@ -5,7 +5,7 @@ import com.janis.bgg.demo.dao.DesignerDao;
 import com.janis.bgg.demo.dao.GryDescDao;
 import com.janis.bgg.demo.dao.MechanicDao;
 import com.janis.bgg.demo.entity.Designer;
-import com.janis.bgg.demo.entity.GraDescription;
+import com.janis.bgg.demo.entity.Game;
 import com.janis.bgg.demo.entity.Mechanic;
 import com.janis.bgg.demo.jsonObjects.JsonGraDescription;
 import org.mapstruct.AfterMapping;
@@ -30,16 +30,16 @@ public abstract class GraDescriptionMapper {
     @Mapping(target = "mechanics", ignore = true)
     @Mapping(target = "designers", ignore = true)
     @Mapping(target = "gameId", source = "id")
-    public abstract JsonGraDescription mapGryToGra(GraDescription graDescription);
+    public abstract JsonGraDescription mapGryToGra(Game game);
 
     @Mapping(target = "mechanics", ignore = true)
     @Mapping(target = "recomendations", source = "playerPollResults")
     @Mapping(target = "designers", ignore = true)
     @Mapping(target = "id", source = "gameId")
-    public abstract GraDescription mapGraToGry(JsonGraDescription jsonGraDescription);
+    public abstract Game mapGraToGry(JsonGraDescription jsonGraDescription);
 
     @AfterMapping
-    protected void mapuj(JsonGraDescription jsonGraDescription, @MappingTarget GraDescription gra) {
+    protected void mapuj(JsonGraDescription jsonGraDescription, @MappingTarget Game gra) {
         Set<Designer> designerSet = Sets.newHashSet();
         for (String designerName : jsonGraDescription.getDesigners()) {
             Designer designer = designerDao.findDesignerByDesignerName(designerName);
@@ -64,7 +64,7 @@ public abstract class GraDescriptionMapper {
         gra.setDesigners(designerSet);
 
         // for(Recomendation rec : gra.getRecomendation()){
-        // rec.getGraDescription(gra);
+        // rec.getGame(gra);
         // }
     }
 }

@@ -30,7 +30,8 @@
             <td colspan="2"> Nie ma gier!</td>
         </tr>
         <tr th:each="gra : ${gry}">
-            <td><span th:text="${gra.name}"> Title </span></td>
+            <td><a th:href="${'//boardgamegeek.com/boardgame/' + gra.gameId}"> <span
+                    th:text="${gra.name}"> Title </span> </a></td>
             <td><img th:src="${gra.thumbnail}"></td>
             <td><span th:text="${gra.minPlayers}"> min Players </span></td>
             <td><span th:text="${gra.maxPlayers}"> max Players </span></td>

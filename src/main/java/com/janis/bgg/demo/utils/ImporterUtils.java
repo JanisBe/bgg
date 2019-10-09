@@ -9,6 +9,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import static com.janis.bgg.demo.constants.AppConstants.NOT_RANKED;
+
 @Component
 public class ImporterUtils {
 
@@ -37,6 +39,9 @@ public class ImporterUtils {
             while ((readLine = in.readLine()) != null) {
                 content.append(readLine);
             }
+            if (content.toString().isEmpty()) {
+                break;
+            }
             in.close();
             con.disconnect();
             break;
@@ -48,6 +53,6 @@ public class ImporterUtils {
 
             // }
         }
-        return content.toString();
+        return content.toString().replace(NOT_RANKED, "0");
     }
 }

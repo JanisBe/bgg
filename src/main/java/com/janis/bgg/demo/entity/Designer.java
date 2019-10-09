@@ -19,9 +19,9 @@ public class Designer implements Serializable {
     private int id;
     @Column(name = "designer_name")
     private String designerName;
-    //bi-directional many-to-many association to GraDescription
+    //bi-directional many-to-many association to Game
     @ManyToMany(mappedBy = "designers")
-    private List<GraDescription> graDescriptions;
+    private List<Game> games;
 
     public Designer(String designerName) {
         this.designerName = designerName;
@@ -46,12 +46,12 @@ public class Designer implements Serializable {
         this.designerName = designerName;
     }
 
-    public List<GraDescription> getGraDescriptions() {
-        return this.graDescriptions;
+    public List<Game> getGames() {
+        return this.games;
     }
 
-    public void setGraDescriptions(List<GraDescription> graDescriptions) {
-        this.graDescriptions = graDescriptions;
+    public void setGames(List<Game> games) {
+        this.games = games;
     }
 
     @Override

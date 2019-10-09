@@ -18,9 +18,9 @@ public class Mechanic implements Serializable {
     @Column(name = "id", nullable = false)
     private int id;
     private String name;
-    //bi-directional many-to-many association to GraDescription
+    //bi-directional many-to-many association to Game
     @ManyToMany(mappedBy = "mechanics")
-    private List<GraDescription> graDescriptions;
+    private List<Game> games;
 
     public Mechanic(String name) {
         this.name = name;
@@ -46,12 +46,12 @@ public class Mechanic implements Serializable {
         this.name = name;
     }
 
-    public List<GraDescription> getGraDescriptions() {
-        return this.graDescriptions;
+    public List<Game> getGames() {
+        return this.games;
     }
 
-    public void setGraDescriptions(List<GraDescription> graDescriptions) {
-        this.graDescriptions = graDescriptions;
+    public void setGames(List<Game> games) {
+        this.games = games;
     }
 
     @Override

@@ -1,13 +1,13 @@
 package com.janis.bgg.demo.dao.Impl;
 
 import com.janis.bgg.demo.dao.GryDescDao;
-import com.janis.bgg.demo.entity.GraDescription;
+import com.janis.bgg.demo.entity.Game;
 import org.springframework.stereotype.Component;
 
 @Component
 public abstract class GryDescDaoImpl implements GryDescDao {
 
-    public GraDescription zapiszGre(GraDescription gra) {
+    public Game zapiszGre(Game gra) {
         return save(gra);
     }
 

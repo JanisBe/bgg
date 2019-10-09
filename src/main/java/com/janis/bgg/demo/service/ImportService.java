@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.janis.bgg.demo.dao.GryDao;
 import com.janis.bgg.demo.dao.GryDescDao;
 import com.janis.bgg.demo.dao.SettingsDao;
+import com.janis.bgg.demo.entity.Game;
 import com.janis.bgg.demo.entity.Gra;
-import com.janis.bgg.demo.entity.GraDescription;
 import com.janis.bgg.demo.entity.Settings;
 import com.janis.bgg.demo.jsonObjects.JsonGraDescription;
 import com.janis.bgg.demo.mapper.GraDescriptionMapper;
@@ -13,6 +13,7 @@ import com.janis.bgg.demo.mapper.GraMapper;
 import com.janis.bgg.demo.mapper.ItemMapper;
 import com.janis.bgg.demo.utils.ImporterUtils;
 import com.janis.bgg.demo.xml.Items3.Items;
+import com.janis.bgg.demo.xml.collection.Item;
 import com.janis.bgg.demo.xml.collection.MyCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.janis.bgg.demo.constants.AppConstants.*;
 
 @Service
 public class ImportService {
@@ -51,7 +54,7 @@ public class ImportService {
         }
         String data = null;
         try {
-            data = ImporterUtils.connect("https://api.geekdo.com/xmlapi2/collection?username=" + userName);
+            data = ImporterUtils.connect(XML_COLLECTION + userName);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -61,8 +64,8 @@ public class ImportService {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             StringReader reader = new StringReader(data);
             MyCollection collection = (MyCollection) jaxbUnmarshaller.unmarshal(reader);
-            List<Integer> bggGameIds = collection.getItem().stream().map(item -> item.getObjectid()).collect(Collectors.toList());
-            List<Integer> dbGameIds = Optional.ofNullable(gryDescDao.findAll().stream().map(GraDescription::getId).collect(Collectors.toList()))
+            List<Integer> bggGameIds = collection.getItem().stream().map(Item::getObjectid).collect(Collectors.toList());
+            List<Integer> dbGameIds = Optional.ofNullable(gryDescDao.findAll().stream().map(Game::getId).collect(Collectors.toList()))
                     .orElse(Collections.EMPTY_LIST);
             List<Integer> difference = compareBGGvsDB(bggGameIds, dbGameIds);
             if (!difference.isEmpty()) {
@@ -73,8 +76,13 @@ public class ImportService {
                     importGameDetailsFromXML(gameId);
                 }
             }
-            settingsDao.save(new Settings("username", userName));
-            settingsDao.save(new Settings("updateTime", collection.getPubdate()));
+
+            if (settingsDao.findByName(USERNAME).getContent().equals(userName)) {
+                settingsDao.findByName(UPDATE_TIME).setContent(collection.getPubdate());
+            } else {
+                settingsDao.save(new Settings(USERNAME, userName));
+                settingsDao.save(new Settings(UPDATE_TIME, collection.getPubdate()));
+            }
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -83,11 +91,11 @@ public class ImportService {
 
     private void importGameDetailsFromJson(Integer gameId) {
         try {
-            String data = ImporterUtils.connect("https://bgg-json.azurewebsites.net/thing/" + gameId);
+            String data = ImporterUtils.connect(JSON_THING + gameId);
             ObjectMapper mapper = new ObjectMapper();
             JsonGraDescription gra = mapper.readValue(data, JsonGraDescription.class);
-            GraDescription gry = descriptionMapper.mapGraToGry(gra);
-            gryDescDao.save(gry);
+            Game game = descriptionMapper.mapGraToGry(gra);
+            gryDescDao.save(game);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,21 +104,21 @@ public class ImportService {
 
     private void importGameDetailsFromXML(Integer gameId) {
         try {
-            String data = ImporterUtils.connect("https://api.geekdo.com/xmlapi2/thing?id=" + gameId + "&stats=1");
+            String data = ImporterUtils.connect(XML_THING + gameId + STATS);
             JAXBContext jaxbContext = JAXBContext.newInstance(Items.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             StringReader reader = new StringReader(data);
             Items item = (Items) jaxbUnmarshaller.unmarshal(reader);
-            GraDescription gry = itemMapper.itemToGraMapper(item.getItem());
+            Game gry = itemMapper.itemToGraMapper(item.getItem());
             gryDescDao.save(gry);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("!!!! wywaliło na " + gameId);
+            System.out.println("!!!!! wywaliło na " + gameId);
         }
 
     }
 
-    public List<Integer> compareBGGvsDB(List<Integer> bggList, List<Integer> dbList) {
+    private List<Integer> compareBGGvsDB(List<Integer> bggList, List<Integer> dbList) {
         bggList.removeAll(dbList);
         return bggList;
     }
