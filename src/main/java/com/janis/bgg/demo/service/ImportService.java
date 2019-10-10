@@ -4,17 +4,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.janis.bgg.demo.dao.GryDao;
 import com.janis.bgg.demo.dao.GryDescDao;
 import com.janis.bgg.demo.dao.SettingsDao;
-import com.janis.bgg.demo.entity.Game;
-import com.janis.bgg.demo.entity.Gra;
-import com.janis.bgg.demo.entity.Settings;
-import com.janis.bgg.demo.jsonObjects.JsonGraDescription;
+import com.janis.bgg.demo.entities.entity.Game;
+import com.janis.bgg.demo.entities.entity.Gra;
+import com.janis.bgg.demo.entities.entity.Settings;
+import com.janis.bgg.demo.entities.jsonObjects.JsonGraDescription;
+import com.janis.bgg.demo.entities.xml.Items3.Items;
+import com.janis.bgg.demo.entities.xml.collection.Item;
+import com.janis.bgg.demo.entities.xml.collection.MyCollection;
 import com.janis.bgg.demo.mapper.GraDescriptionMapper;
 import com.janis.bgg.demo.mapper.GraMapper;
 import com.janis.bgg.demo.mapper.ItemMapper;
 import com.janis.bgg.demo.utils.ImporterUtils;
-import com.janis.bgg.demo.xml.Items3.Items;
-import com.janis.bgg.demo.xml.collection.Item;
-import com.janis.bgg.demo.xml.collection.MyCollection;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
@@ -23,6 +23,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
 import java.io.StringReader;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -70,7 +73,14 @@ public class ImportService {
             List<Integer> dbGameIds = Optional.ofNullable(gryDescDao.findAll().stream().map(Game::getId).collect(Collectors.toList()))
                     .orElse(Collections.EMPTY_LIST);
             List<Integer> difference = compareBGGvsDB(bggGameIds, dbGameIds);
-            if (!difference.isEmpty()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy HH:mm:ss");
+            //Wed, 02 Oct 2019 20:01:44
+            Settings lastUpdate = settingsDao.findByName(UPDATE_TIME);
+            String lastUpdateString = lastUpdate.getContent();
+            lastUpdateString = lastUpdateString.substring(0, lastUpdateString.length() - 6);
+            LocalDate lastUpdateDate = LocalDate.parse(lastUpdateString, formatter);
+            long diffInDays = ChronoUnit.DAYS.between(lastUpdateDate, LocalDate.now());
+            if (!difference.isEmpty() || diffInDays > 20L) {
                 int size = collection.getTotalitems().intValue();
 
                 for (int i = 0; i < size; i++) {
@@ -80,7 +90,7 @@ public class ImportService {
             }
 
             if (settingsDao.findByName(USERNAME).getContent().equals(userName)) {
-                settingsDao.findByName(UPDATE_TIME).setContent(collection.getPubdate());
+                lastUpdate.setContent(collection.getPubdate());
             } else {
                 settingsDao.save(new Settings(USERNAME, userName));
                 settingsDao.save(new Settings(UPDATE_TIME, collection.getPubdate()));

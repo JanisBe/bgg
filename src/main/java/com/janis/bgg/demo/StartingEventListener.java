@@ -1,11 +1,11 @@
 package com.janis.bgg.demo;
 
+import org.springframework.boot.context.event.ApplicationStartingEvent;
+import org.springframework.context.ApplicationListener;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import org.springframework.boot.context.event.ApplicationStartingEvent;
-import org.springframework.context.ApplicationListener;
 
 public class StartingEventListener implements ApplicationListener<ApplicationStartingEvent> {
     // @Value("${mysql.path}")
@@ -17,19 +17,19 @@ public class StartingEventListener implements ApplicationListener<ApplicationSta
 
         try {
             String line;
-            String pidInfo = "";
+            StringBuilder pidInfo = new StringBuilder();
             Runtime runtime = Runtime.getRuntime();
             Process p = runtime.exec(System.getenv("windir") + "\\system32\\" + "tasklist.exe");
 
             BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
             while ((line = input.readLine()) != null) {
-                pidInfo += line;
+                pidInfo.append(line);
             }
             p.destroy();
             input.close();
 
-            if (!pidInfo.contains("mysqld.exe")) {
+            if (!pidInfo.toString().contains("mysqld.exe")) {
                 // Runtime sqlRuntime = runtime;
                 runtime.exec(mysqlPath);
             }

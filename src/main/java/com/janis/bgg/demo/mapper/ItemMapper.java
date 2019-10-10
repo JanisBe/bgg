@@ -1,14 +1,15 @@
 package com.janis.bgg.demo.mapper;
 
-import static com.janis.bgg.demo.constants.AppConstants.ALTERNATE;
-import static com.janis.bgg.demo.constants.AppConstants.BEST;
-import static com.janis.bgg.demo.constants.AppConstants.DESIGNER;
-import static com.janis.bgg.demo.constants.AppConstants.EXPANSION;
-import static com.janis.bgg.demo.constants.AppConstants.MECHANIC;
-import static com.janis.bgg.demo.constants.AppConstants.NOT_RECOMMENDED;
-import static com.janis.bgg.demo.constants.AppConstants.PRIMARY;
-import static com.janis.bgg.demo.constants.AppConstants.RANK;
-import static com.janis.bgg.demo.constants.AppConstants.RECOMMENDED;
+import com.google.common.collect.Sets;
+import com.janis.bgg.demo.entities.entity.Designer;
+import com.janis.bgg.demo.entities.entity.Game;
+import com.janis.bgg.demo.entities.entity.Mechanic;
+import com.janis.bgg.demo.entities.entity.Recomendation;
+import com.janis.bgg.demo.entities.xml.Items3.*;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,23 +18,7 @@ import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-
-import com.google.common.collect.Sets;
-import com.janis.bgg.demo.entity.Designer;
-import com.janis.bgg.demo.entity.Game;
-import com.janis.bgg.demo.entity.Mechanic;
-import com.janis.bgg.demo.entity.Recomendation;
-import com.janis.bgg.demo.xml.Items3.Item;
-import com.janis.bgg.demo.xml.Items3.Link;
-import com.janis.bgg.demo.xml.Items3.Playingtime;
-import com.janis.bgg.demo.xml.Items3.Poll;
-import com.janis.bgg.demo.xml.Items3.Rank;
-import com.janis.bgg.demo.xml.Items3.Result;
-import com.janis.bgg.demo.xml.Items3.Results;
+import static com.janis.bgg.demo.constants.AppConstants.*;
 
 @Mapper(componentModel = "spring")
 public abstract class ItemMapper {

@@ -1,8 +1,26 @@
 package com.janis.bgg.demo.controller;
 
-import static com.janis.bgg.demo.constants.AppConstants.JSON_THING;
-import static com.janis.bgg.demo.constants.AppConstants.XML_COLLECTION;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
+import com.janis.bgg.demo.dao.GryDescDao;
+import com.janis.bgg.demo.entities.entity.Game;
+import com.janis.bgg.demo.entities.entity.Gra;
+import com.janis.bgg.demo.entities.jsonObjects.JsonGraDescription;
+import com.janis.bgg.demo.entities.xml.Items3.Items;
+import com.janis.bgg.demo.entities.xml.collection.MyCollection;
+import com.janis.bgg.demo.mapper.CollectionToGameMapper;
+import com.janis.bgg.demo.mapper.GraDescriptionMapper;
+import com.janis.bgg.demo.mapper.ItemMapper;
+import com.janis.bgg.demo.service.GryService;
+import com.janis.bgg.demo.service.ImportService;
+import com.janis.bgg.demo.utils.ImporterUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,33 +30,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Lists;
-import com.janis.bgg.demo.dao.GryDescDao;
-import com.janis.bgg.demo.entity.Game;
-import com.janis.bgg.demo.entity.Gra;
-import com.janis.bgg.demo.jsonObjects.JsonGraDescription;
-import com.janis.bgg.demo.mapper.CollectionToGameMapper;
-import com.janis.bgg.demo.mapper.GraDescriptionMapper;
-import com.janis.bgg.demo.mapper.ItemMapper;
-import com.janis.bgg.demo.service.GryService;
-import com.janis.bgg.demo.service.ImportService;
-import com.janis.bgg.demo.utils.ImporterUtils;
-import com.janis.bgg.demo.xml.Items3.Items;
-import com.janis.bgg.demo.xml.collection.MyCollection;
+import static com.janis.bgg.demo.constants.AppConstants.JSON_THING;
+import static com.janis.bgg.demo.constants.AppConstants.XML_COLLECTION;
 
 @RestController
 public class GraRestController {
@@ -114,8 +107,8 @@ public class GraRestController {
                 .collect(Collectors.joining("<br>"));
     }
 
-    @RequestMapping(value = "/import/{userName}", method = RequestMethod.GET)
-    public ModelAndView importMyGames(@PathVariable("userName") String userName) {
+    @GetMapping(value = "/import")
+    public ModelAndView importMyGames(@RequestParam String userName) {
         ModelAndView model = new ModelAndView();
         model.addObject("gry", importService.importGamesFromBgg(userName));
         model.setViewName("gry");
@@ -136,8 +129,6 @@ public class GraRestController {
             System.out.println(item);
             Game gra = itemMapper.itemToGraMapper(item.getItem());
             System.out.println(gra);
-            Game game = gryDescDao.save(gra);
-            System.out.println(game);
 
         } catch (JAXBException e) {
             e.printStackTrace();
@@ -146,7 +137,7 @@ public class GraRestController {
     }
 
     @RequestMapping("2")
-    public String collection() throws IOException, InterruptedException {
+    public ModelAndView collection() throws IOException, InterruptedException {
         String data = ImporterUtils.connect(XML_COLLECTION + "janislav");
         System.out.println(data);
         JAXBContext jaxbContext;
@@ -163,7 +154,9 @@ public class GraRestController {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-        return null;
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("index");
+        return mv;
     }
 
     @ExceptionHandler

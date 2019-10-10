@@ -1,9 +1,9 @@
 package com.janis.bgg.demo.mapper;
 
 import com.google.common.collect.Lists;
-import com.janis.bgg.demo.dto.GraDto;
-import com.janis.bgg.demo.entity.Game;
-import com.janis.bgg.demo.entity.Gra;
+import com.janis.bgg.demo.entities.dto.GraDto;
+import com.janis.bgg.demo.entities.entity.Game;
+import com.janis.bgg.demo.entities.entity.Gra;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

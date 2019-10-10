@@ -1,8 +1,7 @@
 package com.janis.bgg.demo.service;
 
 import com.janis.bgg.demo.dao.GryDao;
-import com.janis.bgg.demo.entity.Gra;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.janis.bgg.demo.entities.entity.Gra;
 import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
@@ -13,8 +12,11 @@ import java.util.stream.Collectors;
 @Service
 public class GryService {
 
-    @Autowired
-    private GryDao dao;
+    private final GryDao dao;
+
+    public GryService(GryDao dao) {
+        this.dao = dao;
+    }
 
     public List<Gra> findGameByNumOfPlayers(Integer noOfPlayers) {
         if (noOfPlayers < 0) {

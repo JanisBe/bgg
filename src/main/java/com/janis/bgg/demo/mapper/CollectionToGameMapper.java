@@ -1,7 +1,7 @@
 package com.janis.bgg.demo.mapper;
 
-import com.janis.bgg.demo.entity.Gra;
-import com.janis.bgg.demo.xml.collection.Item;
+import com.janis.bgg.demo.entities.entity.Gra;
+import com.janis.bgg.demo.entities.xml.collection.Item;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

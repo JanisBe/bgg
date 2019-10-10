@@ -1,6 +1,6 @@
 package com.janis.bgg.demo.dao;
 
-import com.janis.bgg.demo.entity.Game;
+import com.janis.bgg.demo.entities.entity.Game;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -12,8 +12,8 @@ import java.util.List;
 @Transactional
 public interface GryDescDao extends JpaRepository<Game, Long> {
 
-    public Game findByName(String name);
+    Game findByName(String name);
 
-    @Query(value = "Select id from GraDescription", nativeQuery = true)
-    public List<Integer> findAllIds();
+    @Query(value = "Select game_id from game", nativeQuery = true)
+    List<Integer> findAllIds();
 }

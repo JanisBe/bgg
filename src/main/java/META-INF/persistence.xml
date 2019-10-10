@@ -2,12 +2,12 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="persistenceUnit">
-        <class>com.janis.bgg.demo.entity.Designer</class>
-        <class>com.janis.bgg.demo.entity.Game</class>
-        <class>com.janis.bgg.demo.entity.Recomendation</class>
-        <class>com.janis.bgg.demo.entity.Settings</class>
-        <class>com.janis.bgg.demo.entity.Mechanic</class>
-        <class>com.janis.bgg.demo.entity.Gra</class>
+        <class>com.janis.bgg.demo.entities.entity.Designer</class>
+        <class>com.janis.bgg.demo.entities.entity.Game</class>
+        <class>com.janis.bgg.demo.entities.entity.Recomendation</class>
+        <class>com.janis.bgg.demo.entities.entity.Settings</class>
+        <class>com.janis.bgg.demo.entities.entity.Mechanic</class>
+        <class>com.janis.bgg.demo.entities.entity.Gra</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/gry"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
