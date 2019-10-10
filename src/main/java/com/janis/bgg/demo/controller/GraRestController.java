@@ -1,5 +1,30 @@
 package com.janis.bgg.demo.controller;
 
+import static com.janis.bgg.demo.constants.AppConstants.JSON_THING;
+import static com.janis.bgg.demo.constants.AppConstants.XML_COLLECTION;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.janis.bgg.demo.dao.GryDescDao;
@@ -14,23 +39,6 @@ import com.janis.bgg.demo.service.ImportService;
 import com.janis.bgg.demo.utils.ImporterUtils;
 import com.janis.bgg.demo.xml.Items3.Items;
 import com.janis.bgg.demo.xml.collection.MyCollection;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.janis.bgg.demo.constants.AppConstants.JSON_THING;
-import static com.janis.bgg.demo.constants.AppConstants.XML_COLLECTION;
 
 @RestController
 public class GraRestController {
@@ -64,7 +72,6 @@ public class GraRestController {
     public String test() {
         HttpURLConnection con = null;
         List<Double> res = Lists.newArrayList();
-        // List<Integer> gryId = IntStream.of(92539,173346, 202976, 68448).boxed().collect(Collectors.toList());
         List<Integer> gryId = gryService.findAll().stream().map(Gra::getGameId).limit(10).collect(Collectors.toList());
         for (Integer id : gryId) {
             while (true) {
@@ -159,4 +166,13 @@ public class GraRestController {
         return null;
     }
 
+    @ExceptionHandler
+    public ModelAndView handleErrors(HttpServletRequest request, Exception ex) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("exception", ex);
+        modelAndView.addObject("url", request.getRequestURL());
+
+        modelAndView.setViewName("error");
+        return modelAndView;
+    }
 }

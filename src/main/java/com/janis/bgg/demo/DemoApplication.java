@@ -1,20 +1,18 @@
 package com.janis.bgg.demo;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
+import static java.lang.management.ManagementFactory.getRuntimeMXBean;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static java.lang.management.ManagementFactory.getRuntimeMXBean;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
-@EntityScan(basePackages = "com.janis.bgg.demo.entity")
 public class DemoApplication {
 
     public static void main(String[] args) {

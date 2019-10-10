@@ -1,15 +1,14 @@
 package com.janis.bgg.demo.mapper;
 
-import com.google.common.collect.Sets;
-import com.janis.bgg.demo.entity.Designer;
-import com.janis.bgg.demo.entity.Game;
-import com.janis.bgg.demo.entity.Mechanic;
-import com.janis.bgg.demo.entity.Recomendation;
-import com.janis.bgg.demo.xml.Items3.*;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import static com.janis.bgg.demo.constants.AppConstants.ALTERNATE;
+import static com.janis.bgg.demo.constants.AppConstants.BEST;
+import static com.janis.bgg.demo.constants.AppConstants.DESIGNER;
+import static com.janis.bgg.demo.constants.AppConstants.EXPANSION;
+import static com.janis.bgg.demo.constants.AppConstants.MECHANIC;
+import static com.janis.bgg.demo.constants.AppConstants.NOT_RECOMMENDED;
+import static com.janis.bgg.demo.constants.AppConstants.PRIMARY;
+import static com.janis.bgg.demo.constants.AppConstants.RANK;
+import static com.janis.bgg.demo.constants.AppConstants.RECOMMENDED;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,42 +17,41 @@ import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import static com.janis.bgg.demo.constants.AppConstants.*;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+
+import com.google.common.collect.Sets;
+import com.janis.bgg.demo.entity.Designer;
+import com.janis.bgg.demo.entity.Game;
+import com.janis.bgg.demo.entity.Mechanic;
+import com.janis.bgg.demo.entity.Recomendation;
+import com.janis.bgg.demo.xml.Items3.Item;
+import com.janis.bgg.demo.xml.Items3.Link;
+import com.janis.bgg.demo.xml.Items3.Playingtime;
+import com.janis.bgg.demo.xml.Items3.Poll;
+import com.janis.bgg.demo.xml.Items3.Rank;
+import com.janis.bgg.demo.xml.Items3.Result;
+import com.janis.bgg.demo.xml.Items3.Results;
 
 @Mapper(componentModel = "spring")
 public abstract class ItemMapper {
-
-    private Double round(BigDecimal d) {
-        BigDecimal res = d.setScale(2, BigDecimal.ROUND_HALF_UP);
-        return res.doubleValue();
-    }
-
-    private <T> Collector<T, ?, T> toSingleton() {
-        return Collectors.collectingAndThen(
-                Collectors.toList(),
-                list -> {
-                    if (list.size() != 1) {
-                        throw new IllegalStateException();
-                    }
-                    return list.get(0);
-                }
-        );
-    }
 
     @Mapping(target = "expansionId", ignore = true)
     @Mapping(target = "weight", ignore = true)
     @Mapping(target = "recomendations", ignore = true)
     @Mapping(target = "price", ignore = true)
-    @Mapping(target = "yearPublished", source = "yearpublished.value")
     @Mapping(target = "rank", ignore = true)
     @Mapping(target = "playingTime", ignore = true)
-    @Mapping(target = "minPlayers", source = "minplayers.value")
     @Mapping(target = "mechanics", ignore = true)
-    @Mapping(target = "maxPlayers", source = "maxplayers.value")
     @Mapping(target = "designers", ignore = true)
     @Mapping(target = "bggRating", ignore = true)
     @Mapping(target = "averageRating", ignore = true)
     @Mapping(target = "name", ignore = true)
+    @Mapping(target = "minPlayers", source = "minplayers.value")
+    @Mapping(target = "maxPlayers", source = "maxplayers.value")
+    @Mapping(target = "yearPublished", source = "yearpublished.value")
     public abstract Game itemToGraMapper(Item item);
 
     @AfterMapping
@@ -91,5 +89,21 @@ public abstract class ItemMapper {
         if (expansion.size() == 1 && expansion.get(0).isInbound() != null) {
             gra.setExpansionId(expansion.get(0).getId().intValue());
         }
+    }
+
+    private Double round(BigDecimal d) {
+        BigDecimal res = d.setScale(2, BigDecimal.ROUND_HALF_UP);
+        return res.doubleValue();
+    }
+
+    private <T> Collector<T, ?, T> toSingleton() {
+        return Collectors.collectingAndThen(
+                Collectors.toList(),
+                list -> {
+                    if (list.size() != 1) {
+                        throw new IllegalStateException();
+                    }
+                    return list.get(0);
+                });
     }
 }

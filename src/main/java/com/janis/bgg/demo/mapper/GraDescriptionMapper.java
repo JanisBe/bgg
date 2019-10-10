@@ -1,5 +1,13 @@
 package com.janis.bgg.demo.mapper;
 
+import java.util.Set;
+
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.google.common.collect.Sets;
 import com.janis.bgg.demo.dao.DesignerDao;
 import com.janis.bgg.demo.dao.GryDescDao;
@@ -8,13 +16,6 @@ import com.janis.bgg.demo.entity.Designer;
 import com.janis.bgg.demo.entity.Game;
 import com.janis.bgg.demo.entity.Mechanic;
 import com.janis.bgg.demo.jsonObjects.JsonGraDescription;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public abstract class GraDescriptionMapper {
@@ -39,7 +40,7 @@ public abstract class GraDescriptionMapper {
     public abstract Game mapGraToGry(JsonGraDescription jsonGraDescription);
 
     @AfterMapping
-    protected void mapuj(JsonGraDescription jsonGraDescription, @MappingTarget Game gra) {
+    protected void mapGraToGry(JsonGraDescription jsonGraDescription, @MappingTarget Game gra) {
         Set<Designer> designerSet = Sets.newHashSet();
         for (String designerName : jsonGraDescription.getDesigners()) {
             Designer designer = designerDao.findDesignerByDesignerName(designerName);
@@ -63,8 +64,5 @@ public abstract class GraDescriptionMapper {
         gra.setMechanics(mechanicSet);
         gra.setDesigners(designerSet);
 
-        // for(Recomendation rec : gra.getRecomendation()){
-        // rec.getGame(gra);
-        // }
     }
 }
