@@ -23,9 +23,9 @@ public class Game implements Serializable {
     private Double averageRating;
     private String image;
     @Column(name = "max_players")
-    private int maxPlayers;
+    private Integer maxPlayers;
     @Column(name = "min_players")
-    private int minPlayers;
+    private Integer minPlayers;
     private String name;
     @Column(name = "playing_time")
     private int playingTime;
@@ -104,19 +104,19 @@ public class Game implements Serializable {
         this.image = image;
     }
 
-    public int getMaxPlayers() {
+    public Integer getMaxPlayers() {
         return this.maxPlayers;
     }
 
-    public void setMaxPlayers(int maxPlayers) {
+    public void setMaxPlayers(Integer maxPlayers) {
         this.maxPlayers = maxPlayers;
     }
 
-    public int getMinPlayers() {
+    public Integer getMinPlayers() {
         return this.minPlayers;
     }
 
-    public void setMinPlayers(int minPlayers) {
+    public void setMinPlayers(Integer minPlayers) {
         this.minPlayers = minPlayers;
     }
 

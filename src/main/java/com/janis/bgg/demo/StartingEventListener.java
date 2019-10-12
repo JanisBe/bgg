@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 
 public class StartingEventListener implements ApplicationListener<ApplicationStartingEvent> {
     // @Value("${mysql.path}")
-    private String mysqlPath = "d:\\xampp\\mysql_start.bat";
+    private String mysqlPath = "e:\\xampp\\mysql_start.bat";
 
     @Override
     public void onApplicationEvent(ApplicationStartingEvent applicationStartingEvent) {

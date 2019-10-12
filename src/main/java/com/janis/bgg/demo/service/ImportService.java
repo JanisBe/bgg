@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.janis.bgg.demo.dao.GryDao;
 import com.janis.bgg.demo.dao.GryDescDao;
 import com.janis.bgg.demo.dao.SettingsDao;
+import com.janis.bgg.demo.entities.dto.GraDto;
 import com.janis.bgg.demo.entities.entity.Game;
-import com.janis.bgg.demo.entities.entity.Gra;
 import com.janis.bgg.demo.entities.entity.Settings;
 import com.janis.bgg.demo.entities.jsonObjects.JsonGraDescription;
 import com.janis.bgg.demo.entities.xml.Items3.Items;
@@ -28,6 +28,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -53,7 +54,7 @@ public class ImportService {
         this.graMapper = graMapper;
     }
 
-    public List<Gra> importGamesFromBgg(String userName) {
+    public List<GraDto> importGamesFromBgg(String userName) {
         if (StringUtils.isEmptyOrWhitespace(userName)) {
             throw new IllegalArgumentException("userName can't be blank");
         }
@@ -73,11 +74,9 @@ public class ImportService {
             List<Integer> dbGameIds = Optional.ofNullable(gryDescDao.findAll().stream().map(Game::getId).collect(Collectors.toList()))
                     .orElse(Collections.EMPTY_LIST);
             List<Integer> difference = compareBGGvsDB(bggGameIds, dbGameIds);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy HH:mm:ss");
-            //Wed, 02 Oct 2019 20:01:44
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss Z").withLocale(Locale.ENGLISH);
             Settings lastUpdate = settingsDao.findByName(UPDATE_TIME);
             String lastUpdateString = lastUpdate.getContent();
-            lastUpdateString = lastUpdateString.substring(0, lastUpdateString.length() - 6);
             LocalDate lastUpdateDate = LocalDate.parse(lastUpdateString, formatter);
             long diffInDays = ChronoUnit.DAYS.between(lastUpdateDate, LocalDate.now());
             if (!difference.isEmpty() || diffInDays > 20L) {
@@ -87,18 +86,18 @@ public class ImportService {
                     Integer gameId = collection.getItem().get(i).getObjectid();
                     importGameDetailsFromXML(gameId);
                 }
+                if (settingsDao.findByName(USERNAME).getContent().equals(userName)) {
+                    lastUpdate.setContent(collection.getPubdate());
+                } else {
+                    settingsDao.save(new Settings(USERNAME, userName));
+                    settingsDao.save(new Settings(UPDATE_TIME, collection.getPubdate()));
+                }
             }
 
-            if (settingsDao.findByName(USERNAME).getContent().equals(userName)) {
-                lastUpdate.setContent(collection.getPubdate());
-            } else {
-                settingsDao.save(new Settings(USERNAME, userName));
-                settingsDao.save(new Settings(UPDATE_TIME, collection.getPubdate()));
-            }
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-        return graMapper.graDescToGra(gryDescDao.findAll());
+        return graMapper.gameToGraDto(gryDescDao.findAll());
     }
 
     private void importGameDetailsFromJson(Integer gameId) {

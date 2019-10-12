@@ -20,9 +20,13 @@
         <tr>
             <th class="th-sm"> Name</th>
             <th class="th-sm"> img</th>
-            <th class="th-sm"> min</th>
-            <th class="th-sm"> max</th>
+            <th class="th-sm"> no of players</th>
+            <th class="th-sm"> rank</th>
             <th class="th-sm"> avg rating</th>
+            <th class="th-sm"> bgg rating</th>
+            <th class="th-sm"> playing time</th>
+            <th class="th-sm"> weight</th>
+            <th class="th-sm"> expansion</th>
         </tr>
         </thead>
         <tbody>
@@ -30,12 +34,17 @@
             <td colspan="2"> Nie ma gier!</td>
         </tr>
         <tr th:each="gra : ${gry}">
-            <td><a th:href="${'//boardgamegeek.com/boardgame/' + gra.gameId}">
+            <td><a th:href="${'//boardgamegeek.com/boardgame/' + gra.gameId}" th:id="${gra.gameId}">
                 <span th:text="${gra.name}"> Title </span> </a></td>
-            <td><img th:src="${gra.thumbnail}"></td>
-            <td><span th:text="${gra.minPlayers}"> min Players </span></td>
-            <td><span th:text="${gra.maxPlayers}"> max Players </span></td>
+            <td><img height="60px" th:src="${gra.thumbnail}"></td>
+            <td><span th:text="${gra.players}"> players </span></td>
+            <td><span th:text="${gra.rank}"> rank </span></td>
             <td><span th:text="${gra.averageRating}"> avg rating </span></td>
+            <td><span th:text="${gra.bggRating}"> bggrating </span></td>
+            <td><span th:text="${gra.playingTime}"> playing time </span></td>
+            <td><span th:text="${gra.weight}"> playing time </span></td>
+            <td><a th:href="'#' + ${gra.expansion?.gameId}"><span
+                    th:text="${gra.expansion?.name}"> expansion </span></a></td>
         </tr>
         </tbody>
     </table>

@@ -13,16 +13,19 @@ public class GraDto {
     private String name;
     private String image;
     private String thumbnail;
-    private long minPlayers;
-    private long maxPlayers;
+    private Integer minPlayers;
+    private Integer maxPlayers;
+    private String players;
     private long playingTime;
     private double averageRating;
     private double bggRating;
     private Integer price;
     private Integer year;
+    private Double weight;
     private long rank;
     private Set<Designer> designers;
     private Set<Mechanic> mechanics;
+    private GraDto expansion;
     public long getGameId() {
         return gameId;
     }
@@ -53,22 +56,6 @@ public class GraDto {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
-    }
-
-    public long getMinPlayers() {
-        return minPlayers;
-    }
-
-    public void setMinPlayers(long minPlayers) {
-        this.minPlayers = minPlayers;
-    }
-
-    public long getMaxPlayers() {
-        return maxPlayers;
-    }
-
-    public void setMaxPlayers(long maxPlayers) {
-        this.maxPlayers = maxPlayers;
     }
 
     public long getPlayingTime() {
@@ -133,5 +120,37 @@ public class GraDto {
 
     public void setMechanics(Set<Mechanic> mechanics) {
         this.mechanics = mechanics;
+    }
+
+    public void setMinPlayers(Integer minPlayers) {
+        this.minPlayers = minPlayers;
+    }
+
+    public void setMaxPlayers(Integer maxPlayers) {
+        this.maxPlayers = maxPlayers;
+    }
+
+    public String getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(String players) {
+        this.players = players;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public GraDto getExpansion() {
+        return expansion;
+    }
+
+    public void setExpansion(GraDto expansion) {
+        this.expansion = expansion;
     }
 }

@@ -14,6 +14,8 @@ public interface GryDescDao extends JpaRepository<Game, Long> {
 
     Game findByName(String name);
 
+    Game findById(int id);
+
     @Query(value = "Select game_id from game", nativeQuery = true)
     List<Integer> findAllIds();
 }
