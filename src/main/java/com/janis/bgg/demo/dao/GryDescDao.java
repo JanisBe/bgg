@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 @Transactional
 public interface GryDescDao extends JpaRepository<Game, Long> {
-
     Game findByName(String name);
 
     Game findById(int id);
