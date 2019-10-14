@@ -1,8 +1,34 @@
 package com.janis.bgg.demo.controller;
 
+import static com.janis.bgg.demo.constants.AppConstants.JSON_THING;
+import static com.janis.bgg.demo.constants.AppConstants.XML_COLLECTION;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.janis.bgg.demo.dao.GryDescDao;
+import com.janis.bgg.demo.entities.dto.GameSearchCriteriaDto;
 import com.janis.bgg.demo.entities.entity.Game;
 import com.janis.bgg.demo.entities.entity.Gra;
 import com.janis.bgg.demo.entities.jsonObjects.JsonGraDescription;
@@ -14,24 +40,6 @@ import com.janis.bgg.demo.mapper.ItemMapper;
 import com.janis.bgg.demo.service.GryService;
 import com.janis.bgg.demo.service.ImportService;
 import com.janis.bgg.demo.utils.ImporterUtils;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.janis.bgg.demo.constants.AppConstants.JSON_THING;
-import static com.janis.bgg.demo.constants.AppConstants.XML_COLLECTION;
 
 @RestController
 public class GraRestController {
@@ -42,7 +50,8 @@ public class GraRestController {
     private final ItemMapper itemMapper;
     private final CollectionToGameMapper collectionMapper;
 
-    public GraRestController(GryService gryService, ImportService importService, GryDescDao gryDescDao, GraDescriptionMapper descriptionMapper, ItemMapper itemMapper, CollectionToGameMapper collectionMapper) {
+    public GraRestController(GryService gryService, ImportService importService, GryDescDao gryDescDao, GraDescriptionMapper descriptionMapper,
+            ItemMapper itemMapper, CollectionToGameMapper collectionMapper) {
         this.gryService = gryService;
         this.importService = importService;
         this.gryDescDao = gryDescDao;
@@ -112,6 +121,15 @@ public class GraRestController {
         ModelAndView model = new ModelAndView();
         model.addObject("gry", importService.importGamesFromBgg(userName));
         model.setViewName("gry");
+        return model;
+    }
+
+    @GetMapping(value = "/search")
+    public ModelAndView searchGames(@RequestParam GameSearchCriteriaDto searchCriteria) {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("gry");
+        Specification<Game> itemsSpecification = gryDescDao.getItemsSpecification(searchCriteria);
+        model.addObject("gry", itemsSpecification);
         return model;
     }
 

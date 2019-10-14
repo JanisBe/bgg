@@ -6,13 +6,18 @@
     <!--            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"-->
     <!--            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
     <!--/*@thymesVar id="jsLocation" type=""*/-->
+    <script
+            crossorigin="anonymous"
+            integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+            src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/example.css}"/>
     <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
-    <script th:src="@{/js/script.js}"></script>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-sm bg-light">
     <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-folder-open"></span>Gry</a>
     <ul class="navbar-nav">
@@ -33,9 +38,27 @@
         <li class="nav-item">
             <a class="nav-link" href="/all">Kolekcja<span class="glyphicon glyphicon-retweet"></span></a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/search">Szukaj<span class="glyphicon glyphicon-retweet"></span></a>
+        </li>
     </ul>
 </nav>
+<div class="widget">
+    <h1>Widget Buttons</h1>
+    <button>A button element</button>
 
+    <input type="submit" value="A submit button">
 
+    <a href="#">An anchor</a>
+</div>
+<h1>CSS Buttons</h1>
+<button class="ui-button ui-widget ui-corner-all">A button element</button>
+
+<input class="ui-button ui-widget ui-corner-all" type="submit" value="A submit button">
+
+<a class="ui-button ui-widget ui-corner-all" href="#">An anchor</a>
+<p>Date: <input id="datepicker" type="text"></p>
+
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

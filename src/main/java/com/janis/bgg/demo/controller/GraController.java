@@ -1,15 +1,15 @@
 package com.janis.bgg.demo.controller;
 
-import com.janis.bgg.demo.dao.SettingsDao;
-import com.janis.bgg.demo.service.GryService;
+import static com.janis.bgg.demo.constants.AppConstants.USERNAME;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Optional;
-
-import static com.janis.bgg.demo.constants.AppConstants.USERNAME;
+import com.janis.bgg.demo.dao.SettingsDao;
+import com.janis.bgg.demo.entities.entity.Settings;
+import com.janis.bgg.demo.service.GryService;
 
 @Controller
 public class GraController {
@@ -24,8 +24,9 @@ public class GraController {
     public ModelAndView test() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
-        String name = settingsDao.findByName(USERNAME).getContent();
-        modelAndView.addObject("username", Optional.ofNullable(name).orElse(""));
+        Settings userName = settingsDao.findByName(USERNAME);
+        String name = userName != null ? userName.getContent() : "";
+        modelAndView.addObject("username", name);
         return modelAndView;
     }
 
