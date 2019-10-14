@@ -128,7 +128,8 @@ public class GraRestController {
     public ModelAndView searchGames(@RequestParam GameSearchCriteriaDto searchCriteria) {
         ModelAndView model = new ModelAndView();
         model.setViewName("gry");
-        Specification<Game> itemsSpecification = gryDescDao.getItemsSpecification(searchCriteria);
+        Specification<Game> itemsSpecification = gryDescDao.searchGameUsingSpecification(searchCriteria);
+        List<Game> foundGames = gryDescDao.searchGameByCriteria(searchCriteria);
         model.addObject("gry", itemsSpecification);
         return model;
     }

@@ -23,7 +23,7 @@ public interface GryDescDao extends JpaRepository<Game, Long>, JpaSpecificationE
     @Query(value = "Select game_id from game", nativeQuery = true)
     List<Integer> findAllIds();
 
-    List<Game> findGamesByCriteria(GameSearchCriteriaDto searchCriteria);
+    List<Game> searchGameByCriteria(GameSearchCriteriaDto searchCriteria);
 
-    Specification<Game> getItemsSpecification(GameSearchCriteriaDto searchCriteria);
+    Specification<Game> searchGameUsingSpecification(GameSearchCriteriaDto searchCriteria);
 }

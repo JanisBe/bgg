@@ -3,6 +3,7 @@ package com.janis.bgg.demo.dao.Impl;
 import com.janis.bgg.demo.dao.GryDescDao;
 import com.janis.bgg.demo.entities.dto.GameSearchCriteriaDto;
 import com.janis.bgg.demo.entities.entity.Game;
+import com.janis.bgg.demo.entities.entity.Game_;
 import com.janis.bgg.demo.utils.JpaPredicateList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -22,7 +23,7 @@ public abstract class GryDescDaoImpl implements GryDescDao {
     EntityManager em;
 
     @Override
-    public List<Game> findGamesByCriteria(GameSearchCriteriaDto searchCriteria) {
+    public List<Game> searchGameByCriteria(GameSearchCriteriaDto searchCriteria) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Game> cq = cb.createQuery(Game.class);
         Root<Game> root = cq.from(Game.class);
@@ -43,7 +44,7 @@ public abstract class GryDescDaoImpl implements GryDescDao {
     }
 
     @Override
-    public Specification<Game> getItemsSpecification(GameSearchCriteriaDto searchCriteria) {
+    public Specification<Game> searchGameUsingSpecification(GameSearchCriteriaDto searchCriteria) {
 
         return (root, query, criteriaBuilder) -> {
             JpaPredicateList predicates = new JpaPredicateList();
