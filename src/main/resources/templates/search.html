@@ -3,8 +3,13 @@
     <title>Title</title>
 </head>
 <body>
-<form method="get" th:action="@{/search}" th:object="${searchCriteria}">
-    <input id="name" name="name" th:value="*{name}" type="text"/>
+<form action="#" method="post" th:action="@{/search}" th:object="${searchCriteria}">
+    Name <input id="name" name="name" th:value="*{name}" type="text"/> <br/>
+    minPL <input id="name" name="minPlayers" th:value="*{minPlayers}" type="text"/> <br/>
+    maxPl <input id="name" name="maxPlayers" th:value="*{maxPlayers}" type="text"/> <br/>
+    weight <input id="name" name="weight" th:value="*{weight}" type="text"/>
+
+    <input type="submit" value="Submit"/>
 </form>
 </body>
 </html>
