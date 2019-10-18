@@ -14,7 +14,7 @@ import java.util.List;
 @Primary
 public interface GraRepositoryCustom {
 
-    List<Game> szukanie(SearchCriteria searchCriteria);
+    List<Game> searchGamesUsingCriteria(SearchCriteria searchCriteria);
 
     Specification<Game> searchGameUsingSpecification(SearchCriteria searchCriteria);
 }

@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.janis.bgg.constants.AppConstants;
 import com.janis.bgg.dao.GraRepositoryCustom;
 import com.janis.bgg.dao.GryDescDao;
+import com.janis.bgg.entities.dto.GraDto;
 import com.janis.bgg.entities.dto.SearchCriteria;
 import com.janis.bgg.entities.entity.Game;
 import com.janis.bgg.entities.entity.Gra;
@@ -17,7 +18,6 @@ import com.janis.bgg.mapper.ItemMapper;
 import com.janis.bgg.service.GryService;
 import com.janis.bgg.service.ImportService;
 import com.janis.bgg.utils.ImporterUtils;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -130,14 +130,12 @@ public class GraRestController {
     @PostMapping(value = "/search")
     public ModelAndView searchForm(@ModelAttribute SearchCriteria searchCriteria) {
         ModelAndView model = new ModelAndView();
-        model.setViewName("search");
+        model.setViewName("gry");
         model.addObject("searchCriteria", searchCriteria);
-        Specification<Game> itemsSpecification = graRepositoryCustom.searchGameUsingSpecification(searchCriteria);
-        List<Game> foundGames = graRepositoryCustom.szukanie(searchCriteria);
-//        model.addObject("gry", itemsSpecification);
+        List<GraDto> foundGames = gryService.findAllGamesToDto(searchCriteria);
+        model.addObject("gry", foundGames);
         return model;
     }
-
 
 
     @RequestMapping("1")

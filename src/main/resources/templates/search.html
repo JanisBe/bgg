@@ -3,13 +3,23 @@
     <title>Title</title>
 </head>
 <body>
-<form action="#" method="post" th:action="@{/search}" th:object="${searchCriteria}">
-    Name <input id="name" name="name" th:value="*{name}" type="text"/> <br/>
-    minPL <input id="name" name="minPlayers" th:value="*{minPlayers}" type="text"/> <br/>
-    maxPl <input id="name" name="maxPlayers" th:value="*{maxPlayers}" type="text"/> <br/>
-    weight <input id="name" name="weight" th:value="*{weight}" type="text"/>
+<div th:fragment="search">
+    <form action="#" method="post" th:action="@{/search}" th:object="${searchCriteria}">
+        Name <input id="name" name="name" th:value="*{name}" type="text"/> <br/>
+        minPL
+        <select name="minPlayers" th:field="*{minPlayers}">
+            <option value=""></option>
+            <option th:each="n : ${#numbers.sequence(1,8)}" th:text="${n}" th:value="${n}"/>
+        </select> <br/>
+        maxPl
+        <select name="maxPlayers" th:field="*{maxPlayers}">
+            <option value=""></option>
+            <option th:each="n : ${#numbers.sequence(1,8)}" th:text="${n}" th:value="${n}"/>
+        </select> <br/>
+        weight <input id="weight" name="weight" th:value="*{weight}" type="text"/>
 
-    <input type="submit" value="Submit"/>
-</form>
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
 </body>
 </html>
