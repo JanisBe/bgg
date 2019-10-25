@@ -1,1 +1,18 @@
-<p>game-details works!</p>
+<h2>game Details</h2>
+
+<hr/>
+<div *ngIf="game">
+  <div>
+    <label><b>Name: </b></label> {{game.name}}
+  </div>
+  <div>
+    <label><b>minPlayers</b></label> {{game.minPlayers}}
+  </div>
+  <div>
+    <label><b>maxPlayers </b></label> {{game.maxPlayers}}
+  </div>
+</div>
+
+<br>
+<br>
+<button (click)="list()" class="btn btn-primary">Back to game List</button><br>

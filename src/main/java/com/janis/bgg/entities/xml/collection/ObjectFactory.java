@@ -69,7 +69,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "image")
     public JAXBElement<String> createImage(String value) {
-        return new JAXBElement<String>(_Image_QNAME, String.class, null, value);
+        return new JAXBElement<>(_Image_QNAME, String.class, null, value);
     }
 
     /**
@@ -77,7 +77,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "thumbnail")
     public JAXBElement<String> createThumbnail(String value) {
-        return new JAXBElement<String>(_Thumbnail_QNAME, String.class, null, value);
+        return new JAXBElement<>(_Thumbnail_QNAME, String.class, null, value);
     }
 
     /**
@@ -85,7 +85,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "originalname")
     public JAXBElement<String> createOriginalname(String value) {
-        return new JAXBElement<String>(_Originalname_QNAME, String.class, null, value);
+        return new JAXBElement<>(_Originalname_QNAME, String.class, null, value);
     }
 
     /**
@@ -93,7 +93,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "yearpublished")
     public JAXBElement<BigInteger> createYearpublished(BigInteger value) {
-        return new JAXBElement<BigInteger>(_Yearpublished_QNAME, BigInteger.class, null, value);
+        return new JAXBElement<>(_Yearpublished_QNAME, BigInteger.class, null, value);
     }
 
     /**
@@ -101,7 +101,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "comment")
     public JAXBElement<String> createComment(String value) {
-        return new JAXBElement<String>(_Comment_QNAME, String.class, null, value);
+        return new JAXBElement<>(_Comment_QNAME, String.class, null, value);
     }
 
     /**
@@ -109,7 +109,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "numplays")
     public JAXBElement<BigInteger> createNumplays(BigInteger value) {
-        return new JAXBElement<BigInteger>(_Numplays_QNAME, BigInteger.class, null, value);
+        return new JAXBElement<>(_Numplays_QNAME, BigInteger.class, null, value);
     }
 
 }

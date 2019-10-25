@@ -1,0 +1,22 @@
+<h3>Update Game</h3>
+<div [hidden]="submitted" style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input [(ngModel)]="game.name" class="form-control" id="name" name="name" required type="text">
+    </div>
+
+    <div class="form-group">
+      <label for="minPlayers">min</label>
+      <input [(ngModel)]="game.minPlayers" class="form-control" id="minPlayers" name="minPlayers" required type="text">
+    </div>
+
+    <div class="form-group">
+      <label for="maxPlayers">max</label>
+      <input [(ngModel)]="game.maxPlayers" class="form-control" id="maxPlayers" name="maxPlayers" required type="text">
+    </div>
+
+
+    <button class="btn btn-success" type="submit">Submit</button>
+  </form>
+</div>

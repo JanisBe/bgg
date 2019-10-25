@@ -51,7 +51,7 @@ public abstract class GraMapper {
     @AfterMapping
     protected void gameToGraDTO(Game gra, @MappingTarget GraDto graDto) {
         String result;
-        if (gra.getMinPlayers() == gra.getMaxPlayers()) {
+        if (gra.getMinPlayers().equals(gra.getMaxPlayers())) {
             result = gra.getMinPlayers().toString();
         } else {
             result = gra.getMinPlayers() + " - " + gra.getMaxPlayers();

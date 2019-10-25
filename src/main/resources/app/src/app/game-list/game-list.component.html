@@ -1,1 +1,35 @@
-<p>game-list works!</p>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Game List</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>image</th>
+        <th>BGG rating</th>
+        <th>Rating</th>
+        <th>players</th>
+        <th>rank</th>
+        <th>expansion</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let game of games | async">
+        <td>{{game.name}}</td>
+        <td><img src="{{game.thumbnail}}"></td>
+        <td>{{game.bggRating}}</td>
+        <td>{{game.averageRating}}</td>
+        <td>{{game.minPlayers}} - {{game.maxPlayers}}</td>
+        <td>{{game.rank}}</td>
+        <td>{{game.expansionId}}</td>
+        <td>
+          <button (click)="deleteGame(game.id)" class="btn btn-danger">Delete</button>
+          <button (click)="gameDetails(game.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

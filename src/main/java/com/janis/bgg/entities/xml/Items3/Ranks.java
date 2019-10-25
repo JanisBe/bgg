@@ -59,7 +59,7 @@ public class Ranks {
      */
     public List<Rank> getRank() {
         if (rank == null) {
-            rank = new ArrayList<Rank>();
+            rank = new ArrayList<>();
         }
         return this.rank;
     }

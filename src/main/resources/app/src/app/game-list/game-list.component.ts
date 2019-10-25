@@ -18,7 +18,21 @@ export class GameListComponent implements OnInit {
     this.reloadData();
   }
 
-  private reloadData() {
+  reloadData() {
     this.games = this.gameService.getGameList();
+  }
+
+  deleteGame(id: number) {
+    this.gameService.deleteGame(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.reloadData();
+        },
+        error => console.log(error));
+  }
+
+  gameDetails(id: number) {
+    this.router.navigate(['details', id]);
   }
 }

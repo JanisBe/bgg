@@ -74,7 +74,7 @@ public class Poll {
      */
     public List<Results> getResults() {
         if (results == null) {
-            results = new ArrayList<Results>();
+            results = new ArrayList<>();
         }
         return this.results;
     }

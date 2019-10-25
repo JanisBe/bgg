@@ -281,7 +281,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "image")
     public JAXBElement<String> createImage(String value) {
-        return new JAXBElement<String>(_Image_QNAME, String.class, null, value);
+        return new JAXBElement<>(_Image_QNAME, String.class, null, value);
     }
 
     /**
@@ -290,7 +290,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "thumbnail")
     public JAXBElement<String> createThumbnail(String value) {
-        return new JAXBElement<String>(_Thumbnail_QNAME, String.class, null, value);
+        return new JAXBElement<>(_Thumbnail_QNAME, String.class, null, value);
     }
 
     /**
@@ -299,7 +299,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "description")
     public JAXBElement<String> createDescription(String value) {
-        return new JAXBElement<String>(_Description_QNAME, String.class, null, value);
+        return new JAXBElement<>(_Description_QNAME, String.class, null, value);
     }
 
 }

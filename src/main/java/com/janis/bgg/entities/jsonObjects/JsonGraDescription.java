@@ -73,7 +73,7 @@ public class JsonGraDescription {
     @JsonProperty("expands")
     private List<JsonExpansion> expands = null;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * No args constructor for use in serialization

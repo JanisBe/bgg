@@ -3,7 +3,11 @@ package com.janis.bgg;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.awt.*;
 import java.io.IOException;
@@ -13,7 +17,6 @@ import java.net.URISyntaxException;
 import static java.lang.management.ManagementFactory.getRuntimeMXBean;
 
 @SpringBootApplication
-//@EnableJpaRepositories("com.janis.bgg.dao")
 public class BGGApp {
 
     public static void main(String[] args) {
@@ -22,11 +25,11 @@ public class BGGApp {
         application.run(args);
     }
 
-    public static void Browse(String url) {
+    private static void Browse() {
         if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
             try {
-                desktop.browse(new URI(url));
+                desktop.browse(new URI("localhost:8080"));
             } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -41,11 +44,27 @@ public class BGGApp {
     }
 
     @EventListener({ApplicationReadyEvent.class})
-    void applicationReadyEvent() {
+    public void applicationReadyEvent() {
         System.out.println("Application started ... launching browser now");
         boolean isDebug = getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
         if (!isDebug) {
-            Browse("localhost:8080");
+            Browse();
         }
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("OPTIONS");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("DELETE");
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 }

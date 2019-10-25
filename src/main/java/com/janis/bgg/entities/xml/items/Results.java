@@ -63,7 +63,7 @@ public class Results {
      */
     public List<Result> getResult() {
         if (result == null) {
-            result = new ArrayList<Result>();
+            result = new ArrayList<>();
         }
         return this.result;
     }

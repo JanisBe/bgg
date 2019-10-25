@@ -16,10 +16,10 @@ public class JsonDesigner {
 
     @JsonProperty("designers")
     @Valid
-    public List<String> designers = new ArrayList<String>();
+    public List<String> designers = new ArrayList<>();
     @JsonIgnore
     @Valid
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * No args constructor for use in serialization

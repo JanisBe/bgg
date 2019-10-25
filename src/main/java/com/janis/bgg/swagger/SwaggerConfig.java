@@ -45,7 +45,6 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo(null, null, null, null, new Contact(null, null, null), null, null, newArrayList());
-        return apiInfo;
+        return new ApiInfo(null, null, null, null, new Contact(null, null, null), null, null, newArrayList());
     }
 }

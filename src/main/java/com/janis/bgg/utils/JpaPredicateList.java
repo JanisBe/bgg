@@ -12,7 +12,7 @@ public class JpaPredicateList {
      * Creates an empty predicate list
      */
     public JpaPredicateList() {
-        list = new ArrayList<Predicate>();
+        list = new ArrayList<>();
     }
 
     /**
@@ -64,6 +64,6 @@ public class JpaPredicateList {
      * @return copy of the list of predicates
      */
     public List asList() {
-        return new ArrayList<Predicate>(list);
+        return new ArrayList<>(list);
     }
 }

@@ -166,7 +166,7 @@ public class Item {
      */
     public List<Name> getName() {
         if (name == null) {
-            name = new ArrayList<Name>();
+            name = new ArrayList<>();
         }
         return this.name;
     }
@@ -296,7 +296,7 @@ public class Item {
      */
     public List<Object> getMaxplaytimeOrMinageOrMinplaytime() {
         if (maxplaytimeOrMinageOrMinplaytime == null) {
-            maxplaytimeOrMinageOrMinplaytime = new ArrayList<Object>();
+            maxplaytimeOrMinageOrMinplaytime = new ArrayList<>();
         }
         return this.maxplaytimeOrMinageOrMinplaytime;
     }
@@ -326,7 +326,7 @@ public class Item {
      */
     public List<Link> getLink() {
         if (link == null) {
-            link = new ArrayList<Link>();
+            link = new ArrayList<>();
         }
         return this.link;
     }

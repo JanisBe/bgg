@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class StartingEventListener implements ApplicationListener<ApplicationStartingEvent> {
-    // @Value("${mysql.path}")
-    private String mysqlPath = "e:\\xampp\\mysql_start.bat";
 
     @Override
     public void onApplicationEvent(ApplicationStartingEvent applicationStartingEvent) {
@@ -31,6 +29,8 @@ public class StartingEventListener implements ApplicationListener<ApplicationSta
 
             if (!pidInfo.toString().contains("mysqld.exe")) {
                 // Runtime sqlRuntime = runtime;
+                // @Value("${mysql.path}")
+                String mysqlPath = "e:\\xampp\\mysql_start.bat";
                 runtime.exec(mysqlPath);
             }
         } catch (IOException e) {
