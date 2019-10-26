@@ -29,14 +29,14 @@ public class BGGApp {
         if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
             try {
-                desktop.browse(new URI("localhost:8080"));
+                desktop.browse(new URI("localhost:4200"));
             } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();
             }
         } else {
             Runtime runtime = Runtime.getRuntime();
             try {
-                runtime.exec(new String[]{"cmd", "/c", "start chrome http://localhost:8080"});
+                runtime.exec(new String[]{"cmd", "/c", "start chrome http://localhost:4200"});
             } catch (IOException e) {
                 e.printStackTrace();
             }

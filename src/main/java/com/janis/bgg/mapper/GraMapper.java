@@ -78,4 +78,7 @@ public abstract class GraMapper {
         }
         return result;
     }
+
+    @Mapping(target = "id", ignore = true)
+    public abstract Game gameToGame(Game game);
 }

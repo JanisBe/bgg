@@ -30,20 +30,20 @@ public class GryService {
         this.graMapper = graMapper;
     }
 
-    public List<Gra> findGameByNumOfPlayers(Integer noOfPlayers) {
+    public List<Game> findGameByNumOfPlayers(Integer noOfPlayers) {
         if (noOfPlayers < 0) {
             throw new InvalidParameterException("Liczba graczy nie może być mniejsza niż 0");
         }
-        return gryDao.findByMinPlayersGreaterThanEqualAndMaxPlayersGreaterThanEqualOrderByAverageRatingDesc(noOfPlayers, noOfPlayers)
-                .stream().sorted(Comparator.comparing(Gra::getName)).collect(Collectors.toList());
+        return gryDescDao.findByMinPlayersGreaterThanEqualAndMaxPlayersGreaterThanEqualOrderByAverageRatingDesc(noOfPlayers, noOfPlayers)
+                .stream().sorted(Comparator.comparing(Game::getName)).collect(Collectors.toList());
     }
 
     public List<Gra> findAllOrderByAvgRating() {
         return gryDao.findAllByOrderByAverageRatingDesc();
     }
 
-    public List<Gra> findAll() {
-        return gryDao.findAll().stream().sorted(Comparator.comparing(Gra::getName)).collect(Collectors.toList());
+    public List<Game> findAll() {
+        return gryDescDao.findAll().stream().sorted(Comparator.comparing(Game::getName)).collect(Collectors.toList());
     }
 
     public List<Gra> findGracze(Integer no) {
@@ -56,5 +56,13 @@ public class GryService {
 
     public List<GraDto> findAllGamesToDto(SearchCriteria searchCriteria) {
         return graMapper.gameToGraDto(graRepositoryCustom.searchGamesUsingCriteria(searchCriteria));
+    }
+
+    public Game findById(int id) {
+        return gryDescDao.findById(id);
+    }
+
+    public Game saveGame(Game game) {
+        return gryDescDao.save(game);
     }
 }
