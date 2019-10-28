@@ -13,8 +13,11 @@ public class Game implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "game_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private int id;
+    @Column(name = "game_id", nullable = false)
+    private int game_id;
     @Column(name = "bgg_rating")
     private Double bggRating;
     @Column(name = "description", length = 5000)
@@ -39,7 +42,7 @@ public class Game implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.ALL})
     @JoinTable(name = "designers_x_gry", joinColumns = {
-            @JoinColumn(name = "game_id", referencedColumnName = "game_id")
+            @JoinColumn(name = "game_id", referencedColumnName = "id")
     }, inverseJoinColumns = {
             @JoinColumn(name = "designers_id", referencedColumnName = "id")
     })
@@ -48,7 +51,7 @@ public class Game implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.ALL})
     @JoinTable(name = "mechanics_x_gry", joinColumns = {
-            @JoinColumn(name = "gra_id", referencedColumnName = "game_id")
+            @JoinColumn(name = "gra_id", referencedColumnName = "id")
     }, inverseJoinColumns = {
             @JoinColumn(name = "mechanics_id", referencedColumnName = "id")
     })
@@ -70,6 +73,14 @@ public class Game implements Serializable {
 */
 
     public Game() {
+    }
+
+    public int getGame_id() {
+        return game_id;
+    }
+
+    public void setGame_id(int game_id) {
+        this.game_id = game_id;
     }
 
     public int getId() {

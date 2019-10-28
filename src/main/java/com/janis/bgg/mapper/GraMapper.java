@@ -40,7 +40,7 @@ public abstract class GraMapper {
 
     @Mapping(target = "rating", source = "")
     @Mapping(target = "gameId", source = "id")
-    public abstract Gra graDescToGra(Game gra);
+    public abstract Gra gameTOGra(Game gra);
 
     @Mapping(target = "expansion", ignore = true)
     @Mapping(target = "gameId", source = "id")
@@ -63,10 +63,10 @@ public abstract class GraMapper {
         }
     }
 
-    public List<Gra> graDescToGra(List<Game> gry) {
+    public List<Gra> gameTOGra(List<Game> gry) {
         List<Gra> result = Lists.newArrayList();
         for (Game gra : gry) {
-            result.add(graDescToGra(gra));
+            result.add(gameTOGra(gra));
         }
         return result;
     }

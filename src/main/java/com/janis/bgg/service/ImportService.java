@@ -75,10 +75,13 @@ public class ImportService {
                     .orElse(Collections.EMPTY_LIST);
             List<Integer> difference = compareBGGvsDB(bggGameIds, dbGameIds);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss Z").withLocale(Locale.ENGLISH);
-            Settings lastUpdate = settingsDao.findByName(UPDATE_TIME);
+            Settings lastUpdate = Optional.ofNullable(settingsDao.findByName(UPDATE_TIME)).orElse(new Settings());
             String lastUpdateString = lastUpdate.getContent();
-            LocalDate lastUpdateDate = LocalDate.parse(lastUpdateString, formatter);
-            long diffInDays = ChronoUnit.DAYS.between(lastUpdateDate, LocalDate.now());
+            long diffInDays = 100L;
+            if (lastUpdateString != null) {
+                LocalDate lastUpdateDate = LocalDate.parse(lastUpdateString, formatter);
+                diffInDays = ChronoUnit.DAYS.between(lastUpdateDate, LocalDate.now());
+            }
             if (!difference.isEmpty() || diffInDays > 20L) {
                 int size = collection.getTotalitems().intValue();
 
@@ -114,11 +117,12 @@ public class ImportService {
     }
 
     private void importGameDetailsFromXML(Integer gameId) {
+        StringReader reader = null;
         try {
             String data = ImporterUtils.connect(XML_THING + gameId + STATS);
             JAXBContext jaxbContext = JAXBContext.newInstance(Items.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            StringReader reader = new StringReader(data);
+            reader = new StringReader(data);
             Items item = (Items) jaxbUnmarshaller.unmarshal(reader);
             Game gry = itemMapper.itemToGraMapper(item.getItem());
             gryDescDao.save(gry);

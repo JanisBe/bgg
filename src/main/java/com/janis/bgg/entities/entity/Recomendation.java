@@ -24,7 +24,7 @@ public class Recomendation implements Serializable {
 
     //bi-directional many-to-one association to Game
     @ManyToOne
-    @JoinColumn(name = "game_id", referencedColumnName = "game_id")
+    @JoinColumn(name = "game_id", referencedColumnName = "id")
     private Game game;
     private int recommended;
 

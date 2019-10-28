@@ -13,7 +13,6 @@ import org.mapstruct.MappingTarget;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -23,6 +22,7 @@ import static com.janis.bgg.constants.AppConstants.*;
 @Mapper(componentModel = "spring")
 public abstract class ItemMapper {
 
+    @Mapping(target = "game_id", source = "id")
     @Mapping(target = "expansionId", ignore = true)
     @Mapping(target = "weight", ignore = true)
     @Mapping(target = "recomendations", ignore = true)
@@ -42,8 +42,7 @@ public abstract class ItemMapper {
     @AfterMapping
     protected void nameMapper(Item item, @MappingTarget Game gra) {
         String name = item.getName().stream().filter(t -> t.getType().equals(PRIMARY)).collect(toSingleton()).getValue();
-        String altName = Optional.ofNullable(item.getName().stream().filter(t -> t.getType().equals(ALTERNATE)).collect(Collectors.toList()).get(0).getValue()).orElse(name);
-        gra.setName(altName);
+        gra.setName(name);
         Set<Mechanic> mechanicsSet = Sets.newHashSet();
         Set<Designer> designersSet = Sets.newHashSet();
         Set<Recomendation> recommendationsSet = Sets.newHashSet();
