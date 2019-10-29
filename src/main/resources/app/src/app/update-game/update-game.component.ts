@@ -11,6 +11,7 @@ import {Game} from "../game";
 export class UpdateGameComponent implements OnInit {
   id: number;
   game: Game;
+  submitted: boolean;
 
   constructor(private route: ActivatedRoute, private router: Router, private ganeService: GameService) {
   }

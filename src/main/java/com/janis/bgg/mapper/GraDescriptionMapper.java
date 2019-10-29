@@ -27,6 +27,7 @@ public abstract class GraDescriptionMapper {
     @Autowired
     private GryDescDao gryDescDao;
 
+    @Mapping(target = "artists", ignore = true)
     @Mapping(target = "mechanics", ignore = true)
     @Mapping(target = "designers", ignore = true)
     @Mapping(target = "gameId", source = "id")

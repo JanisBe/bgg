@@ -1,6 +1,7 @@
 package com.janis.bgg.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.io.CharStreams;
 import com.janis.bgg.dao.GryDao;
 import com.janis.bgg.dao.GryDescDao;
 import com.janis.bgg.dao.SettingsDao;
@@ -21,7 +22,9 @@ import org.thymeleaf.util.StringUtils;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.StringReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -36,8 +39,6 @@ import static com.janis.bgg.constants.AppConstants.*;
 
 @Service
 public class ImportService {
-    private final ImporterUtils importer;
-    private final GryDao gryDao;
     private final GryDescDao gryDescDao;
     private final SettingsDao settingsDao;
     private final GraDescriptionMapper descriptionMapper;
@@ -45,8 +46,6 @@ public class ImportService {
     private final GraMapper graMapper;
 
     public ImportService(ImporterUtils importer, GryDao gryDao, GryDescDao gryDescDao, SettingsDao settingsDao, GraDescriptionMapper descriptionMapper, ItemMapper itemMapper, GraMapper graMapper) {
-        this.importer = importer;
-        this.gryDao = gryDao;
         this.gryDescDao = gryDescDao;
         this.settingsDao = settingsDao;
         this.descriptionMapper = descriptionMapper;
@@ -128,9 +127,22 @@ public class ImportService {
             gryDescDao.save(gry);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                String readerData = CharStreams.toString(reader);
+                System.out.println(readerData);
+                zapisz(readerData, gameId);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
             System.out.println("!!!!! wywaliło na " + gameId);
         }
 
+    }
+
+    private void zapisz(String readerData, Integer id) throws FileNotFoundException {
+        PrintWriter zapis = new PrintWriter(id + ".txt");
+        zapis.println(readerData);
+        zapis.close();
     }
 
     private List<Integer> compareBGGvsDB(List<Integer> bggList, List<Integer> dbList) {
