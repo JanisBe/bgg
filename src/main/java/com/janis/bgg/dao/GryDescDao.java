@@ -16,6 +16,7 @@ public interface GryDescDao extends JpaRepository<Game, Long>, JpaSpecificationE
 
     List<Game> findByMinPlayersGreaterThanEqualAndMaxPlayersGreaterThanEqualOrderByAverageRatingDesc(Integer minPlayers, Integer maxPlayers);
 
+    Game findByGameId(int gameId);
     Game findById(int id);
 
     @Query(value = "Select game_id from game", nativeQuery = true)

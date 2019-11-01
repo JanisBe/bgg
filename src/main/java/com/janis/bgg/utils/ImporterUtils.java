@@ -1,5 +1,6 @@
 package com.janis.bgg.utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -39,7 +40,7 @@ public class ImporterUtils {
             while ((readLine = in.readLine()) != null) {
                 content.append(readLine);
             }
-            if (content.toString().isEmpty()) {
+            if (content.toString().length() < 10 || content.toString().equals(StringUtils.EMPTY)) {
                 break;
             }
             in.close();

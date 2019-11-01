@@ -1,6 +1,8 @@
 package com.janis.bgg.mapper;
 
 import com.google.common.collect.Sets;
+import com.janis.bgg.dao.DesignerDao;
+import com.janis.bgg.dao.MechanicDao;
 import com.janis.bgg.entities.entity.Designer;
 import com.janis.bgg.entities.entity.Game;
 import com.janis.bgg.entities.entity.Mechanic;
@@ -10,6 +12,7 @@ import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,8 +24,13 @@ import static com.janis.bgg.constants.AppConstants.*;
 
 @Mapper(componentModel = "spring")
 public abstract class ItemMapper {
+    @Autowired
+    private DesignerDao designerDao;
 
-    @Mapping(target = "game_id", source = "id")
+    @Autowired
+    private MechanicDao mechanicDao;
+
+    @Mapping(target = "gameId", source = "id")
     @Mapping(target = "expansionId", ignore = true)
     @Mapping(target = "weight", ignore = true)
     @Mapping(target = "recomendations", ignore = true)
@@ -46,9 +54,23 @@ public abstract class ItemMapper {
         Set<Mechanic> mechanicsSet = Sets.newHashSet();
         Set<Designer> designersSet = Sets.newHashSet();
         Set<Recomendation> recommendationsSet = Sets.newHashSet();
-        item.getLink().stream().filter(t -> t.getType().equals(MECHANIC)).map(Link::getValue).forEach(mechanic -> mechanicsSet.add(new Mechanic(mechanic)));
+        item.getLink().stream().filter(t -> t.getType().equals(MECHANIC)).map(Link::getValue).forEach(mechanic -> {
+            Mechanic existingMechanic = mechanicDao.findMechanicByName(mechanic);
+            if (existingMechanic != null) {
+                mechanicsSet.add(existingMechanic);
+            } else {
+                mechanicsSet.add(new Mechanic(mechanic));
+            }
+        });
         gra.setMechanics(mechanicsSet);
-        item.getLink().stream().filter(t -> t.getType().equals(DESIGNER)).map(Link::getValue).forEach(designer -> designersSet.add(new Designer(designer)));
+        item.getLink().stream().filter(t -> t.getType().equals(DESIGNER)).map(Link::getValue).forEach(designer -> {
+            Designer existingDesigner = designerDao.findDesignerByDesignerName(designer);
+            if (existingDesigner != null) {
+                designersSet.add(existingDesigner);
+            } else {
+                designersSet.add(new Designer(designer));
+            }
+        });
         gra.setDesigners(designersSet);
         gra.setPlayingTime(item.getMaxplaytimeOrMinageOrMinplaytime().stream().filter(t -> t instanceof Playingtime).map(p -> ((Playingtime) p).getValue()).collect(toSingleton()));
         gra.setRank(item.getStatistics().getRatings().getRanks().getRank().stream().filter(r -> r.getFriendlyname().equals(RANK)).map(Rank::getBayesaverage).collect(toSingleton()).intValue());

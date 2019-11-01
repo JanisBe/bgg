@@ -49,7 +49,8 @@ public class GraController {
     @GetMapping(value = "/import")
     public ModelAndView importMyGames(@RequestParam(value = "userName", required = false) String userName) {
         ModelAndView model = new ModelAndView();
-        model.addObject("gry", importService.importGamesFromBgg(userName));
+        List<GraDto> allGames = importService.importGamesFromBgg(userName);
+        model.addObject("gry", allGames);
         model.setViewName("gry");
         return model;
     }

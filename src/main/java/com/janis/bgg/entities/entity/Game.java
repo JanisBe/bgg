@@ -17,7 +17,7 @@ public class Game implements Serializable {
     @Column(name = "id", nullable = false)
     private int id;
     @Column(name = "game_id", nullable = false)
-    private int game_id;
+    private int gameId;
     @Column(name = "bgg_rating")
     private Double bggRating;
     @Column(name = "description", length = 5000)
@@ -75,12 +75,12 @@ public class Game implements Serializable {
     public Game() {
     }
 
-    public int getGame_id() {
-        return game_id;
+    public int getGameId() {
+        return gameId;
     }
 
-    public void setGame_id(int game_id) {
-        this.game_id = game_id;
+    public void setGameId(int game_id) {
+        this.gameId = game_id;
     }
 
     public int getId() {

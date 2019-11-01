@@ -1,7 +1,6 @@
 package com.janis.bgg.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.io.CharStreams;
 import com.janis.bgg.dao.GryDao;
 import com.janis.bgg.dao.GryDescDao;
 import com.janis.bgg.dao.SettingsDao;
@@ -86,7 +85,10 @@ public class ImportService {
 
                 for (int i = 0; i < size; i++) {
                     Integer gameId = collection.getItem().get(i).getObjectid();
-                    importGameDetailsFromXML(gameId);
+                    Game existingGame = gryDescDao.findByGameId(gameId);
+                    if (existingGame == null) {
+                        importGameDetailsFromXML(gameId);
+                    }
                 }
                 if (settingsDao.findByName(USERNAME).getContent().equals(userName)) {
                     lastUpdate.setContent(collection.getPubdate());
@@ -116,23 +118,23 @@ public class ImportService {
     }
 
     private void importGameDetailsFromXML(Integer gameId) {
-        StringReader reader = null;
+        String data = "";
         try {
-            String data = ImporterUtils.connect(XML_THING + gameId + STATS);
+            data = ImporterUtils.connect(XML_THING + gameId + STATS);
+//            zapisz(data, gameId);
             JAXBContext jaxbContext = JAXBContext.newInstance(Items.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            reader = new StringReader(data);
+            StringReader reader = new StringReader(data);
             Items item = (Items) jaxbUnmarshaller.unmarshal(reader);
             Game gry = itemMapper.itemToGraMapper(item.getItem());
             gryDescDao.save(gry);
         } catch (Exception e) {
             e.printStackTrace();
             try {
-                String readerData = CharStreams.toString(reader);
-                System.out.println(readerData);
-                zapisz(readerData, gameId);
+                System.out.println(data);
+                zapisz(data, gameId);
             } catch (Exception ex) {
-                ex.printStackTrace();
+//                ex.printStackTrace();
             }
             System.out.println("!!!!! wywaliło na " + gameId);
         }
