@@ -9,26 +9,24 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.janis.bgg.constants.AppConstants.NOT_RANKED;
+import static com.janis.bgg.service.ImportService.zapisz;
 
 @Component
 public class ImporterUtils {
 
     public static String connect(String address) throws IOException, InterruptedException {
         HttpURLConnection con = null;
+        Matcher m = Pattern.compile("^(.+id=)([0-9]+)(&.+)").matcher(address);
+        m.find();
         StringBuilder content = new StringBuilder();
         while (true) {
-            // try {
             if (!(con == null || con.getResponseCode() == 200))
                 break;
-            // } catch (IOException e) {
-            // System.out.println("nie działa coś na razie");
-            // e.printStackTrace();
-            // }
-            // try {
             con = (HttpURLConnection) new URL(address).openConnection();
-            // con.setRequestMethod("GET");
             if (con.getResponseCode() == 429) {
                 TimeUnit.SECONDS.sleep(1);
                 break;
@@ -40,19 +38,14 @@ public class ImporterUtils {
             while ((readLine = in.readLine()) != null) {
                 content.append(readLine);
             }
+            zapisz(content.toString().replace(NOT_RANKED, "0"), null);
             if (content.toString().length() < 10 || content.toString().equals(StringUtils.EMPTY)) {
+                TimeUnit.SECONDS.sleep(1);
                 break;
             }
             in.close();
             con.disconnect();
             break;
-            // } catch (IOException e) {
-            // System.out.println("nie działa dla id");
-            // e.printStackTrace();
-            // // continue;
-            // } finally {
-
-            // }
         }
         return content.toString().replace(NOT_RANKED, "0");
     }

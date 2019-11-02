@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -50,6 +51,20 @@ public class ImportService {
         this.descriptionMapper = descriptionMapper;
         this.itemMapper = itemMapper;
         this.graMapper = graMapper;
+    }
+
+    public static void zapisz(String readerData, Long id) {
+        if (id == null) {
+            id = new Timestamp(System.currentTimeMillis()).getTime();
+        }
+        PrintWriter zapis = null;
+        try {
+            zapis = new PrintWriter("dane\\" + id + ".txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        zapis.println(readerData);
+        zapis.close();
     }
 
     public List<GraDto> importGamesFromBgg(String userName) {
@@ -90,12 +105,14 @@ public class ImportService {
                         importGameDetailsFromXML(gameId);
                     }
                 }
-                if (settingsDao.findByName(USERNAME).getContent().equals(userName)) {
+                if (settingsDao.findByName(USERNAME) == null) {
+                    saveNewUserData(userName, collection);
+                } else if (settingsDao.findByName(USERNAME).getContent().equals(userName)) {
                     lastUpdate.setContent(collection.getPubdate());
                 } else {
-                    settingsDao.save(new Settings(USERNAME, userName));
-                    settingsDao.save(new Settings(UPDATE_TIME, collection.getPubdate()));
+                    saveNewUserData(userName, collection);
                 }
+
             }
 
         } catch (JAXBException e) {
@@ -117,11 +134,16 @@ public class ImportService {
 
     }
 
+    private void saveNewUserData(String userName, MyCollection collection) {
+        settingsDao.save(new Settings(USERNAME, userName));
+        settingsDao.save(new Settings(UPDATE_TIME, collection.getPubdate()));
+    }
+
     private void importGameDetailsFromXML(Integer gameId) {
         String data = "";
         try {
             data = ImporterUtils.connect(XML_THING + gameId + STATS);
-//            zapisz(data, gameId);
+            zapisz(data, (long) gameId);
             JAXBContext jaxbContext = JAXBContext.newInstance(Items.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             StringReader reader = new StringReader(data);
@@ -129,22 +151,10 @@ public class ImportService {
             Game gry = itemMapper.itemToGraMapper(item.getItem());
             gryDescDao.save(gry);
         } catch (Exception e) {
-            e.printStackTrace();
-            try {
-                System.out.println(data);
-                zapisz(data, gameId);
-            } catch (Exception ex) {
-//                ex.printStackTrace();
-            }
+            System.out.println(data);
             System.out.println("!!!!! wywaliło na " + gameId);
         }
 
-    }
-
-    private void zapisz(String readerData, Integer id) throws FileNotFoundException {
-        PrintWriter zapis = new PrintWriter(id + ".txt");
-        zapis.println(readerData);
-        zapis.close();
     }
 
     private List<Integer> compareBGGvsDB(List<Integer> bggList, List<Integer> dbList) {

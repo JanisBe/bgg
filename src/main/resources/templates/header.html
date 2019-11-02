@@ -4,16 +4,68 @@
 </head>
 <body><!--   th:fragment="header" -->
 <div th:fragment="header">
+
     <nav class="navbar navbar-expand-sm bg-light">
+        <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-folder-open"></span>Gry</a>
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/1">Link 1</a>
+            <li class="nav-item dropdown">
+                <form class="form-inline" th:action="@{/import}">
+                    <input aria-label="Search" class="form-control mr-sm-2" name="userName" placeholder="BGG Username"
+                           th:value="${userName}" type="search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Import</button>
+                </form>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/2">Link 2</a>
+                <a class="nav-link" th:href="@{/import(userName=${userName})}">Update<span
+                        class="glyphicon glyphicon-retweet"></span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/alles">Link 3</a>
+                <a class="nav-link" href="/all">Kolekcja<span class="glyphicon glyphicon-retweet"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/search">Szukaj<span class="glyphicon glyphicon-retweet"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1" data-toggle="dropdown" href="#">Sign
+                    up</a>
+                <ul class="dropdown-menu form-wrapper">
+                    <li>
+                        <!--                        <form action="/examples/actions/confirmation.php" method="post">-->
+                        <!--                            <p class="hint-text">Fill in this form to create your account!</p>-->
+                        <!--                            <div class="form-group">-->
+                        <!--                                <input type="text" class="form-control" placeholder="Username" required="required">-->
+                        <!--                            </div>-->
+                        <!--                            <div class="form-group">-->
+                        <!--                                <input type="password" class="form-control" placeholder="Password" required="required">-->
+                        <!--                            </div>-->
+                        <!--                            <div class="form-group">-->
+                        <!--                                <input type="password" class="form-control" placeholder="Confirm Password" required="required">-->
+                        <!--                            </div>-->
+                        <!--                            <div class="form-group">-->
+                        <!--                                <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms &amp; Conditions</a></label>-->
+                        <!--                            </div>-->
+                        <!--                            <input type="submit" class="btn btn-primary btn-block" value="Sign up">-->
+                        <!--                        </form>-->
+                        <form action="#" method="post" th:action="@{/search}" th:object="${searchCriteria}">
+                            <div class="form-group"><input id="name" name="name" placeholder="game name"
+                                                           th:value="*{name}" type="text"/></div>
+                            <div class="form-group">
+                                <select name="minPlayers" th:field="*{minPlayers}">
+                                    <option value=""></option>
+                                    <option th:each="n : ${#numbers.sequence(1,8)}" th:text="${n}" th:value="${n}"/>
+                                </select></div>
+                            <div class="form-group">
+                                <select name="maxPlayers" th:field="*{maxPlayers}">
+                                    <option value=""></option>
+                                    <option th:each="n : ${#numbers.sequence(1,8)}" th:text="${n}" th:value="${n}"/>
+                                </select></div>
+                            <div class="form-group"><input id="weight" name="weight" placeholder="weight"
+                                                           th:value="*{weight}" type="text"/>
+                            </div>
+                            <input class="btn btn-primary btn-block" type="submit" value="Submit"/>
+                        </form>
+                    </li>
+                </ul>
             </li>
         </ul>
     </nav>

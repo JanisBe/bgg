@@ -1,9 +1,11 @@
 package com.janis.bgg.controller;
 
+import com.janis.bgg.dao.GryDescDao;
 import com.janis.bgg.dao.SettingsDao;
 import com.janis.bgg.entities.dto.GraDto;
 import com.janis.bgg.entities.dto.SearchCriteria;
 import com.janis.bgg.entities.entity.Settings;
+import com.janis.bgg.mapper.GraMapper;
 import com.janis.bgg.service.GryService;
 import com.janis.bgg.service.ImportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +30,33 @@ public class GraController {
     @Autowired
     private SettingsDao settingsDao;
 
+    @Autowired
+    private GryDescDao gryDescDao;
+
+    @Autowired
+    private GraMapper graMapper;
+
     @GetMapping("/")
     public ModelAndView test() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
+        addUserName(modelAndView);
+        return modelAndView;
+    }
+
+    private void addUserName(ModelAndView modelAndView) {
         Settings userName = settingsDao.findByName(USERNAME);
         String name = userName != null ? userName.getContent() : "";
-        modelAndView.addObject("username", name);
-        return modelAndView;
+        modelAndView.addObject("userName", name);
+        modelAndView.addObject("searchCriteria", new SearchCriteria());
     }
 
     @GetMapping("/all")
     public ModelAndView all() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("gry", gryService.findAll());
+        modelAndView.addObject("gry", graMapper.gameToGraDto(gryDescDao.findAll()));
         modelAndView.setViewName("gry");
+        addUserName(modelAndView);
         return modelAndView;
     }
 
@@ -52,6 +66,8 @@ public class GraController {
         List<GraDto> allGames = importService.importGamesFromBgg(userName);
         model.addObject("gry", allGames);
         model.setViewName("gry");
+        addUserName(model);
+        model.addObject("userName", "janislav");
         return model;
     }
 

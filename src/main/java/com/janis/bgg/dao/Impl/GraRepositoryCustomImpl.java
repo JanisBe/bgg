@@ -50,7 +50,7 @@ public class GraRepositoryCustomImpl implements GraRepositoryCustom {
 
         String name = searchCriteria.getName();
         if (name != null && !StringUtils.isEmptyOrWhitespace(name)) {
-            predicates.add(cb.like(root.get(Game_.name), name));
+            predicates.add(cb.like(cb.lower(root.get(Game_.name)), "%" + name.toLowerCase() + "%"));
         }
         if (searchCriteria.getMinPlayers() != null) {
             predicates.add(cb.greaterThanOrEqualTo(root.get(Game_.minPlayers), searchCriteria.getMinPlayers()));
