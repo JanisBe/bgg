@@ -21,6 +21,7 @@
     <table class="table table-striped table-bordered table-sm" data-toggle="table" id="dtBasicExample">
         <thead>
         <tr>
+            <th class="th-sm"></th>
             <th class="th-sm"> Name</th>
             <th class="th-sm"> img</th>
             <th class="th-sm"> no of players</th>
@@ -34,7 +35,8 @@
         </thead>
         <tbody>
         <tr th:each="gra : ${gry}" th:if="${not gry.empty}">
-            <td><a th:href="${'//boardgamegeek.com/boardgame/' + gra.gameId}" th:id="${gra.gameId}">
+            <td><span class="btn btn-warning"><a th:href="${'/gra/' + gra.gameId}">Edytuj</a></span></td>
+            <td><a target="_blank" th:href="${'//boardgamegeek.com/boardgame/' + gra.gameId}" th:id="${gra.gameId}">
                 <span th:text="${gra.name}"> Title </span> </a></td>
             <td><img height="60px" th:src="${gra.thumbnail}"></td>
             <td><span th:text="${gra.players}"> players </span></td>

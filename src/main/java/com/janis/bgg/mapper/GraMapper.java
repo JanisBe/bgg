@@ -43,7 +43,6 @@ public abstract class GraMapper {
     public abstract Gra gameTOGra(Game gra);
 
     @Mapping(target = "expansion", ignore = true)
-    @Mapping(target = "gameId", source = "id")
     @Mapping(target = "year", source = "yearPublished")
     @Mapping(target = "players", ignore = true)
     public abstract GraDto gameToGraDto(Game gra);

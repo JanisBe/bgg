@@ -17,8 +17,9 @@
             <option th:each="n : ${#numbers.sequence(1,8)}" th:text="${n}" th:value="${n}"/>
         </select> <br/>
         weight <input id="weight" name="weight" th:value="*{weight}" type="text"/>
-
-        <input type="submit" value="Submit"/>
+        <br/>
+        <input type="submit" value="Wyślij"/><br/>
+        <input type="reset" value="Zresetuj"/>
     </form>
 </div>
 </body>

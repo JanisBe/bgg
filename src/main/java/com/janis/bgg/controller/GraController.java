@@ -4,6 +4,7 @@ import com.janis.bgg.dao.GryDescDao;
 import com.janis.bgg.dao.SettingsDao;
 import com.janis.bgg.entities.dto.GraDto;
 import com.janis.bgg.entities.dto.SearchCriteria;
+import com.janis.bgg.entities.entity.Game;
 import com.janis.bgg.entities.entity.Settings;
 import com.janis.bgg.mapper.GraMapper;
 import com.janis.bgg.service.GryService;
@@ -60,6 +61,15 @@ public class GraController {
         return modelAndView;
     }
 
+    @RequestMapping("/gra/{id}")
+    public ModelAndView editGame(@PathVariable int id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("gra");
+        modelAndView.addObject("gra", graMapper.gameToGraDto(gryDescDao.findByGameId(id)));
+        addUserName(modelAndView);
+        return modelAndView;
+    }
+
     @GetMapping(value = "/import")
     public ModelAndView importMyGames(@RequestParam(value = "userName", required = false) String userName) {
         ModelAndView model = new ModelAndView();
@@ -86,6 +96,17 @@ public class GraController {
         model.addObject("searchCriteria", searchCriteria);
         List<GraDto> foundGames = gryService.findAllGamesToDto(searchCriteria);
         model.addObject("gry", foundGames);
+        return model;
+    }
+
+    @PostMapping(value = "/saveGame")
+    public ModelAndView saveGame(@ModelAttribute GraDto gameDetails) {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("gry");
+        Game updatedGame = graMapper.gameToGame(graMapper.graDtoToGraDesc(gameDetails));
+        gryDescDao.save(updatedGame);
+        addUserName(model);
+        model.addObject("gry", graMapper.gameToGraDto(gryDescDao.findAll()));
         return model;
     }
 
