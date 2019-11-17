@@ -2,7 +2,6 @@ package com.janis.bgg.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
-import com.janis.bgg.dao.GryDao;
 import com.janis.bgg.dao.GryDescDao;
 import com.janis.bgg.dao.SettingsDao;
 import com.janis.bgg.entities.dto.GraDto;
@@ -44,7 +43,7 @@ public class ImportService {
     private final ItemMapper itemMapper;
     private final GraMapper graMapper;
 
-    public ImportService(ImporterUtils importer, GryDao gryDao, GryDescDao gryDescDao, SettingsDao settingsDao, GraDescriptionMapper descriptionMapper, ItemMapper itemMapper, GraMapper graMapper) {
+    public ImportService(GryDescDao gryDescDao, SettingsDao settingsDao, GraDescriptionMapper descriptionMapper, ItemMapper itemMapper, GraMapper graMapper) {
         this.gryDescDao = gryDescDao;
         this.settingsDao = settingsDao;
         this.descriptionMapper = descriptionMapper;
