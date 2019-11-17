@@ -18,7 +18,7 @@
         </th:block> /*/-->
 <div class="container">
 
-    <form action="#" method="post" th:action="@{/saveGame}" th:object="${gameDetails}">
+    <form action="#" method="post" th:action="@{/saveGame}" th:object="${game}">
         <table class="table table-striped table-bordered table-sm" data-toggle="table" id="dtBasicExample">
             <thead>
             <tr>
@@ -36,24 +36,27 @@
             </thead>
             <tbody>
             <tr>
-                <td><a target="_blank" th:href="${'//boardgamegeek.com/boardgame/' + gra.gameId}" th:id="${gra.gameId}">
-                    <span th:text="${gra.name}"> Title </span> </a></td>
-                <td><img height="60px" th:src="${gra.thumbnail}"></td>
+                <td><a target="_blank" th:href="${'//boardgamegeek.com/boardgame/' + game.gameId}"
+                       th:id="${game.gameId}">
+                    <span th:text="${game.name}"> Title </span> </a></td>
+                <td><img height="60px" th:src="${game.thumbnail}"></td>
                 <td><input th:field="*{players}"></td>
                 <td><input th:field="*{rank}"></td>
                 <td><input th:field="*{averageRating}"></td>
                 <td><input th:field="*{bggRating}"></td>
                 <td><input th:field="*{playingTime}"></td>
                 <td><input th:field="*{weight}"></td>
-                <td><a th:href="'#' + ${gra.expansion?.gameId}"><span
-                        th:text="${gra.expansion?.name}"> expansion </span></a></td>
+                <td><a th:href="'#' + ${game.expansion?.gameId}"><span
+                        th:text="${game.expansion?.name}"> expansion </span></a>
+                    <input name="gameId" th:value="*{gameId}" type="hidden">
+                </td>
                 <td><input class="btn btn-danger" type="submit"></td>
             </tr>
 
             </tbody>
         </table>
     </form>
-    <!--    <tr th:unless="${not gry.empty}">-->
+    <!--    <tr th:unless="${not game.empty}">-->
     <!--        <td colspan="9"> Nie ma gier!</td>-->
     <!--    </tr>-->
 </div>

@@ -13,32 +13,55 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 @Mapper(componentModel = "spring")
 public abstract class GraMapper {
 
     @Autowired
     private GryDescDao gryDescDao;
 
-    @Mapping(target = "year", source = "yearPublished")
-    public abstract GraDto graToGraDto(Gra gra);
+//    @Mapping(target = "price", source = "userComment")
+//    @Mapping(target = "year", source = "yearPublished")
+//    public abstract GraDto graToGraDto(Gra gra);
+//
+//    @Mapping(target = "yearPublished", source = "year")
+//    public abstract Gra graDtoToGra(GraDto dto);
+//
+//    @Mapping(target = "players", ignore = true)
+//    @Mapping(target = "expansion", ignore = true)
+//    @Mapping(target = "year", source = "yearPublished")
+//    @Mapping(target = "gameId", source = "id")
+//    public abstract GraDto graDescToGraDto(Game gra);
+//
+//    @Mapping(target = "price", source = "userComment")
+//    @Mapping(target = "description", source = "name")
+//    @Mapping(target = "id", source = "gameId")
+//    public abstract Game graToGryDesc(Gra gra);
 
+    @Mapping(target = "expansionId", source = "expansion.gameId")
+    @Mapping(target = "recomendations", ignore = true)
+    @Mapping(target = "description", source = "name")
     @Mapping(target = "yearPublished", source = "year")
-    public abstract Gra graDtoToGra(GraDto dto);
-
-    @Mapping(target = "year", source = "yearPublished")
-    @Mapping(target = "gameId", source = "id")
-    public abstract GraDto graDescToGraDto(Game gra);
-
-
-    @Mapping(target = "yearPublished", source = "year")
-    @Mapping(target = "id", source = "gameId")
     public abstract Game graDtoToGraDesc(GraDto dto);
 
+    @AfterMapping
+    protected void graDtoToGraDesc(GraDto dto, @MappingTarget Game game) {
+        String players = dto.getPlayers();
+        String[] noOfPlayers = players.split(" - ");
+        if (noOfPlayers.length > 1) {
+            game.setMinPlayers(parseInt(noOfPlayers[0]));
+            game.setMaxPlayers(parseInt(noOfPlayers[1]));
+        } else {
+            game.setMinPlayers(parseInt(players));
+            game.setMaxPlayers(parseInt(players));
+        }
+        game.setId(gryDescDao.findByGameId(Math.toIntExact(dto.getGameId())).getId());
+    }
 
-    @Mapping(target = "id", source = "gameId")
-    public abstract Game graToGryDesc(Gra gra);
-
-    @Mapping(target = "rating", source = "")
+    @Mapping(target = "numPlays", ignore = true)
+    @Mapping(target = "userComment", source = "price")
+    @Mapping(target = "rating", ignore = true)
     @Mapping(target = "gameId", source = "id")
     public abstract Gra gameTOGra(Game gra);
 
@@ -49,15 +72,15 @@ public abstract class GraMapper {
 
     @AfterMapping
     protected void gameToGraDTO(Game gra, @MappingTarget GraDto graDto) {
-        String result;
+        String players;
         if (gra.getMinPlayers().equals(gra.getMaxPlayers())) {
-            result = gra.getMinPlayers().toString();
+            players = gra.getMinPlayers().toString();
         } else {
-            result = gra.getMinPlayers() + " - " + gra.getMaxPlayers();
+            players = gra.getMinPlayers() + " - " + gra.getMaxPlayers();
         }
-        graDto.setPlayers(result);
+        graDto.setPlayers(players);
         if (gra.getExpansionId() != null) {
-            Game expansion = gryDescDao.findById(gra.getExpansionId());
+            Game expansion = gryDescDao.findByGameId(gra.getExpansionId());
             graDto.setExpansion(gameToGraDto(expansion));
         }
     }

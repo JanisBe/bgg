@@ -30,6 +30,7 @@
             <th class="th-sm"> bgg rating</th>
             <th class="th-sm"> playing time</th>
             <th class="th-sm"> weight</th>
+            <th class="th-sm"> price</th>
             <th class="th-sm"> expansion</th>
         </tr>
         </thead>
@@ -45,6 +46,7 @@
             <td><span th:text="${gra.bggRating}"> bggrating </span></td>
             <td><span th:text="${gra.playingTime}"> playing time </span></td>
             <td><span th:text="${gra.weight}"> playing time </span></td>
+            <td><span th:text="${gra.price}"> price </span></td>
             <td><a th:href="'#' + ${gra.expansion?.gameId}"><span
                     th:text="${gra.expansion?.name}"> expansion </span></a></td>
         </tr>

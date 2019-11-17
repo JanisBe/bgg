@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
 
 public class StartingEventListener implements ApplicationListener<ApplicationStartingEvent> {
 
@@ -32,8 +33,11 @@ public class StartingEventListener implements ApplicationListener<ApplicationSta
                 // @Value("${mysql.path}")
                 String mysqlPath = "e:\\xampp\\mysql_start.bat";
                 runtime.exec(mysqlPath);
+                TimeUnit.SECONDS.sleep(3);
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 

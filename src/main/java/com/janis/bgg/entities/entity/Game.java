@@ -15,9 +15,9 @@ public class Game implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Column(name = "game_id", nullable = false)
-    private int gameId;
+    private Integer gameId;
     @Column(name = "bgg_rating")
     private Double bggRating;
     @Column(name = "description", length = 5000)
@@ -31,13 +31,15 @@ public class Game implements Serializable {
     private Integer minPlayers;
     private String name;
     @Column(name = "playing_time")
-    private int playingTime;
-    private int rank;
+    private Integer playingTime;
+    private Integer rank;
     @Column(name = "price")
-    private Double price;
+    private Float price;
+    @Column(name = "current_price")
+    private Float currentPrice;
     private Double weight;
     @Column(name = "year_published")
-    private int yearPublished;
+    private Integer yearPublished;
     // bi-directional many-to-many association to Designer
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.ALL})
@@ -75,19 +77,19 @@ public class Game implements Serializable {
     public Game() {
     }
 
-    public int getGameId() {
+    public Integer getGameId() {
         return gameId;
     }
 
-    public void setGameId(int game_id) {
+    public void setGameId(Integer game_id) {
         this.gameId = game_id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -139,19 +141,19 @@ public class Game implements Serializable {
         this.name = name;
     }
 
-    public int getPlayingTime() {
+    public Integer getPlayingTime() {
         return this.playingTime;
     }
 
-    public void setPlayingTime(int playingTime) {
+    public void setPlayingTime(Integer playingTime) {
         this.playingTime = playingTime;
     }
 
-    public int getRank() {
+    public Integer getRank() {
         return this.rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(Integer rank) {
         this.rank = rank;
     }
 
@@ -171,11 +173,19 @@ public class Game implements Serializable {
         this.thumbnail = thumbnail;
     }
 
-    public int getYearPublished() {
+    public Float getCurrentPrice() {
+        return currentPrice;
+    }
+
+    public void setCurrentPrice(Float currentPrice) {
+        this.currentPrice = currentPrice;
+    }
+
+    public Integer getYearPublished() {
         return this.yearPublished;
     }
 
-    public void setYearPublished(int yearPublished) {
+    public void setYearPublished(Integer yearPublished) {
         this.yearPublished = yearPublished;
     }
 
@@ -203,11 +213,11 @@ public class Game implements Serializable {
         this.recomendations = recomendations;
     }
 
-    public Double getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

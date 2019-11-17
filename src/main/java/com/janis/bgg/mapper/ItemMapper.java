@@ -2,6 +2,7 @@ package com.janis.bgg.mapper;
 
 import com.google.common.collect.Sets;
 import com.janis.bgg.dao.DesignerDao;
+import com.janis.bgg.dao.GryDescDao;
 import com.janis.bgg.dao.MechanicDao;
 import com.janis.bgg.entities.entity.Designer;
 import com.janis.bgg.entities.entity.Game;
@@ -30,6 +31,9 @@ public abstract class ItemMapper {
     @Autowired
     private MechanicDao mechanicDao;
 
+    @Autowired
+    private GryDescDao gameDao;
+
     @Mapping(target = "gameId", source = "id")
     @Mapping(target = "expansionId", ignore = true)
     @Mapping(target = "weight", ignore = true)
@@ -42,6 +46,7 @@ public abstract class ItemMapper {
     @Mapping(target = "bggRating", ignore = true)
     @Mapping(target = "averageRating", ignore = true)
     @Mapping(target = "name", ignore = true)
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "minPlayers", source = "minplayers.value")
     @Mapping(target = "maxPlayers", source = "maxplayers.value")
     @Mapping(target = "yearPublished", source = "yearpublished.value")
@@ -95,6 +100,10 @@ public abstract class ItemMapper {
         if (expansion.size() == 1 && expansion.get(0).isInbound() != null) {
             gra.setExpansionId(expansion.get(0).getId().intValue());
         }
+        Game game = gameDao.findByGameId(item.getId().intValue());
+        if (game != null) {
+            gra.setId(game.getId());
+        }
     }
 
     private Double round(BigDecimal d) {
@@ -112,4 +121,5 @@ public abstract class ItemMapper {
                     return list.get(0);
                 });
     }
+
 }

@@ -1,6 +1,7 @@
 package com.janis.bgg.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Maps;
 import com.janis.bgg.dao.GryDao;
 import com.janis.bgg.dao.GryDescDao;
 import com.janis.bgg.dao.SettingsDao;
@@ -29,13 +30,11 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.janis.bgg.constants.AppConstants.*;
+import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
 
 @Service
 public class ImportService {
@@ -67,7 +66,7 @@ public class ImportService {
         zapis.close();
     }
 
-    public List<GraDto> importGamesFromBgg(String userName) {
+    public List<GraDto> importGamesFromBgg(String userName, boolean all) {
         if (StringUtils.isEmptyOrWhitespace(userName)) {
             throw new IllegalArgumentException("userName can't be blank");
         }
@@ -95,16 +94,25 @@ public class ImportService {
                 LocalDate lastUpdateDate = LocalDate.parse(lastUpdateString, formatter);
                 diffInDays = ChronoUnit.DAYS.between(lastUpdateDate, LocalDate.now());
             }
-            if (!difference.isEmpty() || diffInDays > 20L) {
+            HashMap<Integer, Float> comments = Maps.newHashMap();
+            if (!difference.isEmpty() || diffInDays > 20L || all) {
                 int size = collection.getTotalitems().intValue();
 
                 for (int i = 0; i < size; i++) {
-                    Integer gameId = collection.getItem().get(i).getObjectid();
+                    Item item = collection.getItem().get(i);
+                    Integer gameId = item.getObjectid();
                     Game existingGame = gryDescDao.findByGameId(gameId);
-                    if (existingGame == null) {
-                        importGameDetailsFromXML(gameId);
+                    if (existingGame == null || all) {
+                        Game game = importGameDetailsFromXML(gameId);
+                        gryDescDao.save(game);
+                    }
+                    if (item.getComment() != null && isCreatable(item.getComment())) {
+                        comments.put(gameId, Float.parseFloat(item.getComment()));
                     }
                 }
+                comments.forEach((k, v) -> {
+                    gryDescDao.findByGameId(k).setPrice(v);
+                });
                 if (settingsDao.findByName(USERNAME) == null) {
                     saveNewUserData(userName, collection);
                 } else if (settingsDao.findByName(USERNAME).getContent().equals(userName)) {
@@ -139,22 +147,37 @@ public class ImportService {
         settingsDao.save(new Settings(UPDATE_TIME, collection.getPubdate()));
     }
 
-    private void importGameDetailsFromXML(Integer gameId) {
+    private Game importGameDetailsFromXML(Integer gameId) {
         String data = "";
-        try {
-            data = ImporterUtils.connect(XML_THING + gameId + STATS);
-            zapisz(data, (long) gameId);
-            JAXBContext jaxbContext = JAXBContext.newInstance(Items.class);
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            StringReader reader = new StringReader(data);
-            Items item = (Items) jaxbUnmarshaller.unmarshal(reader);
-            Game gry = itemMapper.itemToGraMapper(item.getItem());
-            gryDescDao.save(gry);
-        } catch (Exception e) {
-            System.out.println(data);
-            System.out.println("!!!!! wywaliło na " + gameId);
-        }
+        int maxTries = 0;
+        for (int count = 0; ; maxTries++) {
+            try {
+                data = ImporterUtils.connect(XML_THING + gameId + STATS);
+                zapisz(data, (long) gameId);
+                JAXBContext jaxbContext = JAXBContext.newInstance(Items.class);
+                Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+                StringReader reader = new StringReader(data);
+                Items item = (Items) jaxbUnmarshaller.unmarshal(reader);
+                return itemMapper.itemToGraMapper(item.getItem());
+            } catch (Exception e) {
+                if (maxTries < 3) {
+                    System.out.println(data);
+                    System.out.println("!!!!! wywaliło na " + gameId + ", próba " + maxTries);
+                    continue;
+                } else {
+                    try {
+                        throw e;
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    } catch (JAXBException ex) {
+                        ex.printStackTrace();
+                    }
 
+                }
+            }
+        }
     }
 
     private List<Integer> compareBGGvsDB(List<Integer> bggList, List<Integer> dbList) {

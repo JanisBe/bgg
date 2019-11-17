@@ -9,28 +9,30 @@ import java.util.Set;
 @Data
 public class GraDto {
 
-    private long gameId;
+    private Long gameId;
     private String name;
     private String image;
     private String thumbnail;
     private Integer minPlayers;
     private Integer maxPlayers;
     private String players;
-    private long playingTime;
-    private double averageRating;
-    private double bggRating;
-    private Integer price;
+    private Long playingTime;
+    private Double averageRating;
+    private Double bggRating;
+    private Float price;
+    private Float currentPrice;
     private Integer year;
     private Double weight;
-    private long rank;
+    private Long rank;
     private Set<Designer> designers;
     private Set<Mechanic> mechanics;
     private GraDto expansion;
-    public long getGameId() {
+
+    public Long getGameId() {
         return gameId;
     }
 
-    public void setGameId(long gameId) {
+    public void setGameId(Long gameId) {
         this.gameId = gameId;
     }
 
@@ -58,44 +60,36 @@ public class GraDto {
         this.thumbnail = thumbnail;
     }
 
-    public long getPlayingTime() {
+    public Long getPlayingTime() {
         return playingTime;
     }
 
-    public void setPlayingTime(long playingTime) {
+    public void setPlayingTime(Long playingTime) {
         this.playingTime = playingTime;
     }
 
-    public double getAverageRating() {
+    public Double getAverageRating() {
         return averageRating;
     }
 
-    public void setAverageRating(double averageRating) {
+    public void setAverageRating(Double averageRating) {
         this.averageRating = averageRating;
     }
 
-    public long getRank() {
+    public Long getRank() {
         return rank;
     }
 
-    public void setRank(long rank) {
+    public void setRank(Long rank) {
         this.rank = rank;
     }
 
-    public double getBggRating() {
+    public Double getBggRating() {
         return bggRating;
     }
 
-    public void setBggRating(double bggRating) {
+    public void setBggRating(Double bggRating) {
         this.bggRating = bggRating;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
     }
 
     public Integer getYear() {
@@ -152,5 +146,29 @@ public class GraDto {
 
     public void setExpansion(GraDto expansion) {
         this.expansion = expansion;
+    }
+
+    public Integer getMinPlayers() {
+        return minPlayers;
+    }
+
+    public Integer getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+
+    public Float getCurrentPrice() {
+        return currentPrice;
+    }
+
+    public void setCurrentPrice(Float currentPrice) {
+        this.currentPrice = currentPrice;
     }
 }

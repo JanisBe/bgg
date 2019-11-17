@@ -9,6 +9,7 @@ import com.janis.bgg.entities.entity.Settings;
 import com.janis.bgg.mapper.GraMapper;
 import com.janis.bgg.service.GryService;
 import com.janis.bgg.service.ImportService;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +56,8 @@ public class GraController {
     @GetMapping("/all")
     public ModelAndView all() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("gry", graMapper.gameToGraDto(gryDescDao.findAll()));
+        List<GraDto> allGames = graMapper.gameToGraDto(gryDescDao.findAll());
+        modelAndView.addObject("gry", allGames);
         modelAndView.setViewName("gry");
         addUserName(modelAndView);
         return modelAndView;
@@ -65,15 +67,16 @@ public class GraController {
     public ModelAndView editGame(@PathVariable int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("gra");
-        modelAndView.addObject("gra", graMapper.gameToGraDto(gryDescDao.findByGameId(id)));
+        GraDto graDto = graMapper.gameToGraDto(gryDescDao.findByGameId(id));
+        modelAndView.addObject("game", graDto);
         addUserName(modelAndView);
         return modelAndView;
     }
 
     @GetMapping(value = "/import")
-    public ModelAndView importMyGames(@RequestParam(value = "userName", required = false) String userName) {
+    public ModelAndView importMyGames(@RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "all", required = false) boolean all) {
         ModelAndView model = new ModelAndView();
-        List<GraDto> allGames = importService.importGamesFromBgg(userName);
+        List<GraDto> allGames = importService.importGamesFromBgg(userName, all);
         model.addObject("gry", allGames);
         model.setViewName("gry");
         addUserName(model);
@@ -104,7 +107,7 @@ public class GraController {
         ModelAndView model = new ModelAndView();
         model.setViewName("gry");
         Game updatedGame = graMapper.gameToGame(graMapper.graDtoToGraDesc(gameDetails));
-        gryDescDao.save(updatedGame);
+//        gryDescDao.save(updatedGame);
         addUserName(model);
         model.addObject("gry", graMapper.gameToGraDto(gryDescDao.findAll()));
         return model;
@@ -114,6 +117,7 @@ public class GraController {
     public ModelAndView handleErrors(HttpServletRequest request, Exception ex) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("exception", ex);
+        modelAndView.addObject("trace", ExceptionUtils.getStackTrace(ex));
         modelAndView.addObject("url", request.getRequestURL());
 
         modelAndView.setViewName("error");

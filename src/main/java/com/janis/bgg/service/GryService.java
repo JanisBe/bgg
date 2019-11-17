@@ -35,7 +35,7 @@ public class GryService {
             throw new InvalidParameterException("Liczba graczy nie może być mniejsza niż 0");
         }
         return gryDescDao.findByMinPlayersGreaterThanEqualAndMaxPlayersGreaterThanEqualOrderByAverageRatingDesc(noOfPlayers, noOfPlayers)
-                .stream().sorted(Comparator.comparing(Game::getName)).collect(Collectors.toList());
+                .stream().sorted(Comparator.comparing(Game::getId)).collect(Collectors.toList());
     }
 
     public List<Gra> findAllOrderByAvgRating() {
@@ -43,7 +43,7 @@ public class GryService {
     }
 
     public List<Game> findAll() {
-        return gryDescDao.findAll().stream().sorted(Comparator.comparing(Game::getName)).collect(Collectors.toList());
+        return gryDescDao.findAll().stream().sorted(Comparator.comparing(Game::getId)).collect(Collectors.toList());
     }
 
     public List<Gra> findGracze(Integer no) {

@@ -30,7 +30,8 @@ public class GraRestController {
     @ApiOperation(value = "pokazuje wszystkie gry")
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Game> findAll() {
-        return gryService.findAll();
+        List<Game> gameList = gryService.findAll();
+        return gameList;
     }
 
     @ApiOperation(value = "pokazuje dane jednej gry")
