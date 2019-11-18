@@ -1,5 +1,7 @@
 package com.janis.bgg.entities.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -21,6 +23,7 @@ public class Designer implements Serializable {
     private String designerName;
     //bi-directional many-to-many association to Game
     @ManyToMany(mappedBy = "designers")
+    @JsonIgnore
     private List<Game> games;
 
     public Designer(String designerName) {

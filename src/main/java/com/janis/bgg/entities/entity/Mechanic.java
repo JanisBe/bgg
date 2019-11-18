@@ -1,5 +1,7 @@
 package com.janis.bgg.entities.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -19,6 +21,7 @@ public class Mechanic implements Serializable {
     private int id;
     private String name;
     //bi-directional many-to-many association to Game
+    @JsonIgnore
     @ManyToMany(mappedBy = "mechanics")
     private List<Game> games;
 

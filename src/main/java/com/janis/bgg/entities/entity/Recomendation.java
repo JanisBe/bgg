@@ -1,5 +1,7 @@
 package com.janis.bgg.entities.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -23,6 +25,7 @@ public class Recomendation implements Serializable {
     private int notRecommended;
 
     //bi-directional many-to-one association to Game
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "game_id", referencedColumnName = "id")
     private Game game;

@@ -5,6 +5,7 @@ import com.janis.bgg.mapper.GraMapper;
 import com.janis.bgg.service.GryService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -12,6 +13,7 @@ import java.security.InvalidParameterException;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class GraRestController {
 
@@ -24,11 +26,12 @@ public class GraRestController {
     @ApiOperation(value = "też pokazuje wszystkie gry")
     @RequestMapping(value = "/gry", method = RequestMethod.GET)
     public List<Game> findByNoOfPlayers(@RequestParam(value = "noOfPlayers") Integer noOfPlayers) {
-        return gryService.findGameByNumOfPlayers(noOfPlayers);
+        List<Game> gameList = gryService.findGameByNumOfPlayers(noOfPlayers);
+        return gameList;
     }
 
     @ApiOperation(value = "pokazuje wszystkie gry")
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Game> findAll() {
         List<Game> gameList = gryService.findAll();
         return gameList;

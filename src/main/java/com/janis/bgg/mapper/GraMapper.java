@@ -48,7 +48,7 @@ public abstract class GraMapper {
     @AfterMapping
     protected void graDtoToGraDesc(GraDto dto, @MappingTarget Game game) {
         String players = dto.getPlayers();
-        String[] noOfPlayers = players.split(" - ");
+        String[] noOfPlayers = players.split("\\s?-\\s?");
         if (noOfPlayers.length > 1) {
             game.setMinPlayers(parseInt(noOfPlayers[0]));
             game.setMaxPlayers(parseInt(noOfPlayers[1]));
