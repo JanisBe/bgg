@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.janis.bgg.dao.GryDescDao;
 import com.janis.bgg.entities.dto.GraDto;
 import com.janis.bgg.entities.entity.Game;
-import com.janis.bgg.entities.entity.Gra;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,24 +19,6 @@ public abstract class GraMapper {
 
     @Autowired
     private GryDescDao gryDescDao;
-
-//    @Mapping(target = "price", source = "userComment")
-//    @Mapping(target = "year", source = "yearPublished")
-//    public abstract GraDto graToGraDto(Gra gra);
-//
-//    @Mapping(target = "yearPublished", source = "year")
-//    public abstract Gra graDtoToGra(GraDto dto);
-//
-//    @Mapping(target = "players", ignore = true)
-//    @Mapping(target = "expansion", ignore = true)
-//    @Mapping(target = "year", source = "yearPublished")
-//    @Mapping(target = "gameId", source = "id")
-//    public abstract GraDto graDescToGraDto(Game gra);
-//
-//    @Mapping(target = "price", source = "userComment")
-//    @Mapping(target = "description", source = "name")
-//    @Mapping(target = "id", source = "gameId")
-//    public abstract Game graToGryDesc(Gra gra);
 
     @Mapping(target = "expansionId", source = "expansion.gameId")
     @Mapping(target = "recomendations", ignore = true)
@@ -59,12 +40,6 @@ public abstract class GraMapper {
         game.setId(gryDescDao.findByGameId(Math.toIntExact(dto.getGameId())).getId());
     }
 
-    @Mapping(target = "numPlays", ignore = true)
-    @Mapping(target = "userComment", source = "price")
-    @Mapping(target = "rating", ignore = true)
-    @Mapping(target = "gameId", source = "id")
-    public abstract Gra gameTOGra(Game gra);
-
     @Mapping(target = "expansion", ignore = true)
     @Mapping(target = "year", source = "yearPublished")
     @Mapping(target = "players", ignore = true)
@@ -83,14 +58,6 @@ public abstract class GraMapper {
             Game expansion = gryDescDao.findByGameId(gra.getExpansionId());
             graDto.setExpansion(gameToGraDto(expansion));
         }
-    }
-
-    public List<Gra> gameTOGra(List<Game> gry) {
-        List<Gra> result = Lists.newArrayList();
-        for (Game gra : gry) {
-            result.add(gameTOGra(gra));
-        }
-        return result;
     }
 
     public List<GraDto> gameToGraDto(List<Game> gry) {

@@ -12,7 +12,7 @@ export class GameService {
   }
 
   getGame(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
+    return this.http.get(`${this.baseUrl}/games/${id}`);
   }
 
   createGame(game: Object): Observable<Object> {
