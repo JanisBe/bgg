@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GameService} from '../game.service';
 import {Router} from '@angular/router';
+import {Game} from "../game";
 
 @Component({
   selector: 'app-game-list',
@@ -13,6 +14,7 @@ export class GameListComponent implements OnInit {
   constructor(private gameService: GameService, private router: Router) {
   }
 
+  sortedData: Game[];
 
   ngOnInit() {
     this.reloadData();
@@ -20,6 +22,7 @@ export class GameListComponent implements OnInit {
 
   reloadData() {
     this.games = this.gameService.getGameList();
+    // this.sortedData = this.games.slice();
   }
 
   deleteGame(id: number) {

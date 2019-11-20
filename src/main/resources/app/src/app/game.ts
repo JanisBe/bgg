@@ -11,6 +11,7 @@ export class Game {
   averageRating: number;
   rank:          number;
   numPlays:      number;
+  price: number;
   rating:        number;
   userComment:   string;
   expansionId:   number
