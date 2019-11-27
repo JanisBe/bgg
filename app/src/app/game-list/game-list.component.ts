@@ -9,12 +9,11 @@ import {Game} from "../game";
   styleUrls: ['./game-list.component.css']
 })
 export class GameListComponent implements OnInit {
+  sortedData: Game[];
   private games: any;
 
   constructor(private gameService: GameService, private router: Router) {
   }
-
-  sortedData: Game[];
 
   ngOnInit() {
     this.reloadData();
