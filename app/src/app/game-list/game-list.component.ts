@@ -10,7 +10,7 @@ import {Game} from "../game";
 })
 export class GameListComponent implements OnInit {
   sortedData: Game[];
-  private games: any;
+  public games: any;
 
   constructor(private gameService: GameService, private router: Router) {
   }
