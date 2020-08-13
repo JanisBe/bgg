@@ -1,5 +1,6 @@
 package com.janis.bgg;
 
+import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -22,7 +23,13 @@ public class BGGApp {
     public static void main(String[] args) {
         SpringApplication application = new SpringApplication(BGGApp.class);
         application.addListeners(new StartingEventListener());
-        application.run(args);
+        try {
+            application.run(args);
+        }
+        catch (Exception ex){
+            System.out.println("Włącz bazę danych!");
+            System.exit(1);
+        }
     }
 
     private static void Browse() {

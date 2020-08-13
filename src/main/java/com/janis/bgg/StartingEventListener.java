@@ -32,7 +32,13 @@ public class StartingEventListener implements ApplicationListener<ApplicationSta
                 // Runtime sqlRuntime = runtime;
                 // @Value("${mysql.path}")
                 String mysqlPath = "e:\\xampp\\mysql_start.bat";
-                runtime.exec(mysqlPath);
+                try {
+                    runtime.exec(mysqlPath);
+                }
+                catch (IOException ex){
+                    System.out.println("Nie masz plików startowych bazy danych!");
+//                    System.exit(1);
+                }
                 TimeUnit.SECONDS.sleep(3);
             }
         } catch (IOException e) {
